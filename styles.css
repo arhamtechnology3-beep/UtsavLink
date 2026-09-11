@@ -43,10 +43,35 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
 .center{text-align:center}
 .hl{color:var(--maroon);font-style:italic;font-weight:600}
 
-/* brand mark */
-.brand{display:inline-flex;align-items:center;gap:10px}
-.brand-word{font-family:var(--f-display);font-weight:700;font-size:1.35rem;letter-spacing:-.03em;color:var(--maroon-2);line-height:1}
-.brand-word span{color:var(--maroon-2)}
+/* brand lockup — matches marketing wordmark: crimson Utsav + gold Link + tilak hearts + TM + By Arham */
+.brand{display:inline-flex;align-items:center;gap:0;color:inherit}
+.brand-lockup{display:inline-flex;flex-direction:column;align-items:flex-start;line-height:1;gap:3px}
+.brand-wordmark{
+  position:relative;display:inline-flex;align-items:baseline;
+  font-family:var(--f-display);font-weight:700;font-size:1.42rem;
+  letter-spacing:-.03em;line-height:1
+}
+.brand-utsav{position:relative;color:var(--maroon-2);padding-top:.32em}
+.brand-link{color:#B45309} /* muted bronze-gold */
+.brand-tm{
+  font-family:var(--f);font-size:.36em;font-weight:700;color:#B45309;
+  margin-left:.1em;position:relative;top:-.7em;line-height:1;letter-spacing:0
+}
+.brand-by{
+  font-family:var(--f);font-size:.58rem;font-weight:500;color:var(--ink);
+  letter-spacing:.015em;align-self:flex-end;padding-right:.05em;line-height:1.2
+}
+.brand-tilak{
+  position:absolute;left:.02em;top:0;width:.78em;height:.55em;
+  overflow:visible;pointer-events:none
+}
+.brand-lockup-lg .brand-wordmark{font-size:clamp(1.75rem,3.8vw,2.35rem)}
+.brand-lockup-lg .brand-by{font-size:.72rem;font-weight:500}
+.brand-lockup-lg{gap:5px;margin:0 0 14px}
+.brand-lockup-lg::after{
+  content:"";display:block;width:48px;height:3px;margin-top:6px;
+  background:linear-gradient(90deg,var(--maroon),var(--gold));border-radius:2px
+}
 .brand-name{font-family:var(--f-display);font-weight:700;font-size:1.5rem;letter-spacing:-.03em;color:var(--maroon-2);display:inline-flex;align-items:center}
 .brand-o{width:.62em;height:.62em;border-radius:50%;border:.19em solid var(--gold);display:inline-block;margin-left:.02em}
 
@@ -69,7 +94,7 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
 .site-header{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);
   background:rgba(247,245,239,.86);
   -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.header-inner{display:flex;align-items:center;gap:22px;padding:12px 0}
+.header-inner{display:flex;align-items:center;gap:22px;padding:10px 0}
 .nav{margin-left:auto;display:flex;gap:22px;font-weight:500;font-family:var(--f);font-size:.9rem}
 .nav a{color:var(--muted);position:relative}
 .nav a:hover{color:var(--ink)}
@@ -90,6 +115,7 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .brand-kicker{font-family:var(--f-display);font-size:clamp(1.6rem,3.5vw,2.1rem);font-weight:700;color:var(--maroon-2);margin:0 0 14px;letter-spacing:-.03em}
 .brand-kicker::after{content:"";display:block;width:48px;height:3px;margin-top:10px;background:linear-gradient(90deg,var(--maroon),var(--gold));border-radius:2px}
+/* .brand-lockup-lg replaces .brand-kicker in hero */
 .hero-copy h1{font-size:clamp(2rem,4.6vw,3.15rem);font-weight:600;margin:14px 0 14px;max-width:16ch}
 .lede{font-size:1.08rem;color:var(--muted);max-width:32em;font-weight:400}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 18px;align-items:center}
