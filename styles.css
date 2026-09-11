@@ -259,21 +259,35 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
 }
 .share-btn svg{width:18px;height:18px;flex:0 0 auto;pointer-events:none}
 .share-btn:hover{transform:translateY(-1px)}
+.share-btn.is-copied{background:var(--leaf) !important;border-color:var(--leaf) !important;color:#FFFCFA !important}
 .share-wa{background:#25D366;color:#fff;border-color:#1ebe57}
 .share-wa:hover{background:#1ebe57;color:#fff}
 .share-fb{background:#1877F2;color:#fff;border-color:#166fe5}
 .share-fb:hover{background:#166fe5;color:#fff}
 .share-copy,.share-native{background:rgba(255,252,250,.12);color:#FFFCFA;border-color:rgba(255,252,250,.28)}
 .share-copy:hover,.share-native:hover{background:rgba(255,252,250,.2);color:#FFFCFA}
+.share-row-hero{justify-content:flex-start;margin:0 0 16px}
+.share-row-hero .share-copy,
+.share-row-hero .share-native{
+  background:rgba(15,10,18,.06);color:var(--ink);border-color:var(--line)
+}
+.share-row-hero .share-copy:hover,
+.share-row-hero .share-native:hover{
+  background:rgba(190,18,60,.08);border-color:var(--maroon);color:var(--maroon)
+}
 .share-toast{margin:10px 0 0 !important;font-size:.85rem !important;color:var(--gold-light) !important}
-.footer-share{margin-top:14px}
+.footer-share{margin-top:14px;position:relative;z-index:80}
 .footer-share-label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
-.share-row-sm .share-btn{padding:10px;min-width:42px;min-height:42px}
+.share-row-sm .share-btn{padding:10px;min-width:44px;min-height:44px}
 .share-row-sm .share-btn svg{width:18px;height:18px}
 .site-footer .share-copy{background:rgba(15,10,18,.06);color:var(--ink);border-color:var(--line)}
 .site-footer .share-copy:hover{background:rgba(190,18,60,.08);border-color:var(--maroon);color:var(--maroon)}
 .footer-bottom a{color:var(--maroon);font-weight:600}
 .footer-bottom a:hover{text-decoration:underline}
+@media(max-width:900px){
+  .site-footer{padding-bottom:calc(120px + env(safe-area-inset-bottom))}
+  .share-row-hero{margin-bottom:18px}
+}
 
 /* footer */
 .site-footer{background:linear-gradient(180deg,rgba(247,245,239,.7),rgba(233,228,216,.95));border-top:1px solid var(--line);padding:56px 0 26px}
