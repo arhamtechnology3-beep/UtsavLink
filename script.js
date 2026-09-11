@@ -1595,12 +1595,16 @@
     }
 
     function copyLink(el) {
+      // Always show feedback first — clipboard APIs fail silently in many
+      // mobile / in-app browsers even when the copy actually worked.
+      markCopied(el);
+
       var ok = false;
       try {
         var ta = document.createElement("textarea");
         ta.value = SHARE_URL;
         ta.setAttribute("readonly", "");
-        ta.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;opacity:0";
+        ta.style.cssText = "position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;z-index:99999";
         document.body.appendChild(ta);
         ta.focus();
         ta.select();
@@ -1610,19 +1614,11 @@
       } catch (err) {
         ok = false;
       }
-      if (ok) {
-        markCopied(el);
-        return;
-      }
+      if (ok) return;
+
       if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
-        navigator.clipboard.writeText(SHARE_URL).then(function () {
-          markCopied(el);
-        }).catch(function () {
-          window.prompt("Copy this link:", SHARE_URL);
-        });
-        return;
+        navigator.clipboard.writeText(SHARE_URL).catch(function () {});
       }
-      window.prompt("Copy this link:", SHARE_URL);
     }
 
     // Wire hrefs + click handlers (delegation so dynamically fine)
