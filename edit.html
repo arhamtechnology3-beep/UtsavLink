@@ -1,0 +1,3005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Edit your invite website - UtsavLink</title>
+<link rel="icon" href="/assets/logo.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#2a2018; --ink-2:#5b4a36; --muted:#8b7a63;
+    --paper:#fbf8ee; --card:#ffffff; --line:#e7ddc9;
+    --gold:#e0a458; --gold-dk:#b97f33; --green:#1f8a5f; --red:#c0392b;
+    --shadow:0 10px 30px rgba(72,52,20,.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:Poppins,system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55}
+  button,input,textarea,select{font:inherit;color:inherit}
+  a{color:var(--gold-dk)}
+
+  /* ---------- shell ---------- */
+  .topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;
+          padding:10px 16px;background:rgba(251,248,238,.94);backdrop-filter:blur(10px);
+          border-bottom:1px solid var(--line)}
+  .topbar img{width:28px;height:28px;border-radius:8px}
+  .topbar .who{font-weight:600;font-size:.95rem;margin-right:auto}
+  .topbar .who small{display:block;font-weight:400;font-size:.72rem;color:var(--muted)}
+  .status{font-size:.78rem;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:6px}
+  .status.saving{color:var(--gold-dk)} .status.saved{color:var(--green)} .status.error{color:var(--red)}
+  .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+
+  .btn{border:0;border-radius:999px;padding:10px 18px;font-weight:600;cursor:pointer;
+       background:var(--gold);color:#2a2018;transition:filter .2s,transform .2s;white-space:nowrap}
+  .btn:hover{filter:brightness(1.05)} .btn:active{transform:scale(.98)}
+  .btn[disabled]{opacity:.55;cursor:not-allowed}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink-2)}
+  .btn.small{padding:7px 14px;font-size:.85rem}
+
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:0;
+          min-height:calc(100dvh - 49px)}
+  .pane{min-width:0}
+  .form-pane{padding:18px 16px 120px;max-width:760px;margin:0 auto;width:100%}
+  .preview-pane{position:sticky;top:49px;height:calc(100dvh - 49px);border-left:1px solid var(--line);
+                background:#efe7d7;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:14px}
+  .phone{width:100%;max-width:390px;height:100%;max-height:780px;border-radius:26px;overflow:hidden;
+         box-shadow:var(--shadow);background:#fff;border:1px solid var(--line)}
+  .phone iframe{width:100%;height:100%;border:0;display:block}
+  .preview-hint{font-size:.75rem;color:var(--muted)}
+
+  /* ---------- form ---------- */
+  h1{font-size:1.25rem;margin:6px 0 2px}
+  .lede{color:var(--muted);font-size:.9rem;margin:0 0 18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+        margin-bottom:14px;overflow:hidden}
+  .card > summary{list-style:none;cursor:pointer;padding:15px 16px;display:flex;align-items:center;gap:10px;
+                  font-weight:600;user-select:none}
+  .card > summary::-webkit-details-marker{display:none}
+  .card > summary::after{content:"⌄";margin-left:auto;color:var(--muted);font-size:1.2rem;line-height:1;
+                         transform:translateY(-2px);transition:transform .2s}
+  .card[open] > summary::after{transform:rotate(180deg)}
+  .card > summary .step{width:24px;height:24px;border-radius:50%;background:var(--paper);
+        border:1px solid var(--line);display:grid;place-items:center;font-size:.75rem;color:var(--muted);flex:none}
+  .card .body{padding:4px 16px 18px;border-top:1px solid var(--line)}
+
+  .field{margin:14px 0 0}
+  .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:5px}
+  .field label span{font-weight:400;color:var(--muted)}
+  .field input[type=text],.field input[type=date],.field input[type=time],.field textarea,.field input[type=url]{
+    width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;
+    /* 16px, not a decimal under it: iOS Safari zooms the page on focus for
+       anything smaller, and this form is filled on a phone. */
+    font-size:16px;
+    font-family:"Noto Serif Devanagari",Poppins,serif}
+  .field textarea{resize:vertical;min-height:70px}
+  /* language chips: the design supplies its words in this language */
+  .langrow{display:flex;gap:6px;flex-wrap:wrap}
+  .langrow button{appearance:none;cursor:pointer;padding:9px 16px;border-radius:999px;font-weight:600;
+    background:var(--card);border:1px solid var(--line);color:var(--ink)}
+  .langrow button.is-on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+  .field input:focus,.field textarea:focus{outline:2px solid rgba(224,164,88,.45);outline-offset:1px;border-color:var(--gold)}
+  .field .hint{font-size:.74rem;color:var(--muted);margin-top:4px}
+  .hint.ev-warn,.hint.cal-warn{font-size:.74rem;color:#a8442a;margin-top:6px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:520px){.row{grid-template-columns:1fr}}
+
+  .event{border:1px solid var(--line);border-radius:12px;padding:12px 12px 16px;margin-top:14px;background:#fffdf8}
+  .event-head{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.9rem}
+  .event-head .num{width:22px;height:22px;border-radius:50%;background:var(--gold);color:#2a2018;
+                   display:grid;place-items:center;font-size:.75rem;flex:none}
+  .event-head .rm{margin-left:auto;background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem}
+  .event-head .rm:hover{color:var(--red)}
+  /* Moving a row up or down. A programme reads as a day, but a new item is
+     always added at the end - so the प्राणप्रतिष्ठा typed in last sat below the
+     विसर्जन, and the only way to put it where it belongs was to retype every
+     row under it. The head wraps rather than squashing on a phone. */
+  .event-head{flex-wrap:wrap}
+  .row-tools{margin-left:auto;display:flex;align-items:center;gap:2px}
+  .row-tools .rm{margin-left:0;min-height:44px;padding:0 8px}
+  .mv{width:44px;height:44px;display:grid;place-items:center;background:none;border:0;
+      border-radius:10px;color:var(--muted);cursor:pointer;font-size:.8rem;line-height:1}
+  .mv:hover:not(:disabled){color:var(--ink);background:#f4ece0}
+  .mv:disabled{opacity:.28;cursor:default}
+
+  /* the functions checklist - big tap targets, two to a row on a phone */
+  .fn-pick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:6px}
+  @media(max-width:420px){.fn-pick{grid-template-columns:1fr}}
+  .fn-opt{display:flex;align-items:center;gap:9px;padding:11px 12px;border:1px solid var(--line);
+          border-radius:10px;background:#fffdf8;cursor:pointer;font-size:.9rem;line-height:1.3;
+          transition:border-color .18s,background .18s}
+  .fn-opt:hover{border-color:var(--gold)}
+  .fn-opt.is-on{border-color:var(--gold);background:#fff7e9;font-weight:600}
+  .fn-opt input{accent-color:var(--gold);width:18px;height:18px;flex:none;margin:0}
+  .fn-opt span{min-width:0;overflow-wrap:anywhere}
+
+  /* "Show this on my invite" - a section a customer has nothing for is
+     switched off here rather than left to fall back to sample content. */
+  .section-off{display:flex;align-items:center;gap:9px;margin:0 0 14px;cursor:pointer;
+               font-size:.9rem;font-weight:600}
+  .section-off input{accent-color:var(--gold);width:18px;height:18px;flex:none;margin:0}
+  .section-fields[hidden]{display:none}
+  .section-off-note{margin:0;padding:10px 12px;border:1px dashed var(--line);border-radius:10px}
+  .section-note{margin:0;color:var(--muted);font-size:.88rem;line-height:1.5}
+
+  /* the venue's Google Maps link - pasted, not searched for */
+  .place-pinned{display:flex;align-items:center;flex-wrap:wrap;gap:2px 12px;margin-top:6px;
+                font-size:.86rem;color:#2f7a4a}
+  .place-pinned .place-act{display:inline-flex;align-items:center;min-height:44px;
+                           background:none;border:0;padding:0;font:inherit;color:var(--muted);
+                           text-decoration:underline;cursor:pointer}
+  .place-pinned .place-act:hover{color:#a8442a}
+
+  .photo{display:flex;align-items:center;gap:12px;margin-top:8px}
+  .photo img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line);background:#f4ede0}
+  .photo .actions{display:flex;flex-direction:column;gap:6px}
+  input[type=file]{display:none}
+
+  .track{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;
+         padding:10px 12px;margin-top:10px;background:#fffdf8;cursor:pointer;transition:border-color .2s,background .2s}
+  .track:hover{border-color:var(--gold)}
+  .track[data-selected=true]{border-color:var(--gold);background:#fff7e9;box-shadow:0 0 0 2px rgba(224,164,88,.18)}
+  .track input{accent-color:var(--gold);flex:none}
+  .track .meta{flex:1;min-width:0}
+  .track .meta b{display:block;font-size:.9rem;font-weight:600}
+  .track .meta small{color:var(--muted);font-size:.76rem}
+  .track .play{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+               background:#fff;cursor:pointer;font-size:.8rem;line-height:1;display:grid;place-items:center}
+  .track .play:hover{border-color:var(--gold)}
+  .track .play[data-playing=true]{background:var(--gold);border-color:var(--gold)}
+  .slugbox{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+  .slugbox .pre{padding:10px 4px 10px 12px;color:var(--muted);font-size:.88rem;white-space:nowrap}
+  .slugbox input{border:0;padding:10px 12px 10px 0;flex:1;min-width:0;font-family:Poppins,sans-serif}
+  .slugbox input:focus{outline:none}
+  .slug-msg{font-size:.78rem;margin-top:6px;min-height:1.1em}
+  .slug-msg.ok{color:var(--green)} .slug-msg.bad{color:var(--red)}
+
+  .publish{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+           background:rgba(251,248,238,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);
+           display:flex;align-items:center;gap:10px}
+  /* The one button on the page a thumb has to find on a phone. */
+  .publish .btn{min-height:44px}
+  .publish .link{flex:1;min-width:0;font-size:.8rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .publish .link b{color:var(--ink)}
+  @media(min-width:861px){.publish{right:440px}}
+
+  .live{display:none;background:#eaf7f0;border:1px solid #bfe3d1;border-radius:var(--radius);padding:14px 16px;margin-bottom:14px}
+  .live.show{display:block}
+  .live h3{margin:0 0 6px;font-size:.95rem}
+  .live .url{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .live code{background:#fff;border:1px solid #cfe7da;border-radius:8px;padding:8px 10px;font-size:.82rem;
+             overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:180px}
+  .live-note{margin-top:10px;font-size:.78rem;line-height:1.6;color:#3f6b55}
+
+  .tabs{display:none;position:sticky;top:49px;z-index:20;background:var(--paper);
+        border-bottom:1px solid var(--line);padding:8px 16px;gap:8px}
+  .tabs button{flex:1;border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 8px;min-height:44px;
+               font-size:.85rem;font-weight:600;cursor:pointer}
+  .tabs button[aria-selected=true]{background:var(--gold);border-color:var(--gold)}
+
+  .screen{min-height:60vh;display:grid;place-items:center;text-align:center;padding:40px 20px}
+  .screen .box{max-width:420px}
+  .screen h2{margin:0 0 8px}
+  .screen p{color:var(--muted)}
+
+  .toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%) translateY(20px);z-index:60;
+         background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:.85rem;
+         opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:860px){
+    .layout{grid-template-columns:1fr}
+    .tabs{display:flex}
+    .preview-pane{position:fixed;inset:98px 0 0;height:auto;border-left:0;z-index:15;padding:10px}
+    .phone{max-width:100%;max-height:100%;border-radius:18px}
+    body[data-tab=edit] .preview-pane{display:none}
+    body[data-tab=preview] .form-pane{display:none}
+    body[data-tab=preview] .publish{display:none}
+  }
+</style>
+
+  <!-- ============ META PIXEL (Facebook / Instagram ads) ============ -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1113004352753522');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1113004352753522&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel -->
+
+</head>
+<body data-tab="edit">
+
+<div class="topbar">
+  <img src="/assets/logo.svg" alt="UtsavLink" />
+  <div class="who">Your invite website<small id="themeName">loading…</small></div>
+  <div class="status" id="status"><span class="dot"></span><span id="statusText">Loading</span></div>
+</div>
+
+<div class="tabs" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="edit">Edit</button>
+  <button role="tab" aria-selected="false" data-tab="preview">Preview</button>
+</div>
+
+<div id="app" hidden>
+  <div class="layout">
+    <div class="pane form-pane">
+      <h1>Fill in your details</h1>
+      <p class="lede">Every change saves on its own and appears in the preview. Publish when you're ready to share.</p>
+
+      <div class="live" id="liveBox">
+        <h3>🎉 Your invite website is live</h3>
+        <div>Share this link on WhatsApp - it stays editable forever.</div>
+        <div class="url">
+          <code id="liveUrl">-</code>
+          <button class="btn small" id="copyLive">Copy</button>
+          <a class="btn small ghost" id="waShare" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <!-- Only for invites that were already live: their old link previews
+             with the picture WhatsApp scraped at the time, and there is no
+             reaching into a message already delivered. -->
+        <div class="live-note" id="liveNote" hidden>
+          Already sent your invite? Share this link again - it shows the
+          corrected picture. The messages you sent before keep the old one.
+        </div>
+      </div>
+
+      <details class="card" open>
+        <summary><span class="step">1</span> Family &amp; greeting</summary>
+        <div class="body">
+          <div class="field">
+            <label>Invite language</label>
+            <div class="langrow" id="langRow" role="radiogroup" aria-label="Invite language">
+              <button type="button" role="radio" data-setlang="mr" aria-checked="true">मराठी</button>
+              <button type="button" role="radio" data-setlang="hi" aria-checked="false">हिंदी</button>
+              <button type="button" role="radio" data-setlang="en" aria-checked="false">English</button>
+            </div>
+            <small>Changes every word your design supplies. Anything you have typed yourself stays exactly as you wrote it.</small>
+          </div>
+          <div class="field">
+            <label for="f_familyName">Family name <span>- shown on the invite seal</span></label>
+            <input type="text" id="f_familyName" data-path="hero.familyName" placeholder="पाटील परिवार" />
+          </div>
+          <div class="field" data-needs="heroMessage">
+            <label for="f_message">Invitation message <span>- one line per row</span></label>
+            <textarea id="f_message" data-path="hero.message" data-lines="3" placeholder="आपण व आपल्या परिवारास&#10;सस्नेह निमंत्रण !"></textarea>
+          </div>
+          <div class="field">
+            <label for="f_subtitle">Welcome line</label>
+            <input type="text" id="f_subtitle" data-path="hero.subtitle" placeholder="आपणास सस्नेह निमंत्रण !" />
+          </div>
+          <div class="field" data-needs="bannerWelcome">
+            <label for="f_welcome">Banner greeting <span>- follows your family name on the banner</span></label>
+            <input type="text" id="f_welcome" data-path="hero.welcome" placeholder="आपले सस्नेह स्वागत करत आहे" />
+          </div>
+          <div class="field" data-needs="bannerPhoto">
+            <label>Banner photo <span>- optional, replaces the artwork at the top</span></label>
+            <div class="photo">
+              <img id="p_hero" alt="" src="" />
+              <div class="actions">
+                <button class="btn small ghost" data-upload="hero.heroPhoto" data-preview="p_hero">Upload photo</button>
+                <button class="btn small ghost" data-clear="hero.heroPhoto" data-preview="p_hero">Use default</button>
+              </div>
+            </div>
+            <div class="hint">A wide photo works best. Large files are shrunk automatically.</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary><span class="step">2</span> Date &amp; muhurat</summary>
+          <div class="body">
+          <label class="section-off"><input type="checkbox" data-section="saveTheDate" checked />
+            <span>Show this on my invite</span></label>
+          <div class="section-fields" data-section-body="saveTheDate">
+          <!-- The big date card exists in the Fort and Kailash designs only;
+               Temple Darbar shows the date inside the programme instead. -->
+          <div data-needs="muhurat">
+            <div class="row">
+              <div class="field">
+                <label for="f_weekday">Day</label>
+                <input type="text" id="f_weekday" data-path="saveTheDate.weekday" placeholder="सोमवार" />
+              </div>
+              <div class="field">
+                <label for="f_dateBig">Date <span>- as you want it shown</span></label>
+                <input type="text" id="f_dateBig" data-path="saveTheDate.dateBig" placeholder="१४ सप्टेंबर २०२६" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f_timeBig">Time</label>
+              <input type="text" id="f_timeBig" data-path="saveTheDate.timeBig" placeholder="सकाळी १०:०० वाजता" />
+            </div>
+            <div class="field">
+              <label for="f_stdLocation">Place shown under the date</label>
+              <input type="text" id="f_stdLocation" data-path="saveTheDate.location" placeholder="पाटील निवास, शिवाजीनगर, पुणे" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Add-to-calendar entries <span>- what guests get when they tap “दिनदर्शिकेत जोडा”</span></label>
+            <div id="calList"></div>
+            <button class="btn small ghost" id="addCal" type="button" style="margin-top:10px">+ Add calendar entry</button>
+          </div>
+        </div>
+          </div>
+      </details>
+
+      <details class="card">
+        <summary><span class="step">3</span> Functions</summary>
+          <div class="body">
+          <label class="section-off"><input type="checkbox" data-section="timeline" checked />
+            <span>Show this on my invite</span></label>
+          <div class="section-fields" data-section-body="timeline">
+          <div class="field">
+            <label for="f_tlHeading">Section heading</label>
+            <input type="text" id="f_tlHeading" data-path="timeline.heading" placeholder="उत्सवाचा मंगल प्रवास" />
+          </div>
+          <div class="field">
+            <label for="f_tlSubtitle">Section subtitle</label>
+            <input type="text" id="f_tlSubtitle" data-path="timeline.subtitle" placeholder="गणरायाच्या आगमनापासून विसर्जनापर्यंत…" />
+          </div>
+          <div class="field">
+            <label>Which functions are happening at your place?</label>
+            <div class="fn-pick" id="fnPick"></div>
+            <div class="hint">Tick the ones you are holding. Each appears below, where you can change its
+              name, date, time and place - so "सत्यनारायण पूजा" can become whatever you call it.</div>
+          </div>
+          <div id="eventList"></div>
+          <button class="btn small ghost" id="addEvent" type="button" style="margin-top:12px">+ Add something else</button>
+        </div>
+          </div>
+      </details>
+
+      <!-- Shown by every design except Aapla Bappa, which has no family
+           section (see DESIGN_FEATURES). Two ways to fill it: one photo of
+           everybody, or a portrait per person - whichever the customer
+           actually has. Only the chosen one is on screen, so the section
+           stays short. -->
+      <details class="card" id="familyCard">
+        <summary><span class="step">3b</span> Family photos</summary>
+          <div class="body">
+          <label class="section-off"><input type="checkbox" data-section="family" checked />
+            <span>Show this on my invite</span></label>
+          <div class="section-fields" data-section-body="family">
+          <p class="hint">Show your family on the invitation. Most people already have one photo of everyone together - that is usually the quickest way.</p>
+          <div class="field">
+            <label for="f_famHeading">Section heading</label>
+            <input type="text" id="f_famHeading" data-path="family.heading" placeholder="सस्नेह आमंत्रण" />
+          </div>
+          <div class="field" data-needs="familyMembers">
+            <label>How would you like to show your family?</label>
+            <div class="fn-pick" id="familyMode">
+              <label class="fn-opt"><input type="radio" name="famMode" value="group" /> <span>One photo of everyone</span></label>
+              <label class="fn-opt"><input type="radio" name="famMode" value="members" /> <span>A photo of each person</span></label>
+            </div>
+          </div>
+
+          <div id="familyGroup">
+            <div class="field">
+              <label>Family photo</label>
+              <div class="photo">
+                <img id="famGroupPreview" alt="" src="/assets/family-group.webp" />
+                <div class="actions">
+                  <button class="btn small ghost" type="button" data-upload="family.photo" data-preview="famGroupPreview">Upload photo</button>
+                  <button class="btn small ghost" type="button" data-clear="family.photo" data-preview="famGroupPreview">Remove</button>
+                </div>
+              </div>
+              <p class="hint" id="famPhotoHint">A wide, sideways photo works best - everyone standing together.</p>
+            </div>
+            <!-- Aapla Bappa and Kailash frame the photo the way it was
+                 taken, so they ask. The other designs have one frame. -->
+            <div class="field" data-needs="familyOrientation">
+              <label>Which way is your photo?</label>
+              <div class="fn-pick" id="familyOrient">
+                <label class="fn-opt"><input type="radio" name="famOrient" value="landscape" /> <span>Sideways (wide)</span></label>
+                <label class="fn-opt"><input type="radio" name="famOrient" value="portrait" /> <span>Upright (tall)</span></label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f_famCaption">Caption</label>
+              <input type="text" id="f_famCaption" data-path="family.caption" placeholder="पाटील परिवार" />
+            </div>
+          </div>
+
+          <div id="familyMembers">
+            <div id="familyList"></div>
+            <button class="btn small ghost" id="addFamily" type="button" style="margin-top:12px">+ Add a person</button>
+          </div>
+        </div>
+          </div>
+      </details>
+
+      <!-- Only the designs that actually hang a memories wall ask for one;
+           the rest never see this panel. -->
+      <details class="card" data-needs="gallery">
+        <summary><span class="step">3c</span> Photos of past years</summary>
+        <div class="body">
+          <label class="section-off"><input type="checkbox" data-section="gallery" checked />
+            <span>Show this on my invite</span></label>
+          <div class="section-fields" data-section-body="gallery">
+          <p class="hint">Photos of Bappa at your home in years gone by - four or five is plenty. Leave this off if this is your first year.</p>
+          <div class="field">
+            <label for="f_galHeading">Section heading</label>
+            <input type="text" id="f_galHeading" data-path="gallery.heading" placeholder="मागील वर्षांच्या आठवणी" />
+          </div>
+          <div class="field">
+            <label for="f_galSubtitle">Line under it</label>
+            <input type="text" id="f_galSubtitle" data-path="gallery.subtitle" placeholder="आमच्या घरी विराजमान झालेले बाप्पा" />
+          </div>
+          <div id="galleryList"></div>
+          <button class="btn small ghost" id="addGalleryPhoto" type="button" style="margin-top:12px">+ Add a photo</button>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary><span class="step">4</span> Venue &amp; map</summary>
+        <div class="body">
+          <div class="field">
+            <label for="f_venue">Venue name</label>
+            <input type="text" id="f_venue" data-path="location.venue" placeholder="पाटील निवास" />
+          </div>
+          <div class="field">
+            <label for="f_address">Full address</label>
+            <textarea id="f_address" data-path="location.address" placeholder="फ्लॅट नं. ४०२, श्री गणेशा अपार्टमेंट्स, शिवाजीनगर, पुणे - ४११००५"></textarea>
+          </div>
+          <div class="field">
+            <label for="f_place">Google Maps link <span>- optional</span></label>
+            <input type="url" id="f_place" autocomplete="off" inputmode="url" spellcheck="false"
+                   placeholder="https://maps.app.goo.gl/..." />
+            <div class="hint" id="placeHint">Optional. Your guests' map already comes from the address above. Find your venue in Google Maps, press Share, and paste the link here to land on the exact spot instead.</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary><span class="step">5</span> Closing words</summary>
+          <div class="body">
+          <label class="section-off"><input type="checkbox" data-section="footer" checked />
+            <span>Show this on my invite</span></label>
+          <div class="section-fields" data-section-body="footer">
+          <div class="field">
+            <label for="f_q1">Closing line 1</label>
+            <input type="text" id="f_q1" data-path="footer.quoteFirstLine" placeholder="आपली उपस्थिती हेच" />
+          </div>
+          <div class="field">
+            <label for="f_q2">Closing line 2</label>
+            <input type="text" id="f_q2" data-path="footer.quoteSecondLine" placeholder="आमच्यासाठी बाप्पांचे खरे" />
+          </div>
+          <div class="field">
+            <label for="f_q3">Closing line 3</label>
+            <input type="text" id="f_q3" data-path="footer.quoteEndingText" placeholder="आशीर्वाद आहेत." />
+          </div>
+          <div class="field">
+            <label for="f_ffamily">Signed off as</label>
+            <input type="text" id="f_ffamily" data-path="footer.family" placeholder="- पाटील परिवार" />
+          </div>
+        </div>
+          </div>
+      </details>
+
+      <details class="card">
+        <summary><span class="step">6</span> Music</summary>
+        <div class="body">
+          <p class="hint" style="margin:12px 0 0">Plays softly when a guest opens your invite website, three times, then stops. They can mute it any time.</p>
+          <div id="musicList"></div>
+          <div class="field">
+            <label>Your own track <span>- MP3, under 3 MB</span></label>
+            <div class="photo">
+              <div class="actions">
+                <button class="btn small ghost" type="button" data-upload-audio>Upload an MP3</button>
+              </div>
+            </div>
+            <div class="hint">Use music you have the rights to - a family recording or a licensed track.</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary><span class="step">7</span> Your link</summary>
+        <div class="body">
+          <div class="field">
+            <label for="f_slug">Choose your web address</label>
+            <div class="slugbox">
+              <span class="pre" id="slugHost">utsavlink.com/i/</span>
+              <input type="text" id="f_slug" placeholder="patil-2026" autocapitalize="off" autocorrect="off" spellcheck="false" />
+            </div>
+            <div class="slug-msg" id="slugMsg"></div>
+            <div class="hint">Letters, numbers and hyphens. You can change this later - old links stop working when you do.</div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="pane preview-pane">
+      <div class="phone"><iframe id="preview" title="Live preview of your invite website"></iframe></div>
+      <div class="preview-hint">Live preview - scroll inside to look around</div>
+    </div>
+  </div>
+
+  <div class="publish">
+    <div class="link" id="publishHint">Not published yet</div>
+    <button class="btn" id="publishBtn">Publish invite website</button>
+  </div>
+</div>
+
+<div class="screen" id="screen">
+  <div class="box">
+    <h2 id="screenTitle">Opening your invite website…</h2>
+    <p id="screenText">One moment.</p>
+    <p id="screenAction"></p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ------------------------------------------------------------------
+//  UtsavLink editor
+//  Token in the URL is the credential. Everything autosaves; the
+//  preview is the real theme in an iframe, fed from sessionStorage so
+//  it refreshes without a server round trip.
+const TOKEN = new URLSearchParams(location.search).get("token") || (location.pathname.match(/\/edit\/([A-Za-z0-9_-]+)/) || [])[1] || "demo";
+const $ = (id) => document.getElementById(id);
+
+// The starting programme, in the language the invite was bought in. These
+// are written into the customer's own content on first open, so seeding the
+// Marathi list into an English invite would hand an English family a Marathi
+// programme they then have to retype line by line.
+const SAMPLE_EVENTS_HI = [
+  { title: "मूर्ति स्थापना", label: "स्थापना", date: "14 सितंबर 2026", time: "सुबह 10:00 बजे", location: "पाटील निवास", description: "गणराय का मंगल आगमन और मूर्ति स्थापना समारोह।", image: "eventSthapana" },
+  { title: "प्रातः आरती", label: "आरती", date: "प्रतिदिन", time: "सुबह 8:00 बजे", location: "मुख्य सभागृह", description: "प्रातःकाल की मंगल आरती एवं प्रसाद।", image: "eventAarti" },
+  { title: "संध्या आरती", label: "दीप आरती", date: "प्रतिदिन", time: "शाम 7:30 बजे", location: "मुख्य सभागृह", description: "दीप प्रज्वलन एवं आरती समारोह।", image: "eventAarti" },
+  { title: "सत्यनारायण पूजा", label: "सत्यनारायण पूजा", date: "17 सितंबर 2026", time: "सुबह 10:30 बजे", location: "मुख्य सभागृह", description: "श्री सत्यनारायण महापूजा एवं महाप्रसाद।", image: "eventAtharvshish" },
+  { title: "महाप्रसाद", label: "महाप्रसाद", date: "17 सितंबर", time: "रात 8:30 बजे", location: "प्रसाद विभाग", description: "महाप्रसाद का आनंद लें।", image: "eventMahaprasad" },
+  { title: "विसर्जन", label: "विसर्जन", date: "20 सितंबर", time: "शाम 5:00 बजे", location: "विसर्जन शोभायात्रा", description: "गणराय को विदाई देने का मंगल क्षण।", image: "eventVisarjan" },
+];
+const SAMPLE_EVENTS_EN = [
+  { title: "Murti Sthapana", label: "Sthapana", date: "14 September 2026", time: "10:00 am", location: "Patil Nivas", description: "Bappa's auspicious arrival and the murti sthapana ceremony.", image: "eventSthapana" },
+  { title: "Morning Aarti", label: "Aarti", date: "Every day", time: "8:00 am", location: "Main hall", description: "The morning aarti, followed by prasad.", image: "eventAarti" },
+  { title: "Evening Aarti", label: "Deep Aarti", date: "Every day", time: "7:30 pm", location: "Main hall", description: "Lighting of the diyas and the evening aarti.", image: "eventAarti" },
+  { title: "Satyanarayan Pooja", label: "Satyanarayan Pooja", date: "17 September 2026", time: "10:30 am", location: "Main hall", description: "Shri Satyanarayan Mahapooja and mahaprasad.", image: "eventAtharvshish" },
+  { title: "Mahaprasad", label: "Mahaprasad", date: "17 September", time: "8:30 pm", location: "Prasad counter", description: "Please join us for the mahaprasad.", image: "eventMahaprasad" },
+  { title: "Visarjan", label: "Visarjan", date: "20 September", time: "5:00 pm", location: "Visarjan procession", description: "The moment we bid Bappa farewell.", image: "eventVisarjan" },
+];
+const SAMPLE_EVENTS_DARBAR_HI = [
+  { title: "स्थापना", date: "14 सितंबर 2026", time: "सुबह 10:00 बजे" },
+  { title: "प्रातः आरती", date: "प्रतिदिन", time: "सुबह 8:00 बजे" },
+  { title: "संध्या आरती", date: "प्रतिदिन", time: "शाम 7:30 बजे" },
+  { title: "विसर्जन", date: "20 सितंबर 2026", time: "शाम 5:00 बजे" },
+];
+const SAMPLE_EVENTS_DARBAR_EN = [
+  { title: "Sthapana", date: "14 September 2026", time: "10:00 am" },
+  { title: "Morning Aarti", date: "Every day", time: "8:00 am" },
+  { title: "Evening Aarti", date: "Every day", time: "7:30 pm" },
+  { title: "Visarjan", date: "20 September 2026", time: "5:00 pm" },
+];
+const CALENDAR_SEED = { mr: "गणपती स्थापना", hi: "गणपति स्थापना", en: "Ganpati Sthapana" };
+
+const SAMPLE_EVENTS = [
+  { title: "मूर्ती स्थापना", label: "स्थापना", date: "१४ सप्टेंबर २०२६", time: "सकाळी १०:०० वाजता", location: "पाटील निवास", description: "गणरायाचे मंगल आगमन आणि मूर्ती स्थापना सोहळा.", image: "eventSthapana" },
+  { title: "सकाळची आरती", label: "आरती", date: "दररोज", time: "सकाळी ८:०० वाजता", location: "मुख्य सभागृह", description: "सकाळची मंगल आरती व प्रसाद.", image: "eventAarti" },
+  { title: "संध्याकाळची आरती", label: "दीपआरती", date: "दररोज", time: "संध्याकाळी ७:३० वाजता", location: "मुख्य सभागृह", description: "दीपप्रज्वलन व आरती सोहळा.", image: "eventAarti" },
+  { title: "सत्यनारायण पूजा", label: "सत्यनारायण पूजा", date: "१७ सप्टेंबर २०२६", time: "सकाळी १०:३० वाजता", location: "मुख्य सभागृह", description: "श्री सत्यनारायण महापूजा व महाप्रसाद.", image: "eventAtharvshish" },
+  { title: "महाप्रसाद", label: "महाप्रसाद", date: "१७ सप्टेंबर", time: "रात्री ८:३० वाजता", location: "प्रसाद विभाग", description: "महाप्रसादाचा आनंद घ्या.", image: "eventMahaprasad" },
+  { title: "विसर्जन", label: "विसर्जन", date: "२० सप्टेंबर", time: "सायंकाळी ५:०० वाजता", location: "विसर्जन मिरवणूक", description: "गणरायाला निरोप देण्याचा मंगल क्षण.", image: "eventVisarjan" },
+];
+const EVENT_ICONS = ["eventSthapana","eventAarti","eventAtharvshish","eventMahaprasad","eventSnehbhet","eventVisarjan"];
+
+// ------------------------------------------------------------------
+//  The functions a family can tick
+//
+//  No two households keep the same programme - some do गौरी, some do a
+//  सत्यनारायण, some only aarti morning and evening. Deleting six sample
+//  rows one at a time to arrive at your own three is the wrong job to
+//  hand someone; ticking the ones that apply is the right one.
+//
+//  Order here IS the order on the invite, so a ticked function drops
+//  into its place in the festival rather than on the end. Every entry
+//  carries its own wording per language, because the invite is bought
+//  in one and the checklist has to speak it.
+// ------------------------------------------------------------------
+const FUNCTIONS = [
+  { key: "sthapana", image: "eventSthapana", on: true,
+    mr: { title: "मूर्ती स्थापना", label: "स्थापना", date: "१४ सप्टेंबर २०२६", time: "सकाळी १०:०० वाजता", location: "पाटील निवास", description: "गणरायाचे मंगल आगमन आणि मूर्ती स्थापना सोहळा." },
+    hi: { title: "मूर्ति स्थापना", label: "स्थापना", date: "14 सितंबर 2026", time: "सुबह 10:00 बजे", location: "पाटील निवास", description: "गणराय का मंगल आगमन और मूर्ति स्थापना समारोह।" },
+    en: { title: "Murti Sthapana", label: "Sthapana", date: "14 September 2026", time: "10:00 am", location: "Patil Nivas", description: "Bappa's auspicious arrival and the murti sthapana ceremony." } },
+
+  { key: "morningAarti", image: "eventAarti", on: true,
+    mr: { title: "सकाळची आरती", label: "आरती", date: "दररोज", time: "सकाळी ८:०० वाजता", location: "मुख्य सभागृह", description: "सकाळची मंगल आरती व प्रसाद." },
+    hi: { title: "प्रातः आरती", label: "आरती", date: "प्रतिदिन", time: "सुबह 8:00 बजे", location: "मुख्य सभागृह", description: "प्रातःकाल की मंगल आरती एवं प्रसाद।" },
+    en: { title: "Morning Aarti", label: "Aarti", date: "Every day", time: "8:00 am", location: "Main hall", description: "The morning aarti, followed by prasad." } },
+
+  { key: "eveningAarti", image: "eventAarti", on: true,
+    mr: { title: "संध्याकाळची आरती", label: "दीपआरती", date: "दररोज", time: "संध्याकाळी ७:३० वाजता", location: "मुख्य सभागृह", description: "दीपप्रज्वलन व आरती सोहळा." },
+    hi: { title: "संध्या आरती", label: "दीप आरती", date: "प्रतिदिन", time: "शाम 7:30 बजे", location: "मुख्य सभागृह", description: "दीप प्रज्वलन एवं आरती समारोह।" },
+    en: { title: "Evening Aarti", label: "Deep Aarti", date: "Every day", time: "7:30 pm", location: "Main hall", description: "Lighting of the diyas and the evening aarti." } },
+
+  { key: "atharvashirsha", image: "eventAtharvshish",
+    mr: { title: "अथर्वशीर्ष पठण", label: "अथर्वशीर्ष", date: "दररोज", time: "सकाळी ७:३० वाजता", location: "मुख्य सभागृह", description: "सामुदायिक अथर्वशीर्ष पठण." },
+    hi: { title: "अथर्वशीर्ष पाठ", label: "अथर्वशीर्ष", date: "प्रतिदिन", time: "सुबह 7:30 बजे", location: "मुख्य सभागृह", description: "सामूहिक अथर्वशीर्ष पाठ।" },
+    en: { title: "Atharvashirsha Pathan", label: "Atharvashirsha", date: "Every day", time: "7:30 am", location: "Main hall", description: "Collective recitation of the Atharvashirsha." } },
+
+  { key: "gauriAavahan", image: "eventSnehbhet",
+    mr: { title: "गौरी आवाहन", label: "गौरी आवाहन", date: "१६ सप्टेंबर २०२६", time: "सकाळी ९:०० वाजता", location: "मुख्य सभागृह", description: "गौराईचे मंगल आगमन." },
+    hi: { title: "गौरी आवाहन", label: "गौरी आवाहन", date: "16 सितंबर 2026", time: "सुबह 9:00 बजे", location: "मुख्य सभागृह", description: "गौरी माता का मंगल आगमन।" },
+    en: { title: "Gauri Aavahan", label: "Gauri Aavahan", date: "16 September 2026", time: "9:00 am", location: "Main hall", description: "The welcoming of Gauri." } },
+
+  { key: "gauriPujan", image: "eventSnehbhet",
+    mr: { title: "गौरी पूजन", label: "गौरी पूजन", date: "१७ सप्टेंबर २०२६", time: "सकाळी १०:०० वाजता", location: "मुख्य सभागृह", description: "गौरी पूजन व महानैवेद्य." },
+    hi: { title: "गौरी पूजन", label: "गौरी पूजन", date: "17 सितंबर 2026", time: "सुबह 10:00 बजे", location: "मुख्य सभागृह", description: "गौरी पूजन एवं महानैवेद्य।" },
+    en: { title: "Gauri Pujan", label: "Gauri Pujan", date: "17 September 2026", time: "10:00 am", location: "Main hall", description: "Gauri pujan and the mahanaivedya." } },
+
+  { key: "satyanarayan", image: "eventAtharvshish", on: true,
+    mr: { title: "सत्यनारायण पूजा", label: "सत्यनारायण पूजा", date: "१७ सप्टेंबर २०२६", time: "सकाळी १०:३० वाजता", location: "मुख्य सभागृह", description: "श्री सत्यनारायण महापूजा व महाप्रसाद." },
+    hi: { title: "सत्यनारायण पूजा", label: "सत्यनारायण पूजा", date: "17 सितंबर 2026", time: "सुबह 10:30 बजे", location: "मुख्य सभागृह", description: "श्री सत्यनारायण महापूजा एवं महाप्रसाद।" },
+    en: { title: "Satyanarayan Pooja", label: "Satyanarayan Pooja", date: "17 September 2026", time: "10:30 am", location: "Main hall", description: "Shri Satyanarayan Mahapooja and mahaprasad." } },
+
+  { key: "bhajan", image: "eventSnehbhet",
+    mr: { title: "भजन व कीर्तन", label: "भजन", date: "१८ सप्टेंबर २०२६", time: "रात्री ८:०० वाजता", location: "मुख्य सभागृह", description: "भजन व कीर्तनाचा कार्यक्रम." },
+    hi: { title: "भजन एवं कीर्तन", label: "भजन", date: "18 सितंबर 2026", time: "रात 8:00 बजे", location: "मुख्य सभागृह", description: "भजन एवं कीर्तन का कार्यक्रम।" },
+    en: { title: "Bhajan & Kirtan", label: "Bhajan", date: "18 September 2026", time: "8:00 pm", location: "Main hall", description: "An evening of bhajan and kirtan." } },
+
+  { key: "mahaprasad", image: "eventMahaprasad", on: true,
+    mr: { title: "महाप्रसाद", label: "महाप्रसाद", date: "१७ सप्टेंबर", time: "रात्री ८:३० वाजता", location: "प्रसाद विभाग", description: "महाप्रसादाचा आनंद घ्या." },
+    hi: { title: "महाप्रसाद", label: "महाप्रसाद", date: "17 सितंबर", time: "रात 8:30 बजे", location: "प्रसाद विभाग", description: "महाप्रसाद का आनंद लें।" },
+    en: { title: "Mahaprasad", label: "Mahaprasad", date: "17 September", time: "8:30 pm", location: "Prasad counter", description: "Please join us for the mahaprasad." } },
+
+  { key: "snehbhet", image: "eventSnehbhet",
+    mr: { title: "स्नेहभेट", label: "स्नेहभेट", date: "१९ सप्टेंबर २०२६", time: "संध्याकाळी ६:०० वाजता", location: "पाटील निवास", description: "आप्तेष्टांची स्नेहभेट व हळदी-कुंकू." },
+    hi: { title: "स्नेहमिलन", label: "स्नेहमिलन", date: "19 सितंबर 2026", time: "शाम 6:00 बजे", location: "पाटील निवास", description: "आत्मीयजनों का स्नेहमिलन एवं हल्दी-कुंकुम।" },
+    en: { title: "Snehbhet", label: "Snehbhet", date: "19 September 2026", time: "6:00 pm", location: "Patil Nivas", description: "A gathering of family and friends, with haldi-kunku." } },
+
+  { key: "gauriVisarjan", image: "eventVisarjan",
+    mr: { title: "गौरी विसर्जन", label: "गौरी विसर्जन", date: "१८ सप्टेंबर २०२६", time: "सायंकाळी ५:०० वाजता", location: "विसर्जन मिरवणूक", description: "गौराईला निरोप." },
+    hi: { title: "गौरी विसर्जन", label: "गौरी विसर्जन", date: "18 सितंबर 2026", time: "शाम 5:00 बजे", location: "विसर्जन शोभायात्रा", description: "गौरी माता को विदाई।" },
+    en: { title: "Gauri Visarjan", label: "Gauri Visarjan", date: "18 September 2026", time: "5:00 pm", location: "Visarjan procession", description: "Bidding farewell to Gauri." } },
+
+  { key: "visarjan", image: "eventVisarjan", on: true,
+    mr: { title: "विसर्जन", label: "विसर्जन", date: "२० सप्टेंबर", time: "सायंकाळी ५:०० वाजता", location: "विसर्जन मिरवणूक", description: "गणरायाला निरोप देण्याचा मंगल क्षण." },
+    hi: { title: "विसर्जन", label: "विसर्जन", date: "20 सितंबर", time: "शाम 5:00 बजे", location: "विसर्जन शोभायात्रा", description: "गणराय को विदाई देने का मंगल क्षण।" },
+    en: { title: "Visarjan", label: "Visarjan", date: "20 September", time: "5:00 pm", location: "Visarjan procession", description: "The moment we bid Bappa farewell." } },
+];
+
+const FUNCTION_ORDER = FUNCTIONS.reduce((map, fn, i) => (map[fn.key] = i, map), {});
+
+// Which standard function a row is. The stored key wins; falling back to
+// the name lets invites created before the checklist existed light up
+// their boxes, in whichever language they were bought in.
+function functionKeyOf(event) {
+  if (event?.key && FUNCTION_ORDER[event.key] !== undefined) return event.key;
+  const title = (event?.title ?? "").trim();
+  if (!title) return null;
+  const hit = FUNCTIONS.find((fn) => ["mr", "hi", "en"].some((code) => fn[code].title === title));
+  return hit ? hit.key : null;
+}
+
+// Designs that show only a name, date and time get only those - carrying a
+// description and an icon they never render would just be dead weight.
+// Shubh Patrika is not one of them: it renders the detail line same as
+// Fort and Kailash (see DESIGN_FEATURES.patrika.eventDetails), so it takes
+// the full shape below rather than this bare one.
+function functionToEvent(fn, lang) {
+  const text = fn[lang] ?? fn.mr;
+  const bare = state.theme === "darbar" || state.theme === "deep" || state.theme === "aangan";
+  return bare
+    ? { key: fn.key, title: text.title, date: text.date, time: text.time }
+    : { key: fn.key, title: text.title, label: text.label, date: text.date,
+        time: text.time, location: text.location, description: text.description, image: fn.image };
+}
+// Temple Darbar shows the programme as a few plain tab cards (title, date,
+// time), so its starter programme is shorter and carries no icons or details.
+const SAMPLE_EVENTS_DARBAR = [
+  { title: "स्थापना", date: "१४ सप्टेंबर २०२६", time: "सकाळी १०:०० वाजता" },
+  { title: "सकाळची आरती", date: "दररोज", time: "सकाळी ८:०० वाजता" },
+  { title: "संध्याकाळची आरती", date: "दररोज", time: "सायंकाळी ७:३० वाजता" },
+  { title: "विसर्जन", date: "२० सप्टेंबर २०२६", time: "सायंकाळी ५:०० वाजता" },
+];
+
+let state = { theme: "kailash", lang: "mr", slug: "", published: false, form: {} };
+let saveTimer = 0, previewTimer = 0;
+
+// ---------- tiny helpers ----------
+const get = (object, path) => path.split(".").reduce((node, key) => (node == null ? undefined : node[key]), object);
+function set(object, path, value) {
+  const keys = path.split(".");
+  const last = keys.pop();
+  const node = keys.reduce((acc, key) => (acc[key] = acc[key] ?? {}), object);
+  if (value === "" || value === undefined || value === null) delete node[last];
+  else node[last] = value;
+}
+function toast(message) {
+  const el = $("toast");
+  el.textContent = message;
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), 2200);
+}
+function status(kind, text) {
+  const el = $("status");
+  el.className = "status " + kind;
+  $("statusText").textContent = text;
+}
+
+// nested (theme shape) -> flat (form shape)
+function toForm(data = {}) {
+  return {
+    hero: {
+      familyName: data.hero?.invitation?.familyName,
+      tag: data.hero?.invitation?.tag,
+      message: data.hero?.invitation?.message,
+      subtitle: data.hero?.subtitle,
+      welcome: data.hero?.welcome,
+      shlok: data.hero?.shlok,
+      heroPhoto: data.hero?.assets?.heroPhoto,
+      usePhoto: data.hero?.usePhoto,
+    },
+    timeline: {
+      heading: data.timeline?.heading,
+      subtitle: data.timeline?.subtitle,
+      tip: data.timeline?.tip,
+      events: data.timeline?.events,
+    },
+    location: { ...(data.location ?? {}) },
+    saveTheDate: { ...(data.saveTheDate ?? {}) },
+    // Only the switched-off ones are stored; everything else shows.
+    sections: { ...(data.sections ?? {}) },
+    family: {
+      heading: data.family?.heading,
+      // No mode stored: an invite that already has portraits is one from
+      // before the choice existed, so it stays on them. An empty one is new,
+      // and starts on the single wide family photo - one upload, and the way
+      // most families already have the picture.
+      mode:
+        data.family?.mode ??
+        (data.family?.photo ? "group" : (data.family?.members ?? []).length ? "members" : "group"),
+      photo: data.family?.photo,
+      // A photo uploaded before this choice existed was framed sideways,
+      // and that is still the common case.
+      orientation: data.family?.orientation ?? "landscape",
+      caption: data.family?.caption,
+      members: data.family?.members,
+    },
+    // The memories wall has to be read back as carefully as it is written.
+    // Left out, the form opened empty on the customer's second visit and the
+    // next autosave posted an invite with no gallery in it - quietly deleting
+    // photographs they had already published. toTheme() writes these three;
+    // this reads back the same three, so the round trip loses nothing.
+    gallery: {
+      heading: data.gallery?.heading,
+      subtitle: data.gallery?.subtitle,
+      // Fresh row objects: an upload button holds on to the row it was
+      // clicked from and writes into it, and that must not reach back into
+      // the payload the API handed us.
+      photos: (data.gallery?.photos ?? []).map((photo) => ({ ...photo })),
+    },
+    music: data.music,
+    footer: {
+      family: data.footer?.family,
+      quoteFirstLine: data.footer?.quote?.firstLine,
+      quoteSecondLine: data.footer?.quote?.secondLine,
+      quoteEndingText: data.footer?.quote?.endingText,
+    },
+  };
+}
+
+// Keeps a programme row's own id while it is still unique, and mints the
+// first unclaimed "event-N" when it is missing or already spoken for.
+// The server applies the same rule in api/_lib/schema.js.
+function freeEventId(used, id, index) {
+  if (id && !used.has(id)) return id;
+  let n = index + 1;
+  while (used.has("event-" + n)) n += 1;
+  return "event-" + n;
+}
+
+// flat (form shape) -> nested (theme shape), for the live preview
+function toTheme(form = {}) {
+  const out = { lang: state.lang };
+
+  // A section switched off is carried as `false`; what was typed into it
+  // still travels with it, so turning it back on restores the invite.
+  const off = {};
+  REMOVABLE.forEach((key) => { if (form.sections?.[key] === false) off[key] = false; });
+  if (Object.keys(off).length) out.sections = off;
+  const hero = {};
+  if (form.hero?.subtitle) hero.subtitle = form.hero.subtitle;
+  if (form.hero?.welcome) hero.welcome = form.hero.welcome;
+  if (form.hero?.shlok) hero.shlok = form.hero.shlok;
+  if (form.hero?.heroPhoto) hero.assets = { heroPhoto: form.hero.heroPhoto };
+  const invitation = {};
+  if (form.hero?.familyName) invitation.familyName = form.hero.familyName;
+  if (form.hero?.tag) invitation.tag = form.hero.tag;
+  if (form.hero?.message?.length) invitation.message = form.hero.message;
+  if (Object.keys(invitation).length) hero.invitation = invitation;
+  if (Object.keys(hero).length) out.hero = hero;
+
+  const timeline = {};
+  ["heading", "subtitle", "tip"].forEach((key) => { if (form.timeline?.[key]) timeline[key] = form.timeline[key]; });
+  const events = (form.timeline?.events ?? []).filter((event) => event?.title);
+  if (events.length) {
+    // Every design keys its programme cards on this id. The fallback used to
+    // be the row's own position, so removing row 3 handed the next new row an
+    // id an older row was already holding - two cards both claiming
+    // "event-5", and a design reconciling a list with duplicate keys. An id
+    // already taken is passed over, so a clash cannot survive a save.
+    const used = new Set();
+    timeline.events = events.map((event, index) => {
+      const id = freeEventId(used, event.id, index);
+      used.add(id);
+      return {
+        ...event,
+        id,
+        label: event.label || event.title,
+        side: index % 2 === 0 ? "left" : "right",
+      };
+    });
+  }
+  if (Object.keys(timeline).length) out.timeline = timeline;
+
+  const location = {};
+  Object.entries(form.location ?? {}).forEach(([key, value]) => { if (value) location[key] = value; });
+  if (Object.keys(location).length) out.location = location;
+
+  const std = {};
+  Object.entries(form.saveTheDate ?? {}).forEach(([key, value]) => {
+    // Same rule the server applies (schema.js): an entry without a title and
+    // a start time is not stored, so the preview must not promise it either.
+    if (key === "events") {
+      const usable = (value ?? []).filter((event) => event?.summary && event?.start && event?.end);
+      if (usable.length) std.events = usable;
+    }
+    else if (value) std[key] = value;
+  });
+  if (Object.keys(std).length) out.saveTheDate = std;
+
+  // This is what gets saved, not just previewed, so both shapes travel
+  // whichever one is on screen: someone who uploads eight portraits, tries
+  // the group photo and changes their mind must find their portraits still
+  // there. `mode` is what the designs actually render.
+  const family = {};
+  if (form.family?.heading) family.heading = form.family.heading;
+  family.mode = familyMode();
+  if (form.family?.photo) family.photo = form.family.photo;
+  if (form.family?.orientation === "portrait") family.orientation = "portrait";
+  else if (form.family?.photo) family.orientation = "landscape";
+  if (form.family?.caption) family.caption = form.family.caption;
+  const members = (form.family?.members ?? []).filter((m) => m?.name || m?.photo);
+  if (members.length) family.members = members;
+  out.family = family;
+
+  // The memories wall. Without this the panel collected photographs and
+  // toTheme() quietly dropped them: the form is the editor's own flat
+  // shape, and only what is copied here reaches the invite.
+  const gallery = {};
+  if (form.gallery?.heading) gallery.heading = form.gallery.heading;
+  if (form.gallery?.subtitle) gallery.subtitle = form.gallery.subtitle;
+  // A row with no photograph yet is a blank the customer has not filled in,
+  // not a photo to send - the schema drops it anyway.
+  const photos = (form.gallery?.photos ?? []).filter((photo) => photo?.url);
+  if (photos.length) gallery.photos = photos;
+  if (Object.keys(gallery).length) out.gallery = gallery;
+
+  if (form.music) out.music = form.music;
+
+  const footer = {};
+  if (form.footer?.family) footer.family = form.footer.family;
+  const quote = {};
+  if (form.footer?.quoteFirstLine) quote.firstLine = form.footer.quoteFirstLine;
+  if (form.footer?.quoteSecondLine) quote.secondLine = form.footer.quoteSecondLine;
+  if (form.footer?.quoteEndingText) quote.endingText = form.footer.quoteEndingText;
+  if (Object.keys(quote).length) footer.quote = quote;
+  if (Object.keys(footer).length) out.footer = footer;
+
+  return out;
+}
+
+// ---------- preview ----------
+function refreshPreview(immediate) {
+  clearTimeout(previewTimer);
+  previewTimer = setTimeout(() => {
+    try {
+      sessionStorage.setItem("inviteo:preview", JSON.stringify({
+        slug: state.slug, theme: state.theme, preview: true, lang: state.lang, data: toTheme(state.form),
+      }));
+    } catch { /* private mode - preview falls back to sample content */ }
+    const frame = $("preview");
+    // nointro: the design skips its curtain / gate intro here, because this
+    // frame reloads after every pause in typing and a replayed intro each
+    // time would hide the very change the customer just made.
+    const src = "/t/" + state.theme + "?edit=1&nointro=1" + (state.lang === "mr" ? "" : "&lang=" + state.lang);
+    if (!frame._rehighlight) { frame._rehighlight = true; frame.addEventListener("load", rehighlight); }
+    if (frame.getAttribute("src") !== src) frame.setAttribute("src", src);
+    else frame.contentWindow?.location.reload();
+  }, immediate ? 0 : 650);
+}
+
+// Marking what you are editing.
+//
+// The preview is the real design, not a form, so there is no id to look a
+// field up by. What the editor does have is the text you just typed - so
+// it finds that exact string in the preview and marks the element holding
+// it. That is theme-agnostic: it works for all four designs, and for a
+// fifth, without any of them knowing this exists.
+//
+// Earlier versions marked the whole section. It was easy to implement and
+// horrible to look at - a section is most of a screen, so "highlighting"
+// it just tinted everything. Only the words change colour now.
+//
+// The section is still used, but only to scroll to - and only when the
+// field is empty, so there is no text to find.
+const SECTION_LABELS = {
+  "hero.": "Editing: the opening screen",
+  "family.": "Editing: your family",
+  "timeline.": "Editing: the programme",
+  "saveTheDate.": "Editing: the date",
+  "location.": "Editing: the venue",
+  "blessings.": "Editing: the blessing",
+  "footer.": "Editing: the closing words",
+};
+
+const FIELD_SECTIONS = [
+  ["hero.",        [".hero"]],
+  ["family.",      [".family-section"]],
+  ["timeline.",    [".utsav-section", ".timeline-section"]],
+  ["saveTheDate.", [".savedate-section", ".utsav-section"]],
+  ["location.",    [".location-section"]],
+  ["blessings.",   [".blessings-section", ".ashirwad-section"]],
+  ["footer.",      [".final-section", ".footer-section"]],
+];
+
+const HIGHLIGHT_CSS = `
+.io-editing{
+  background:rgba(232,145,47,.22) !important;
+  box-shadow:0 0 0 2px rgba(232,145,47,.95) !important;
+  border-radius:4px;
+  transition:background .2s ease;
+}
+#io-editing-label{
+  position:fixed;z-index:2147483647;pointer-events:none;
+  top:10px;left:50%;transform:translateX(-50%);
+  background:rgba(232,145,47,.97);color:#fff;
+  font:600 11px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.12em;
+  padding:7px 14px;border-radius:999px;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(120,70,10,.4);
+}`;
+
+let highlightPath = "";
+
+function sectionFor(doc, path) {
+  for (const [prefix, selectors] of FIELD_SECTIONS) {
+    if (!path.startsWith(prefix)) continue;
+    for (const sel of selectors) {
+      const el = doc.querySelector(sel);
+      if (el) return el;
+    }
+  }
+  return null;
+}
+
+// The deepest elements whose own text is this value. Deepest matters: a
+// <section> also "contains" the words, and marking that is the very thing
+// we are trying to stop doing.
+function elementsShowing(doc, value) {
+  const needle = String(value ?? "").trim();
+  if (needle.length < 2) return [];
+  const out = [];
+  const walk = doc.body?.querySelectorAll("h1,h2,h3,h4,h5,h6,p,span,div,li,a,figcaption,strong,em,td,button");
+  walk?.forEach((el) => {
+    if (el.children.length > 2) return;              // a container, not a line
+    const text = (el.textContent ?? "").trim();
+    if (!text || text.length > needle.length + 24) return;
+    if (text !== needle && !text.includes(needle)) return;
+    // skip if a child says the same thing - that child is the real one
+    if ([...el.children].some((c) => (c.textContent ?? "").trim().includes(needle))) return;
+    out.push(el);
+  });
+  return out.slice(0, 6);
+}
+
+function highlightInPreview(path, value) {
+  const frame = $("preview");
+  let doc;
+  // Same-origin, but the frame may still be loading. A highlight is a
+  // nicety - it must never break the editor.
+  try {
+    doc = frame?.contentDocument;
+    if (!doc || !doc.body) return;
+  } catch { return; }
+
+  try {
+    if (!doc.getElementById("io-highlight-style")) {
+      const style = doc.createElement("style");
+      style.id = "io-highlight-style";
+      style.textContent = HIGHLIGHT_CSS;
+      doc.head.appendChild(style);
+    }
+    doc.querySelectorAll(".io-editing").forEach((el) => el.classList.remove("io-editing"));
+
+    let label = doc.getElementById("io-editing-label");
+    if (!label) {
+      label = doc.createElement("div");
+      label.id = "io-editing-label";
+      doc.body.appendChild(label);
+    }
+    const key = FIELD_SECTIONS.find(([prefix]) => path.startsWith(prefix))?.[0];
+    label.textContent = SECTION_LABELS[key] ?? "Editing";
+
+    const hits = elementsShowing(doc, value);
+    if (hits.length) {
+      hits.forEach((el) => el.classList.add("io-editing"));
+      hits[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    // Nothing typed yet, or the words are not on screen - show them where
+    // it will appear, without painting the whole thing.
+    sectionFor(doc, path)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  } catch { /* never let a highlight break an edit */ }
+}
+
+function currentField() {
+  const el = document.activeElement;
+  return el?.closest?.("[data-path], [data-fam], [data-ev], [data-cal]") ? el : null;
+}
+
+// The frame reloads after every pause in typing, which drops the marks.
+function rehighlight() {
+  if (!highlightPath) return;
+  window.setTimeout(() => highlightInPreview(highlightPath, currentField()?.value ?? ""), 260);
+}
+
+function clearHighlight() {
+  highlightPath = "";
+  try {
+    const doc = $("preview")?.contentDocument;
+    doc?.querySelectorAll(".io-editing").forEach((el) => el.classList.remove("io-editing"));
+    doc?.getElementById("io-editing-label")?.remove();
+  } catch { /* nothing to clear */ }
+}
+
+document.addEventListener("focusout", () => {
+  // Only when focus has left the form, not while moving between two
+  // fields - otherwise the mark blinks off and on at every tab.
+  window.setTimeout(() => {
+    if (!currentField()) clearHighlight();
+  }, 60);
+});
+
+function markFromField(field) {
+  const path = field.dataset.path
+    || (field.dataset.fam ? "family." : "")
+    || (field.dataset.ev ? "timeline." : "")
+    || (field.dataset.cal ? "saveTheDate." : "");
+  if (!path) return;
+  highlightPath = path;
+  highlightInPreview(path, field.value ?? "");
+}
+
+document.addEventListener("focusin", (e) => {
+  const field = e.target.closest?.("[data-path], [data-fam], [data-ev], [data-cal]");
+  if (field) markFromField(field);
+});
+
+// Follow the words as they are retyped, so the mark stays on the text
+// rather than on whatever used to be there.
+document.addEventListener("input", (e) => {
+  const field = e.target.closest?.("[data-path], [data-fam], [data-ev], [data-cal]");
+  if (field) markFromField(field);
+});
+
+// ---------- saving ----------
+// Every write - content, slug, publish - goes through one queue. Two PUTs
+// in flight at once could come back out of order and leave the screen
+// showing a stale link, which is the one thing a customer must be able to
+// trust.
+let queue = Promise.resolve();
+function enqueue(task) {
+  queue = queue.then(task, task);
+  return queue;
+}
+
+async function putEdit(body) {
+  const res = await fetch("/api/edit?token=" + encodeURIComponent(TOKEN), {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  return res.json();
+}
+
+let inflight = 0;    // saves currently on the wire (for the close-tab guard)
+let retryTimer = 0;  // a failed save waiting to go again - work that is not safe yet
+
+function save(extra = {}) {
+  return enqueue(async () => {
+    status("saving", "Saving…");
+    inflight += 1;
+    try {
+      const payload = await putEdit({ data: toTheme(state.form), ...extra });
+      if (!payload.ok) throw Object.assign(new Error(payload.error), { payload });
+      state.slug = payload.invite.slug;
+      state.published = payload.invite.published;
+      renderPublishState();
+      status("saved", "Saved");
+      return payload;
+    } catch (error) {
+      if (error.payload) {
+        // A refused link name is validation, not a failure to reach us - the
+        // content still went through (the server stores it before refusing
+        // the slug). Anything else that comes back as a clean "no" (an
+        // expired link, an unpaid invite) must not be dressed up as "Saved".
+        if (error.payload.field === "slug") status("saved", "Saved");
+        else status("error", error.payload.error || "Not saved");
+        return error.payload;
+      }
+      status("error", "Not saved - retrying");
+      // Carry the intent, not just the content: a retry that forgets
+      // `publish` leaves a customer looking at a green "Saved" on an invite
+      // that never went live. One pending retry at a time, and it counts as
+      // unsaved work until it lands (see the beforeunload guard).
+      clearTimeout(retryTimer);
+      retryTimer = setTimeout(() => { retryTimer = 0; save(extra); }, 4000);
+      return { ok: false, error: "offline" };
+    } finally {
+      inflight -= 1;
+    }
+  });
+}
+
+function queueSave() {
+  clearTimeout(saveTimer);
+  status("saving", "Saving…");
+  saveTimer = setTimeout(() => { saveTimer = 0; save(); }, 900);
+  bindFamilySuffix();
+  refreshPreview();
+}
+
+// ---------- field wiring ----------
+function bindInputs(root = document) {
+  root.querySelectorAll("[data-path]").forEach((input) => {
+    if (input._bound) return;
+    input._bound = true;
+    input.addEventListener("input", () => {
+      const path = input.dataset.path;
+      const value = input.dataset.lines
+        ? input.value.split("\n").map((line) => line.trim()).filter(Boolean).slice(0, Number(input.dataset.lines))
+        : input.value.trim();
+      set(state.form, path, Array.isArray(value) ? (value.length ? value : undefined) : value);
+      queueSave();
+    });
+  });
+}
+
+// ------------------------------------------------------------------
+//  "Patil" -> "Patil Family"
+//
+//  Most people type only their surname into the family name box, and the
+//  invite then reads "Patil" where it should read "Patil Parivar". The
+//  suffix is added for them, on blur rather than per keystroke - fixing
+//  up text while someone is still typing it fights the caret.
+//
+//  Left alone when: they already wrote a suffix (in any of the three
+//  languages, or romanised), or they typed something longer than a name,
+//  which is a phrase they meant.
+// ------------------------------------------------------------------
+const FAMILY_SUFFIX = { mr: "परिवार", hi: "परिवार", en: "Family" };
+const HAS_SUFFIX = /(परिवार|परिवाराकडून|कुटुंब|कुटुंबीय|परिवार|parivar|pariwar|family|families)/i;
+
+function withFamilySuffix(raw, lang) {
+  const trimmed = String(raw ?? "").trim().replace(/\s+/g, " ");
+  if (!trimmed) return trimmed;
+  if (HAS_SUFFIX.test(trimmed)) return trimmed;
+
+  // "Signed off as" is written with a leading dash. Hold it aside so the
+  // dash is not counted as one of the name's words, and put it back after.
+  const lead = trimmed.match(/^[-–—•\s]+/)?.[0] ?? "";
+  const name = trimmed.slice(lead.length);
+  if (!name) return trimmed;
+
+  // A surname is one or two words. More than that is a sentence they wrote
+  // on purpose - "From the Patil and Deshpande families" is not improved by
+  // having "Family" stapled to the end of it.
+  if (name.split(" ").length > 2) return trimmed;
+  return lead + name + " " + (FAMILY_SUFFIX[lang] ?? FAMILY_SUFFIX.mr);
+}
+
+// All three places a family name is typed - the hero, the caption under
+// the family photo, and the sign-off. Someone who types their surname into
+// any of them means the same thing by it.
+const FAMILY_FIELDS = ["f_familyName", "f_famCaption", "f_ffamily"];
+
+function bindFamilySuffix() {
+  FAMILY_FIELDS.forEach((id) => {
+    const input = $(id);
+    if (!input || input._suffixBound) return;
+    input._suffixBound = true;
+    input.addEventListener("blur", () => {
+      const next = withFamilySuffix(input.value, state.lang);
+      if (next === input.value.trim()) return;
+      input.value = next;
+      // Go through the same path a keystroke would, so it saves and the
+      // preview updates exactly as if they had typed it themselves.
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
+}
+
+function fillInputs() {
+  document.querySelectorAll("[data-path]").forEach((input) => {
+    const value = get(state.form, input.dataset.path);
+    input.value = Array.isArray(value) ? value.join("\n") : (value ?? "");
+  });
+  $("p_hero").src = state.form.hero?.heroPhoto && /^(https?:|\/api\/)/.test(state.form.hero.heroPhoto)
+    ? state.form.hero.heroPhoto
+    : "/assets/design-idol.png";
+}
+
+// ---------- the functions checklist ----------
+// Unticking must not destroy what they typed. Someone who unticks the
+// सत्यनारायण, then realises it IS happening after all, should get their own
+// date and wording back rather than the sample's. Parked for the life of
+// the tab, which is as long as that mistake takes to notice.
+const parkedFunctions = {};
+
+function park(event) {
+  const key = functionKeyOf(event);
+  if (key) parkedFunctions[key] = { ...event, key };
+}
+
+function renderFunctionPicker() {
+  const host = $("fnPick");
+  if (!host) return;
+  const events = state.form.timeline?.events ?? [];
+  const chosen = new Set(events.map(functionKeyOf).filter(Boolean));
+
+  host.innerHTML = FUNCTIONS.map((fn) => {
+    const on = chosen.has(fn.key);
+    // show what they renamed it to, so the box still reads as theirs
+    const mine = events.find((e) => functionKeyOf(e) === fn.key);
+    const shown = (on && mine?.title) ? mine.title : (fn[state.lang] ?? fn.mr).title;
+    return `<label class="fn-opt${on ? " is-on" : ""}">
+      <input type="checkbox" data-fn="${fn.key}"${on ? " checked" : ""} />
+      <span>${escapeHtml(shown)}</span>
+    </label>`;
+  }).join("");
+
+  host.querySelectorAll("[data-fn]").forEach((box) => {
+    box.addEventListener("change", () => toggleFunction(box.dataset.fn, box.checked));
+  });
+}
+
+function toggleFunction(key, on) {
+  const events = (state.form.timeline = state.form.timeline ?? {}).events ?? (state.form.timeline.events = []);
+  const at = events.findIndex((e) => functionKeyOf(e) === key);
+
+  if (!on) {
+    if (at >= 0) park(events.splice(at, 1)[0]);
+  } else if (at < 0) {
+    const fn = FUNCTIONS.find((f) => f.key === key);
+    const row = parkedFunctions[key] ?? functionToEvent(fn, state.lang);
+    // Drop it into its place in the festival rather than on the end: the
+    // programme reads as a day, so a गौरी आवाहन ticked last still belongs
+    // before the विसर्जन. Rows the customer wrote themselves have no key
+    // and are left where they are.
+    let insertAt = events.length;
+    for (let i = 0; i < events.length; i += 1) {
+      const other = functionKeyOf(events[i]);
+      if (other && FUNCTION_ORDER[other] > FUNCTION_ORDER[key]) { insertAt = i; break; }
+    }
+    events.splice(insertAt, 0, row);
+    delete parkedFunctions[key];
+  }
+  renderEvents(); renderFunctionPicker(); queueSave();
+}
+
+// Tie existing rows to their tick-box by name, once, so an invite made
+// before this checklist existed - or a seeded one - shows the right boxes
+// ticked and survives being renamed afterwards.
+function stampFunctionKeys() {
+  (state.form.timeline?.events ?? []).forEach((event) => {
+    if (!event.key) {
+      const key = functionKeyOf(event);
+      if (key) event.key = key;
+    }
+  });
+}
+
+// ---------- programme events ----------
+function renderEvents() {
+  const list = $("eventList");
+  list.innerHTML = "";
+  (state.form.timeline?.events ?? []).forEach((event, index, all) => {
+    const wrap = document.createElement("div");
+    wrap.className = "event";
+    // No "short label" field: no design renders it, the card shows the name.
+    wrap.innerHTML = `
+      <div class="event-head"><span class="num">${index + 1}</span>
+        <span data-ev-title="${index}">${event.title ? escapeHtml(event.title) : "New item"}</span>
+        <span class="row-tools">
+          <button class="mv" type="button" data-ev-move="${index}:-1" title="Move up" aria-label="Move this item earlier in the day"${index === 0 ? " disabled" : ""}>&#9650;</button>
+          <button class="mv" type="button" data-ev-move="${index}:1" title="Move down" aria-label="Move this item later in the day"${index === all.length - 1 ? " disabled" : ""}>&#9660;</button>
+          <button class="rm" type="button" data-remove="${index}">Remove</button></span></div>
+      <div class="field"><label>Name</label><input type="text" data-ev="${index}.title" value="${escapeAttr(event.title)}" placeholder="${escapeAttr(hint("ev_title"))}" />
+        <div class="hint ev-warn"${event.title ? ' hidden' : ''}>Give this item a name - without one it is not saved.</div></div>
+      <div class="row">
+        <div class="field"><label>Date</label><input type="text" data-ev="${index}.date" value="${escapeAttr(event.date)}" placeholder="${escapeAttr(hint("ev_date"))}" /></div>
+        <div class="field"><label>Time</label><input type="text" data-ev="${index}.time" value="${escapeAttr(event.time)}" placeholder="${escapeAttr(hint("ev_time"))}" /></div>
+      </div>
+      <div class="field"><label>Place</label><input type="text" data-ev="${index}.location" value="${escapeAttr(event.location)}" placeholder="${escapeAttr(hint("ev_location"))}" /></div>
+      <div class="field"><button class="btn small ghost" type="button" data-ev-cal="${index}">+ Add to the calendar list</button>
+        <div class="hint">What a guest gets when they tap &ldquo;Add to calendar&rdquo; on the invite. Asks you for the date once.</div></div>
+      <div class="field" data-needs="eventDetails"><label>Details <span>- shown when a guest taps the card</span></label>
+        <textarea data-ev="${index}.description" placeholder="${escapeAttr(hint("ev_description"))}">${escapeHtml(event.description || "")}</textarea></div>
+      <div class="field" data-needs="eventIcons"><label>Icon</label>
+        <div class="photo">
+          <img data-icon-preview="${index}" alt="" src="${iconSrc(event.image)}" />
+          <div class="actions">
+            <button class="btn small ghost" type="button" data-upload="timeline.events.${index}.image" data-preview-attr="${index}">Upload icon</button>
+            <button class="btn small ghost" type="button" data-cycle="${index}">Use next default</button>
+          </div>
+        </div>
+      </div>`;
+    // See renderFamily: bind the row itself, since Remove renumbers indices
+    // and a language switch rebuilds this whole list.
+    wrap.querySelectorAll("[data-upload]").forEach((button) => {
+      button._row = event;
+      button._rowKey = "image";
+      button._rowList = () => state.form.timeline?.events ?? [];
+    });
+    list.appendChild(wrap);
+  });
+
+  list.querySelectorAll("[data-ev]").forEach((input) => {
+    input.addEventListener("input", () => {
+      const [index, key] = input.dataset.ev.split(".");
+      const events = state.form.timeline.events;
+      events[Number(index)][key] = input.value.trim();
+      if (key === "title") {
+        const head = list.querySelector(`[data-ev-title="${index}"]`);
+        if (head) head.textContent = input.value.trim() || "New item";
+        // An item with no name is not stored at all - which quietly takes the
+        // date, time, place and details typed alongside it. Say it on the row
+        // while they can still see it, rather than losing it on reload.
+        const warn = input.closest(".event").querySelector(".ev-warn");
+        if (warn) warn.hidden = !!input.value.trim();
+        // keep the tick-box reading as whatever they have renamed it to,
+        // without rebuilding the picker out from under the cursor
+        const fnKey = functionKeyOf(events[Number(index)]);
+        const box = fnKey && $("fnPick")?.querySelector(`[data-fn="${fnKey}"]`);
+        if (box) box.nextElementSibling.textContent = input.value.trim() || "New item";
+      }
+      queueSave();
+    });
+  });
+  syncDesignFields(list);
+
+  list.querySelectorAll("[data-ev-move]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const [at, step] = button.dataset.evMove.split(":").map(Number);
+      const events = state.form.timeline.events;
+      const to = at + step;
+      if (to < 0 || to >= events.length) return;
+      [events[at], events[to]] = [events[to], events[at]];
+      renderEvents(); renderFunctionPicker(); queueSave();
+    });
+  });
+  list.querySelectorAll("[data-ev-cal]").forEach((button) => {
+    button.addEventListener("click", () =>
+      calendarFromEvent(state.form.timeline.events[Number(button.dataset.evCal)]));
+  });
+
+  list.querySelectorAll("[data-remove]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const [gone] = state.form.timeline.events.splice(Number(button.dataset.remove), 1);
+      park(gone);
+      renderEvents(); renderFunctionPicker(); queueSave();
+    });
+  });
+  list.querySelectorAll("[data-cycle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.cycle);
+      const event = state.form.timeline.events[index];
+      const at = EVENT_ICONS.indexOf(event.image);
+      event.image = EVENT_ICONS[(at + 1) % EVENT_ICONS.length];
+      list.querySelector(`[data-icon-preview="${index}"]`).src = iconSrc(event.image);
+      queueSave();
+    });
+  });
+  bindUploads(list);
+}
+
+const DESIGN_NAMES = {
+  fort: "Aapla Bappa design",
+  kailash: "Kailash design",
+  darbar: "Temple Darbar design",
+  patrika: "Shubh Patrika design",
+  nilambari: "Nilambari design",
+  deep: "Deep Utsav design",
+  rajutsav: "Raj Utsav design",
+  aangan: "Ghar Aangan design",
+};
+
+// ---------- family carousel (Temple Darbar) ----------
+const FAMILY_DEFAULTS = ["family1", "family2", "family3", "family4"];
+const familyPhotoSrc = (photo) =>
+  !photo ? "/assets/design-idol.png"
+  : /^(https?:|\/api\/)/.test(photo) ? photo
+  : /^family[1-4]$/.test(photo) ? "/t/" + state.theme + "/assets/" + photo.replace("family", "family-") + ".jpg"
+  : "/assets/design-idol.png";
+
+// The schema keeps the first 8 members and drops the rest, so the editor
+// has to stop there rather than let someone type a ninth name and lose it.
+const MAX_FAMILY = 8; // matches LIMITS.members in api/_lib/schema.js
+
+// Sections a customer may switch off entirely (matches REMOVABLE in
+// api/_lib/schema.js). Anything not listed here is part of every invite.
+const REMOVABLE = ["saveTheDate", "timeline", "family", "gallery", "footer"];
+const sectionOn = (key) => state.form.sections?.[key] !== false;
+
+// Fold a switched-off section away rather than leaving a form nobody is
+// going to read. What is typed in it is kept either way.
+function renderSections() {
+  REMOVABLE.forEach((key) => {
+    const box = document.querySelector(`[data-section="${key}"]`);
+    const fields = document.querySelector(`[data-section-body="${key}"]`);
+    const on = sectionOn(key);
+    if (box) box.checked = on;
+    if (fields) fields.hidden = !on;
+    // Switching a section off hides everything inside it - which for the
+    // memories wall means the "+ Add a photo" button and every upload
+    // control with it. The card is then a heading, a tick box and nothing
+    // else, and a customer who does not connect the two reasonably reports
+    // that photographs cannot be uploaded. So the space the fields left
+    // says what happened and what to do about it.
+    if (fields) {
+      let note = fields.parentElement.querySelector("[data-section-off-note]");
+      if (!note) {
+        note = document.createElement("p");
+        note.className = "hint section-off-note";
+        note.setAttribute("data-section-off-note", key);
+        note.textContent = "This part is switched off, so its fields are hidden. Tick the box above to turn it back on - nothing you had already filled in was lost.";
+        fields.parentElement.insertBefore(note, fields);
+      }
+      note.hidden = on;
+    }
+  });
+}
+
+// A design that has no per-person layout is always the one group photo -
+// the stored mode is ignored rather than trusted, so an invite carried over
+// from a design that did offer portraits cannot render as blanks here.
+const familyMode = () =>
+  !designHas("familyMembers") ? "group"
+  : state.form.family?.mode === "group" ? "group" : "members";
+const familyOrient = () => (state.form.family?.orientation === "portrait" ? "portrait" : "landscape");
+
+// Which way up a photo is, read off the file itself. Asking is still the
+// final word - a customer may have cropped a tall photo out of a wide one -
+// but nobody should have to answer a question the image already answers.
+function detectOrientation(url) {
+  return new Promise((resolve) => {
+    const probe = new Image();
+    probe.onload = () => resolve(probe.naturalHeight > probe.naturalWidth ? "portrait" : "landscape");
+    probe.onerror = () => resolve(null);
+    probe.src = url;
+  });
+}
+
+// Show the half they picked and hide the other, so the section is one
+// short task rather than two competing ones.
+function renderFamilyMode() {
+  const group = familyMode() === "group";
+  const groupBox = $("familyGroup");
+  const membersBox = $("familyMembers");
+  if (groupBox) groupBox.hidden = !group;
+  if (membersBox) membersBox.hidden = group;
+  document.querySelectorAll('#familyMode input[name="famMode"]').forEach((radio) => {
+    radio.checked = radio.value === (group ? "group" : "members");
+    radio.closest(".fn-opt")?.classList.toggle("is-on", radio.checked);
+  });
+  bindFamilySuffix();
+  const preview = $("famGroupPreview");
+  if (preview) preview.src = state.form.family?.photo || "/assets/family-group.webp";
+
+  const portrait = familyOrient() === "portrait";
+  document.querySelectorAll('#familyOrient input[name="famOrient"]').forEach((radio) => {
+    radio.checked = radio.value === (portrait ? "portrait" : "landscape");
+    radio.closest(".fn-opt")?.classList.toggle("is-on", radio.checked);
+  });
+  const hint = $("famPhotoHint");
+  if (hint) {
+    hint.textContent = designHas("familyOrientation")
+      ? "Sideways or upright both work - this design frames it whichever way you took it."
+      : "A wide, sideways photo works best - everyone standing together.";
+  }
+}
+
+// ---------- the venue's Google Maps link ----------
+//
+// One instruction, and it is one everybody has already followed for
+// something else: find the place in Google Maps, press Share, paste. The
+// link that comes back points at the exact spot Google itself holds for
+// that society, that lane, that mandir, so there is nothing left to get
+// wrong - and nothing to type.
+//
+// It is still optional. The map on the invite is drawn from the written
+// address (see each theme's src/lib/maps.js), and Google reads a Marathi
+// address well. This is for the venue an address cannot describe.
+//
+// What replaced: a search box backed by OpenStreetMap, which outside the
+// Indian metros knows district boundaries and railway platforms rather
+// than homes and mandals. It answered confidently and wrongly, and its
+// answer outranked the address the customer had typed.
+const placeInput = $("f_place");
+let placeTimer = null;
+let placeSeq = 0;
+
+// The one line under the field, in whichever of its four states.
+function pinnedNote(message, bad) {
+  const hint = $("placeHint");
+  if (!hint) return;
+  hint.classList.toggle("ev-warn", !!bad);
+  if (message) { hint.textContent = message; return; }
+
+  const link = state.form.location?.googleMapsLink;
+  if (typeof link !== "string" || !link) {
+    hint.textContent =
+      "Optional. Your guests' map already comes from the address above. Find your venue in Google Maps, press Share, and paste the link here to land on the exact spot instead.";
+    return;
+  }
+  // Never just "pinned". Give them the two things they need: a look at
+  // the spot their guests will get, and a way back out of it.
+  hint.innerHTML =
+    '<span class="place-pinned">\u2713 Pinned. Guests land on this exact spot. ' +
+    '<a class="place-act" target="_blank" rel="noreferrer" href="' + escapeHtml(link).replace(/"/g, "&quot;") + '">See the spot</a>' +
+    '<button class="place-act" id="unpin" type="button">Remove</button></span>';
+  const off = $("unpin");
+  if (off) off.addEventListener("click", removePin);
+}
+
+function removePin() {
+  const where = state.form.location;
+  if (where) {
+    delete where.googleMapsLink;
+    delete where.googleMapsEmbed;
+    delete where.lat;
+    delete where.lng;
+  }
+  if (placeInput) placeInput.value = "";
+  pinnedNote();
+  queueSave();
+  toast("Removed - the map follows your address again");
+}
+
+// Google will not let its share links be framed, so the server unwraps
+// one into something that can be: see api/place.js.
+async function usePlaceLink(raw) {
+  const link = String(raw ?? "").trim();
+  const mine = ++placeSeq;
+
+  if (!link) {
+    if (state.form.location?.googleMapsLink) removePin();
+    else pinnedNote();
+    return;
+  }
+
+  pinnedNote("Checking that link\u2026");
+  let payload = null;
+  try {
+    const res = await fetch("/api/place?url=" + encodeURIComponent(link));
+    payload = await res.json();
+  } catch {
+    payload = null;
+  }
+  // A slow answer to a link they have already replaced must not win.
+  if (mine !== placeSeq) return;
+
+  if (!payload?.ok) {
+    pinnedNote(payload?.error ?? "We could not reach Google just now. Try that link again in a moment.", true);
+    return;
+  }
+
+  const place = payload.place;
+  state.form.location = state.form.location ?? {};
+  const where = state.form.location;
+  where.googleMapsLink = place.link;
+  where.googleMapsEmbed = place.embed;
+  if (place.lat !== null && place.lng !== null) {
+    where.lat = place.lat;
+    where.lng = place.lng;
+  } else {
+    delete where.lat;
+    delete where.lng;
+  }
+  // The name Google holds, but only into a blank - what the family calls
+  // the house beats what the map calls it.
+  if (!where.venue && place.name) {
+    where.venue = place.name;
+    $("f_venue").value = place.name;
+  }
+  placeInput.value = place.link;
+  pinnedNote();
+  queueSave();
+  toast(place.name ? "Pinned to " + place.name : "Pinned to your Maps link");
+}
+
+// A link is pasted, not typed, so the pause after it is the moment to look.
+if (placeInput) {
+  placeInput.addEventListener("input", () => {
+    clearTimeout(placeTimer);
+    placeTimer = setTimeout(() => usePlaceLink(placeInput.value), 700);
+  });
+  placeInput.addEventListener("change", () => {
+    clearTimeout(placeTimer);
+    usePlaceLink(placeInput.value);
+  });
+}
+
+// Coming back to a saved invite: show them the link they already gave us.
+function hydratePlace() {
+  const link = state.form.location?.googleMapsLink;
+  if (placeInput && typeof link === "string") placeInput.value = link;
+  pinnedNote();
+}
+
+document.querySelectorAll("[data-section]").forEach((box) => {
+  box.addEventListener("change", () => {
+    state.form.sections = state.form.sections ?? {};
+    // Stored only when switched off, matching the schema: an invite with
+    // nothing switched off carries no `sections` block at all.
+    if (box.checked) delete state.form.sections[box.dataset.section];
+    else state.form.sections[box.dataset.section] = false;
+    renderSections();
+    queueSave();
+  });
+});
+
+// The memories wall: a short list of photos with an optional caption each.
+// Same shape as the family list - upload straight into the row, and the
+// button remembers the row object rather than its index, so removing a
+// photo while another is still uploading cannot attach it to the wrong one.
+function renderGallery() {
+  const list = $("galleryList");
+  if (!list) return;
+  const photos = state.form.gallery?.photos ?? [];
+  list.innerHTML = "";
+
+  photos.forEach((photo, index) => {
+    const wrap = document.createElement("div");
+    wrap.className = "event";
+    wrap.innerHTML = `
+      <div class="event-head"><span class="num">${index + 1}</span>
+        <span>${photo.caption ? escapeHtml(photo.caption) : "Photo"}</span>
+        <button class="rm" type="button" data-gal-remove="${index}">Remove</button></div>
+      <div class="field"><label>Photo</label>
+        <div class="photo">
+          <img data-gal-preview="${index}" alt="" src="${photo.url ? escapeAttr(photo.url) : "/assets/shots/shot-patrika-hero.webp"}" />
+          <div class="actions">
+            <button class="btn small ghost" type="button" data-upload="gallery.photos.${index}.url" data-preview-attr="gal-${index}">Upload photo</button>
+          </div>
+        </div>
+      </div>
+      <div class="field"><label>Caption</label>
+        <input type="text" data-gal="${index}.caption" value="${escapeAttr(photo.caption)}" placeholder="२०२४" /></div>`;
+    wrap.querySelectorAll("[data-upload]").forEach((button) => {
+      button._row = photo;
+      button._rowKey = "url";
+      button._rowList = () => state.form.gallery?.photos ?? [];
+    });
+    list.appendChild(wrap);
+  });
+
+  list.querySelectorAll("[data-gal]").forEach((input) => {
+    input.addEventListener("input", () => {
+      const [index, key] = input.dataset.gal.split(".");
+      state.form.gallery.photos[Number(index)][key] = input.value.trim();
+      queueSave();
+    });
+  });
+  list.querySelectorAll("[data-gal-remove]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.form.gallery.photos.splice(Number(button.dataset.galRemove), 1);
+      renderGallery(); queueSave();
+    });
+  });
+  bindUploads(list);
+
+  const add = $("addGalleryPhoto");
+  if (add && !add._bound) {
+    add._bound = true;
+    add.addEventListener("click", () => {
+      state.form.gallery = state.form.gallery ?? {};
+      state.form.gallery.photos = state.form.gallery.photos ?? [];
+      if (state.form.gallery.photos.length >= MAX_GALLERY) {
+        toast(`That is the most photos this section holds (${MAX_GALLERY})`);
+        return;
+      }
+      state.form.gallery.photos.push({ url: "", caption: "" });
+      renderGallery(); queueSave();
+    });
+  }
+  if (add) add.disabled = photos.length >= MAX_GALLERY;
+}
+
+function renderFamily() {
+  renderFamilyMode();
+  const list = $("familyList");
+  if (!list) return;
+  list.innerHTML = "";
+  (state.form.family?.members ?? []).forEach((member, index) => {
+    const wrap = document.createElement("div");
+    wrap.className = "event";
+    wrap.innerHTML = `
+      <div class="event-head"><span class="num">${index + 1}</span>
+        <span>${member.name ? escapeHtml(member.name) : "New person"}</span>
+        <button class="rm" type="button" data-fam-remove="${index}">Remove</button></div>
+      <div class="field"><label>Name</label>
+        <input type="text" data-fam="${index}.name" value="${escapeAttr(member.name)}" placeholder="${escapeAttr(hint("fam_name"))}" /></div>
+      <div class="field"><label>Photo</label>
+        <div class="photo">
+          <img data-fam-preview="${index}" alt="" src="${familyPhotoSrc(member.photo)}" />
+          <div class="actions">
+            <button class="btn small ghost" type="button" data-upload="family.members.${index}.photo" data-preview-attr="fam-${index}">Upload photo</button>
+          </div>
+        </div>
+      </div>`;
+    // The row this button belongs to, not its position: removing someone
+    // while a photo is still uploading renumbers every index below them.
+    wrap.querySelectorAll("[data-upload]").forEach((button) => {
+      button._row = member;
+      button._rowKey = "photo";
+      button._rowList = () => state.form.family?.members ?? [];
+    });
+    list.appendChild(wrap);
+  });
+
+  list.querySelectorAll("[data-fam]").forEach((input) => {
+    input.addEventListener("input", () => {
+      const [index, key] = input.dataset.fam.split(".");
+      state.form.family.members[Number(index)][key] = input.value.trim();
+      queueSave();
+    });
+  });
+  list.querySelectorAll("[data-fam-remove]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.form.family.members.splice(Number(button.dataset.famRemove), 1);
+      renderFamily(); queueSave();
+    });
+  });
+  bindUploads(list);
+
+  const add = $("addFamily");
+  if (add) {
+    const full = (state.form.family?.members ?? []).length >= MAX_FAMILY;
+    add.disabled = full;
+    add.textContent = full ? `That is all ${MAX_FAMILY} people` : "+ Add a person";
+  }
+}
+
+// ---------- language ----------
+// The design supplies its own words in one of three languages; the customer's
+// own typing is untouched by a switch. What the editor has to keep in step is
+// the sample programme it seeds, the grey placeholder text (a Marathi hint
+// under an English invite is just confusing), and the live preview URL.
+function sampleEvents() {
+  // Ghar Aangan renders the same programme shape as Temple Darbar. Shubh
+  // Patrika does not - it shows the detail line same as Fort and Kailash -
+  // so it seeds from the full list below, not this bare one.
+  const darbar = state.theme === "darbar" || state.theme === "deep" || state.theme === "aangan";
+  if (state.lang === "en") return darbar ? SAMPLE_EVENTS_DARBAR_EN : SAMPLE_EVENTS_EN;
+  if (state.lang === "hi") return darbar ? SAMPLE_EVENTS_DARBAR_HI : SAMPLE_EVENTS_HI;
+  return darbar ? SAMPLE_EVENTS_DARBAR : SAMPLE_EVENTS;
+}
+
+// Only the fields whose hint is content rather than format. Anything absent
+// here keeps the Marathi placeholder it ships with, which is correct for a
+// name or a URL in any language.
+const PLACEHOLDERS = {
+  hi: {
+    f_familyName: "पाटील परिवार",
+    f_message: "आप और आपके परिवार को\nसप्रेम निमंत्रण !",
+    f_subtitle: "आपको सप्रेम निमंत्रण !", f_welcome: "आपका सप्रेम स्वागत करता है",
+    f_weekday: "सोमवार", f_dateBig: "14 सितंबर 2026", f_timeBig: "सुबह 10:00 बजे",
+    f_stdLocation: "पाटील निवास, शिवाजीनगर, पुणे",
+    f_tlHeading: "उत्सव का मंगल प्रवास",
+    f_tlSubtitle: "गणराय के आगमन से विसर्जन तक…",
+    f_famHeading: "सप्रेम आमंत्रण", f_venue: "पाटील निवास",
+    f_address: "फ्लैट नं. 402, श्री गणेशा अपार्टमेंट्स, शिवाजीनगर, पुणे - 411005",
+    f_q1: "आपकी उपस्थिति ही", f_q2: "हमारे लिए बाप्पा का सच्चा", f_q3: "आशीर्वाद है।",
+    f_ffamily: "- पाटील परिवार",
+    ev_title: "मूर्ति स्थापना", ev_date: "14 सितंबर", ev_time: "सुबह 10:00 बजे",
+    ev_location: "मुख्य सभागृह", ev_description: "गणराय का मंगल आगमन…",
+    fam_name: "राजेश पाटील", cal_summary: "गणपति स्थापना",
+  },
+  en: {
+    f_familyName: "Patil Parivar",
+    f_message: "You and your family are\nwarmly invited !",
+    f_subtitle: "A warm invitation to you !", f_welcome: "warmly welcomes you",
+    f_weekday: "Monday", f_dateBig: "14 September 2026", f_timeBig: "10:00 am",
+    f_stdLocation: "Patil Nivas, Shivajinagar, Pune",
+    f_tlHeading: "The Utsav, day by day",
+    f_tlSubtitle: "Every moment from Bappa's aagman to the visarjan…",
+    f_famHeading: "With love, our invitation", f_venue: "Patil Nivas",
+    f_address: "Flat No. 402, Shri Ganesha Apartments, Shivajinagar, Pune - 411005",
+    f_q1: "Your presence itself is", f_q2: "the truest blessing Bappa could", f_q3: "give us.",
+    f_ffamily: "- Patil Parivar",
+    ev_title: "Murti Sthapana", ev_date: "14 September", ev_time: "10:00 am",
+    ev_location: "Main hall", ev_description: "Bappa's auspicious arrival…",
+    fam_name: "Rajesh Patil", cal_summary: "Ganpati Sthapana",
+  },
+};
+
+// Placeholder for a repeated row (events, family, calendar), which is built
+// as a template string rather than living in the markup.
+const MR_ROW_HINTS = {
+  ev_title: "मूर्ती स्थापना", ev_date: "१४ सप्टेंबर", ev_time: "सकाळी १०:०० वाजता",
+  ev_location: "मुख्य सभागृह", ev_description: "गणरायाचे मंगल आगमन…",
+  fam_name: "राजेश पाटील", cal_summary: "गणपती स्थापना",
+};
+function hint(key) {
+  return PLACEHOLDERS[state.lang]?.[key] ?? MR_ROW_HINTS[key] ?? "";
+}
+
+// Marathi placeholders are the ones written into the markup, so switching
+// back to Marathi means putting the originals back - captured on first run.
+let MR_PLACEHOLDERS = null;
+function syncPlaceholders() {
+  if (!MR_PLACEHOLDERS) {
+    MR_PLACEHOLDERS = {};
+    Object.keys(PLACEHOLDERS.en).forEach((id) => {
+      const el = $(id);
+      if (el) MR_PLACEHOLDERS[id] = el.getAttribute("placeholder") ?? "";
+    });
+  }
+  const pack = PLACEHOLDERS[state.lang];
+  Object.keys(MR_PLACEHOLDERS).forEach((id) => {
+    const el = $(id);
+    if (el) el.setAttribute("placeholder", pack?.[id] ?? MR_PLACEHOLDERS[id]);
+  });
+}
+
+function syncLangRow() {
+  document.querySelectorAll("[data-setlang]").forEach((button) => {
+    const on = button.dataset.setlang === state.lang;
+    button.classList.toggle("is-on", on);
+    button.setAttribute("aria-checked", on ? "true" : "false");
+  });
+}
+
+// Programme rows are seeded into the customer's own content, so a language
+// switch has to carry them across - but only the ones still holding our
+// sample text. A row they typed themselves is theirs, in whatever language
+// they chose to type it, and must survive the switch untouched.
+function retranslateSeeds(from, to) {
+  // Ghar Aangan renders the same programme shape as Temple Darbar. Shubh
+  // Patrika does not - see sampleEvents() above.
+  const darbar = state.theme === "darbar" || state.theme === "deep" || state.theme === "aangan";
+  const listFor = (code) =>
+    code === "en" ? (darbar ? SAMPLE_EVENTS_DARBAR_EN : SAMPLE_EVENTS_EN)
+    : code === "hi" ? (darbar ? SAMPLE_EVENTS_DARBAR_HI : SAMPLE_EVENTS_HI)
+    : (darbar ? SAMPLE_EVENTS_DARBAR : SAMPLE_EVENTS);
+  const before = listFor(from);
+  const after = listFor(to);
+  const FIELDS = ["title", "label", "date", "time", "location", "description"];
+
+  (state.form.timeline?.events ?? []).forEach((event, index) => {
+    const sample = before[index];
+    const replacement = after[index];
+    if (!sample || !replacement) return;
+    const untouched = FIELDS.every((field) => (event[field] ?? "") === (sample[field] ?? ""));
+    if (untouched) FIELDS.forEach((field) => { if (field in replacement) event[field] = replacement[field]; });
+  });
+
+  (state.form.saveTheDate?.events ?? []).forEach((event) => {
+    if (event.summary === CALENDAR_SEED[from]) event.summary = CALENDAR_SEED[to] ?? event.summary;
+  });
+}
+
+function bindLangRow() {
+  document.querySelectorAll("[data-setlang]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = button.dataset.setlang;
+      if (next === state.lang) return;
+      const previous = state.lang;
+      state.lang = next;
+      syncLangRow();
+      syncPlaceholders();
+      retranslateSeeds(previous, next);
+      renderEvents();
+      renderCalendar();
+      save();
+      refreshPreview(true);
+    });
+  });
+}
+
+// What each design actually renders. A control the chosen design ignores is
+// hidden rather than left as a field that silently does nothing - a customer
+// should never type into a box and see no change in the preview.
+// bannerPhoto and eventIcons are off everywhere on purpose. The banner
+// artwork and the programme icons are what make each design look like
+// itself; a phone snap dropped into the banner, or six mismatched icons
+// down the timeline, is how a paid invite starts looking homemade. The
+// customer's own photograph still belongs on the invite - it has its own
+// section, where it is framed to fit.
+//
+//
+// family is off for Aapla Bappa entirely: that design has no family section
+// any more. It names the inviting family on the hero seal, so a second block
+// of faces lower down answered a question the guest had already been given.
+// Hiding the whole card here is what keeps step 3b off the form for Fort -
+// nothing else in this file has to know.
+//
+// familyMembers is off for Kailash for a different reason, so don't read the
+// two as the same fix. Kailash does render a portrait per person - the layout
+// is there and works. This is a product call: one photo of everybody is the
+// single upload we ask a customer for, and a picker offering two ways to fill
+// in the same section is a decision they have to make before they can finish.
+// Flip it back and the per-person list returns intact.
+//
+// All of these stay per-design flags rather than deleted markup, so any of
+// them can be handed back to one design without unpicking anything. Nothing a
+// customer already uploaded is deleted either - switch a Fort invite to a
+// design that has the section and their photos are still there.
+// designHas() reads an absent flag as "show it", so every design that does
+// NOT hang a memories wall has to say gallery:false out loud. Left unsaid, the
+// panel appeared on four designs that had no Gallery component, and the
+// photographs a customer uploaded there were stored and then rendered by
+// nothing at all. Three of those four have a wall now; Ghar Aangan is the
+// one still without, and says so below.
+const DESIGN_FEATURES = {
+  // Aapla Bappa has no family section - the hero seal says who is inviting -
+  // but it does hang a memories wall (sacred-temple/src/components/Gallery.jsx),
+  // so the photographs of past years are the one set of family pictures it asks for.
+  fort:    { heroMessage: true,  muhurat: true,  eventIcons: false, eventDetails: true,  family: false, familyMembers: false, familyOrientation: false, bannerWelcome: true,  bannerPhoto: false, gallery: true },
+  kailash: { heroMessage: true,  muhurat: true,  eventIcons: false, eventDetails: true,  family: true,  familyMembers: false, familyOrientation: true,  bannerWelcome: false, bannerPhoto: false, gallery: true },
+  // Kailash asks for one photograph of everybody in the family section, and
+  // hangs a memories wall too (kailash/src/components/Gallery.jsx) - the two
+  // answer different questions: who is inviting, and how many years Bappa has
+  // already come to this house.
+  // Nilambari renders one family photograph and nothing else, so the
+  // per-person choice is not offered on it (see nilambari/src/components/Family.jsx).
+  // It does hang a memories wall (nilambari/src/components/Gallery.jsx).
+  nilambari: { heroMessage: true,  muhurat: false,  eventIcons: false, eventDetails: true,  family: true,  familyOrientation: true,  familyMembers: false,   bannerPhoto: false, bannerWelcome: false, gallery: true },
+  // Temple Darbar hangs its wall after the venue rather than beside the
+  // family carousel (temple-darbar/src/components/Gallery.jsx).
+  darbar:  { heroMessage: false, muhurat: false, eventIcons: false, eventDetails: false, family: true,  familyMembers: true,  familyOrientation: true,  bannerWelcome: false, bannerPhoto: false, gallery: true },
+  // Shubh Patrika renders everything the first three designs do - the
+  // invitation message, the muhurat plate with its calendar and route
+  // buttons, and each event's own line of detail - so the form offers the
+  // same fields. eventIcons stays off: this design draws its own line art
+  // per event rather than showing an uploaded one.
+  patrika: { heroMessage: true,  muhurat: true,  eventIcons: false, eventDetails: true,  family: true,  familyMembers: true,  familyOrientation: true,  bannerWelcome: false, bannerPhoto: false, gallery: true },
+  deep:    { heroMessage: false, muhurat: false, eventIcons: false, eventDetails: false, family: true,  familyMembers: true,  familyOrientation: true,  bannerWelcome: false, bannerPhoto: false, gallery: true },
+  aangan:  { heroMessage: false, muhurat: false, eventIcons: false, eventDetails: false, family: true,  familyMembers: true,  familyOrientation: false, bannerWelcome: false, bannerPhoto: false, gallery: false },
+};
+function designHas(feature) {
+  const features = DESIGN_FEATURES[state.theme] ?? DESIGN_FEATURES.kailash;
+  return features[feature] !== false;
+}
+function syncDesignFields(root = document) {
+  root.querySelectorAll("[data-needs]").forEach((el) => {
+    if (designHas(el.dataset.needs)) el.removeAttribute("hidden");
+    else el.setAttribute("hidden", "");
+  });
+  const card = $("familyCard");
+  if (card) {
+    if (designHas("family")) card.removeAttribute("hidden");
+    else card.setAttribute("hidden", "");
+  }
+}
+// kept for the boot sequence and any older call sites
+function syncFamilyCard() { syncDesignFields(); }
+
+// The programme icons ship inside the Fort and Kailash builds (content-hashed
+// filenames from those two themes). Temple Darbar has no event icons at all,
+// so its programme form hides the icon control (see DESIGN_FEATURES).
+const ICON_FILES = {
+  eventSthapana: "sthapana-opt-po5HE-Wf.webp",
+  eventAarti: "aarti-opt-DAeVgRo3.webp",
+  eventAtharvshish: "atharvshish-opt-BokKd3D3.webp",
+  eventMahaprasad: "mahaprasad-opt-B_Zc2sef.webp",
+  eventSnehbhet: "snehbhet-opt-CGz7vv-w.webp",
+  eventVisarjan: "visarjan-opt-Epp4xHxG.webp",
+};
+const iconSrc = (image) =>
+  !image ? "/assets/design-idol.png"
+  : /^(https?:|\/api\/)/.test(image) ? image
+  : ICON_FILES[image] && designHas("eventIcons") ? "/t/" + state.theme + "/assets/" + ICON_FILES[image]
+  : "/assets/design-idol.png";
+
+const escapeHtml = (value) => String(value ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+const escapeAttr = (value) => escapeHtml(value).replace(/"/g, "&quot;");
+
+// ---------- calendar entries ----------
+function renderCalendar() {
+  const list = $("calList");
+  list.innerHTML = "";
+  (state.form.saveTheDate?.events ?? []).forEach((event, index, all) => {
+    const [date, time] = splitStamp(event.start);
+    const [, endTime] = splitStamp(event.end);
+    const row = document.createElement("div");
+    row.className = "event";
+    row.innerHTML = `
+      <div class="event-head"><span class="num">${index + 1}</span><span>Calendar entry</span>
+        <span class="row-tools">
+          <button class="mv" type="button" data-cal-move="${index}:-1" title="Move up" aria-label="Move this entry earlier in the list"${index === 0 ? " disabled" : ""}>&#9650;</button>
+          <button class="mv" type="button" data-cal-move="${index}:1" title="Move down" aria-label="Move this entry later in the list"${index === all.length - 1 ? " disabled" : ""}>&#9660;</button>
+          <button class="rm" type="button" data-cal-remove="${index}">Remove</button></span></div>
+      <div class="field"><label>Title</label><input type="text" data-cal="${index}.summary" value="${escapeAttr(event.summary)}" placeholder="${escapeAttr(hint("cal_summary"))}" /></div>
+      <div class="row">
+        <div class="field"><label>Date</label><input type="date" data-cal="${index}.date" value="${date}" /></div>
+        <div class="field"><label>Start</label><input type="time" data-cal="${index}.time" value="${time}" /></div>
+      </div>
+      <div class="field"><label>End time <span>- leave blank for an hour</span></label><input type="time" data-cal="${index}.endTime" value="${endTime}" /></div>
+      <div class="hint cal-warn"${event.summary && event.start ? ' hidden' : ''}>Add a title, a date and a start time - an entry missing any of these is not saved.</div>`;
+    list.appendChild(row);
+  });
+
+  list.querySelectorAll("[data-cal]").forEach((input) => {
+    input.addEventListener("input", () => {
+      const [index, key] = input.dataset.cal.split(".");
+      const event = state.form.saveTheDate.events[Number(index)];
+      if (key === "summary") event.summary = input.value.trim();
+      else {
+        const row = input.closest(".event");
+        const date = row.querySelector('[data-cal$=".date"]').value;
+        const start = row.querySelector('[data-cal$=".time"]').value;
+        const end = row.querySelector('[data-cal$=".endTime"]').value;
+        event.start = makeStamp(date, start);
+        event.end = makeStamp(date, end || plusHour(start));
+      }
+      const warn = input.closest(".event").querySelector(".cal-warn");
+      if (warn) warn.hidden = !!(event.summary && event.start);
+      queueSave();
+    });
+  });
+  list.querySelectorAll("[data-cal-move]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const [at, step] = button.dataset.calMove.split(":").map(Number);
+      const events = state.form.saveTheDate.events;
+      const to = at + step;
+      if (to < 0 || to >= events.length) return;
+      [events[at], events[to]] = [events[to], events[at]];
+      renderCalendar(); queueSave();
+    });
+  });
+  list.querySelectorAll("[data-cal-remove]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.form.saveTheDate.events.splice(Number(button.dataset.calRemove), 1);
+      renderCalendar(); queueSave();
+    });
+  });
+}
+
+// Sending a programme item to the calendar list.
+//
+// The two lists are not the same thing: the programme is read on the page
+// and its date is free text - "24th September", "दररोज" - while a calendar
+// entry has to be a real dated one before a phone will take it. So only the
+// name travels, which is the part people retype, and the date is asked for
+// once, on the row this drops them on. An item already in the list is not
+// added twice; it is scrolled to instead.
+function calendarFromEvent(event) {
+  const title = (event?.title ?? "").trim();
+  if (!title) return toast("Give this item a name first");
+  const std = (state.form.saveTheDate = state.form.saveTheDate ?? {});
+  std.events = std.events ?? [];
+  let at = std.events.findIndex((entry) => entry?.summary === title);
+  const isNew = at < 0;
+  if (isNew) {
+    if (std.events.length >= MAX_CAL) return toast("That is the most calendar entries an invite can hold");
+    std.events.push({ summary: title, start: "", end: "" });
+    at = std.events.length - 1;
+  }
+  renderCalendar();
+  const row = $("calList").children[at];
+  row?.closest("details")?.setAttribute("open", "");
+  row?.scrollIntoView({ behavior: "smooth", block: "center" });
+  row?.querySelector('[data-cal$=".date"]')?.focus({ preventScroll: true });
+  toast(isNew ? "Added - now give it a date and a start time" : "Already in the calendar list");
+  if (isNew) queueSave();
+}
+const splitStamp = (stamp) => {
+  const match = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})/.exec(stamp || "");
+  return match ? [`${match[1]}-${match[2]}-${match[3]}`, `${match[4]}:${match[5]}`] : ["", ""];
+};
+const makeStamp = (date, time) =>
+  date && time ? date.replace(/-/g, "") + "T" + time.replace(":", "") + "00" : undefined;
+const plusHour = (time) => {
+  const match = /^(\d{1,2}):(\d{2})$/.exec(time || "");
+  if (!match) return time;
+  const hour = Number(match[1]) + 1;
+  // A 23:xx start would wrap to the next morning and end before it started.
+  return hour > 23 ? "23:59" : String(hour).padStart(2, "0") + ":" + match[2];
+};
+
+// ---------- uploads ----------
+//
+// One POST for every upload on the page, because everything that goes wrong
+// with an upload goes wrong here.
+//
+// The platform refuses a request body over 4.5 MB before the browser has
+// finished sending it, and a connection cut mid-upload does not reach the
+// page as a status code - fetch() rejects, and the customer is told "Failed
+// to fetch", which tells them nothing and is not even true of their photo.
+// So nothing over-sized is sent in the first place: postUpload reports the
+// body size back and the caller shrinks again rather than firing a request
+// that cannot land.
+//
+// Nor is the reply always JSON. Over that limit the platform answers with a
+// plain-text "FUNCTION_PAYLOAD_TOO_LARGE" page, and a timed-out function
+// answers with HTML; res.json() threw on both, which is why the 413 retry
+// below never ran and the real reason never reached the toast.
+const MAX_UPLOAD_BYTES = 4_000_000; // under the platform's 4.5 MB, with headroom
+
+async function postUpload(body) {
+  const payload = JSON.stringify(body);
+  const bytes = new Blob([payload]).size;
+  // Too big to send: hand the size back so the caller can shrink and retry.
+  if (bytes > MAX_UPLOAD_BYTES) return { status: 413, tooBig: true, bytes, payload: { ok: false } };
+
+  let res;
+  try {
+    res = await fetch("/api/upload?token=" + encodeURIComponent(TOKEN), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+    });
+  } catch {
+    // A dropped connection, a phone that lost signal, a request the edge cut
+    // off. Say something the customer can act on.
+    throw new Error("The upload could not reach us - check your connection and try again");
+  }
+
+  const text = await res.text().catch(() => "");
+  let parsed = null;
+  try { parsed = JSON.parse(text); } catch { /* not JSON - handled below */ }
+
+  if (!parsed) {
+    if (res.status === 413) return { status: 413, tooBig: true, bytes, payload: { ok: false } };
+    throw new Error(
+      res.status === 504 || res.status === 502
+        ? "The upload timed out - please try again"
+        : "The upload failed (" + res.status + ") - please try again"
+    );
+  }
+  return { status: res.status, bytes, payload: parsed };
+}
+
+function bindUploads(root = document) {
+  root.querySelectorAll("[data-upload]").forEach((button) => {
+    if (button._bound) return;
+    button._bound = true;
+    button.addEventListener("click", () => pickImage(button));
+  });
+  root.querySelectorAll("[data-clear]").forEach((button) => {
+    if (button._bound) return;
+    button._bound = true;
+    button.addEventListener("click", () => {
+      set(state.form, button.dataset.clear, undefined);
+      if (button.dataset.preview) $(button.dataset.preview).src = "/assets/design-idol.png";
+      queueSave();
+    });
+  });
+}
+
+function pickImage(button) {
+  const input = document.createElement("input");
+  input.type = "file";
+  // Any image the phone will open, not a list of three types.
+  //
+  // Naming only jpeg/png/webp greys out most of an iPhone's library, which
+  // is HEIC, and every older photo saved as HEIF, GIF, BMP or TIFF - so a
+  // customer looking for a photograph from a previous year could not pick it
+  // at all. Whatever they choose is decoded and re-encoded to JPEG below, and
+  // that is what the server is sent, so the type they picked never matters
+  // past this line. Anything the browser genuinely cannot open says so.
+  input.accept = "image/*";
+  input.addEventListener("change", async () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    button.disabled = true;
+    const label = button.textContent;
+    button.textContent = "Uploading…";
+    try {
+      const field = button.dataset.upload.replace(/\W+/g, "-");
+      const send = (dataUrl) =>
+        postUpload({ field, contentType: "image/jpeg", dataBase64: dataUrl });
+
+      // Three goes at it, each smaller than the last. Telling a customer to
+      // "pick a smaller one" gives them nothing to do - the browser is
+      // holding the photo and can resize it again itself. A photo off a phone
+      // clears the first rung; the rest are there for the ones that don't.
+      const RUNGS = [[1600, 0.82], [1200, 0.7], [900, 0.6]];
+      let result = null;
+      for (const [maxSide, quality] of RUNGS) {
+        result = await send(await shrink(file, maxSide, quality));
+        if (!result.tooBig) break;
+        button.textContent = "Still uploading…";
+      }
+      if (result.tooBig) throw new Error("That photo is too large to upload - please pick another");
+      const payload = result.payload;
+      if (!payload.ok) throw new Error(payload.error);
+
+      const path = button.dataset.upload;
+      if (button._row) {
+        // A row captured at click time. If the customer removed it while the
+        // photo was uploading, there is nothing to attach it to - say so
+        // rather than writing it onto whoever moved up into that position.
+        //
+        // The row hands over its own list (_rowList) instead of this asking
+        // after each panel by name. Naming them here meant the memories wall,
+        // added later, was in neither list, so every photograph uploaded to it
+        // was read as "that row is gone", thrown away, and the customer was
+        // left looking at our sample photos with no idea why.
+        if (!(button._rowList?.() ?? []).includes(button._row)) {
+          toast("That item was removed while the photo was uploading");
+          return;
+        }
+        button._row[button._rowKey] = payload.url;
+        const image = button.closest(".photo")?.querySelector("img");
+        if (image) image.src = payload.url;
+      } else {
+        set(state.form, path, payload.url);
+        if (button.dataset.preview) $(button.dataset.preview).src = payload.url;
+        // The family photo carries its own answer to "which way up?", so
+        // read it rather than leaving the frame on whatever was picked for
+        // the last photo. They can still overrule it.
+        if (path === "family.photo") {
+          const seen = await detectOrientation(payload.url);
+          if (seen) {
+            state.form.family.orientation = seen;
+            renderFamilyMode();
+          }
+        }
+      }
+      queueSave();
+      toast("Photo added");
+    } catch (error) {
+      toast(error.message || "Upload failed");
+    } finally {
+      button.disabled = false;
+      button.textContent = label;
+    }
+  });
+  input.click();
+}
+
+// Resize in the browser so a 6 MB phone photo never reaches the server.
+// Turning whatever came off a phone into something small enough to send.
+//
+// This used to read the original file into a base64 string and hand that to
+// an <img> to decode. A 12 MB photo becomes a 16 MB string, decoded again
+// into a bitmap beside it - some 40 MB in the air for one photograph, on the
+// device least able to spare it. A phone that runs out kills the decode or
+// the tab, the request in flight dies with it, and the page reports "Failed
+// to fetch" about a photo that never got as far as the network.
+//
+// createImageBitmap decodes the file directly - no base64 of the original at
+// all - and applies the EXIF rotation while it is there, so photographs taken
+// sideways stop arriving sideways. Only the finished, compressed thumbnail is
+// turned into base64, and that is a few hundred KB.
+async function decode(file) {
+  if (typeof createImageBitmap === "function") {
+    try {
+      return await createImageBitmap(file, { imageOrientation: "from-image" });
+    } catch {
+      // Older Safari knows createImageBitmap but not the orientation option.
+      try {
+        return await createImageBitmap(file);
+      } catch {
+        /* fall through to the <img> path */
+      }
+    }
+  }
+  // The long way round, for anything that cannot do the above.
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("Could not read that file"));
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+  return await new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onerror = () => reject(cannotOpen(file));
+    image.onload = () => resolve(image);
+    image.src = dataUrl;
+  });
+}
+
+// Why a photograph would not open, in words that say what to do about it.
+//
+// An iPhone stores photographs as HEIC. Asking the picker for image/* is what
+// stopped it greying out everything that is not a JPG - but it also means the
+// phone may now hand over the HEIC itself rather than converting it on the
+// way, and no browser on Android can decode one. "That image could not be
+// opened" leaves a customer with a photograph that plainly opens everywhere
+// else on their phone, so say which format it is and how to get past it.
+function cannotOpen(file) {
+  const heic = /\.(heic|heif)$/i.test(file?.name || "") || /hei[cf]/i.test(file?.type || "");
+  return new Error(
+    heic
+      ? "This phone cannot open HEIC photos here - open it in Photos, tap share, and save it as a JPG first"
+      : "That image could not be opened - please try saving it as a JPG"
+  );
+}
+
+async function shrink(file, maxSide = 1600, quality = 0.82) {
+  const source = await decode(file);
+  const width = source.width;
+  const height = source.height;
+  if (!width || !height) {
+    throw cannotOpen(file);
+  }
+
+  const scale = Math.min(1, maxSide / Math.max(width, height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(width * scale);
+  canvas.height = Math.round(height * scale);
+  const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingQuality = "high";
+  // A photo with transparency would otherwise go to black once it is JPEG.
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(source, 0, 0, canvas.width, canvas.height);
+  if (typeof source.close === "function") source.close();
+
+  // A phone that will not decode a very large photo hands back a blank
+  // bitmap rather than an error, and this used to upload the blank - a white
+  // rectangle where the family should be, which reads to a customer as
+  // "my photo did not upload" with nothing in the page to explain it.
+  // Only checked for the big originals where that happens, so a genuinely
+  // plain photograph is never refused.
+  if (file.size > 6_000_000 && isBlank(ctx, canvas)) {
+    throw new Error("That photo is too big for this phone to open - please send a smaller copy");
+  }
+
+  return await toBase64(canvas, quality);
+}
+
+// Every sampled pixel identical means nothing was drawn.
+function isBlank(ctx, canvas) {
+  try {
+    const step = Math.max(1, Math.floor(Math.min(canvas.width, canvas.height) / 16));
+    const first = ctx.getImageData(0, 0, 1, 1).data.join();
+    for (let y = 0; y < canvas.height; y += step) {
+      for (let x = 0; x < canvas.width; x += step) {
+        if (ctx.getImageData(x, y, 1, 1).data.join() !== first) return false;
+      }
+    }
+    return true;
+  } catch {
+    return false; // reading back was refused - assume the draw was fine
+  }
+}
+
+// toBlob then read that, rather than toDataURL: the string that reaches the
+// request is built from the compressed thumbnail, not from the full canvas.
+function toBase64(canvas, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        if (!blob) return reject(new Error("That image could not be prepared - please try another"));
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error("That image could not be prepared - please try another"));
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      },
+      "image/jpeg",
+      quality
+    );
+  });
+}
+
+
+// ---------- music ----------
+// One <audio> for the whole panel, so two tracks can never overlap.
+const auditionEl = new Audio();
+auditionEl.preload = "none"; // nothing is fetched until a preview is pressed
+let auditionId = null;
+
+function stopAudition() {
+  auditionEl.pause();
+  auditionId = null;
+  document.querySelectorAll(".track .play").forEach((b) => {
+    b.dataset.playing = "false";
+    b.textContent = "▶";
+  });
+}
+auditionEl.addEventListener("ended", stopAudition);
+
+// What the radio list should show as chosen. With nothing saved yet the
+// invitation plays the theme's built-in track, which is the same audio as
+// the first library entry - so that is what gets the tick.
+function currentTrack() {
+  if (state.form.music?.enabled === false) return "__none__";
+  return state.form.music?.track ?? "__default__";
+}
+
+async function renderMusic() {
+  const list = $("musicList");
+  let tracks = [];
+  try {
+    const res = await fetch("/media/music/tracks.json", { cache: "no-store" });
+    tracks = (await res.json()).tracks ?? [];
+  } catch {
+    /* library unavailable - the customer can still upload or choose silence */
+  }
+
+  const uploaded = state.form.music?.track;
+  const isUploaded = uploaded && /^(https?:|\/api\/media)/.test(uploaded);
+  const options = [
+    ...tracks,
+    ...(isUploaded ? [{ id: "__uploaded__", title: "Your uploaded track", subtitle: "", file: uploaded }] : []),
+    { id: "__none__", title: "No music", subtitle: "Silent - no music at all", file: null },
+  ];
+
+  const selected = currentTrack();
+  list.innerHTML = options
+    .map((track, index) => {
+      const value = track.id === "__none__" ? "__none__" : track.file ?? track.id;
+      const on = value === selected || (selected === "__default__" && index === 0);
+      return `<label class="track" data-selected="${on}">
+        <input type="radio" name="track" value="${escapeAttr(value)}" ${on ? "checked" : ""} />
+        <span class="meta"><b>${escapeHtml(track.title)}</b>${
+          track.subtitle || track.credit
+            ? `<small>${escapeHtml([track.subtitle, track.credit].filter(Boolean).join(" · "))}</small>`
+            : ""
+        }</span>
+        ${track.file ? `<button class="play" type="button" data-audition="${escapeAttr(track.file)}" data-playing="false" aria-label="Preview ${escapeAttr(track.title)}">▶</button>` : ""}
+      </label>`;
+    })
+    .join("");
+
+  list.querySelectorAll('input[name="track"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      state.form.music = input.value === "__none__" ? { enabled: false } : { enabled: true, track: input.value };
+      list.querySelectorAll(".track").forEach((el) => {
+        el.dataset.selected = String(el.contains(input) && input.checked);
+      });
+      queueSave();
+    });
+  });
+
+  list.querySelectorAll("[data-audition]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation(); // don't select the track just by previewing it
+      const src = button.dataset.audition;
+      if (auditionId === src) return stopAudition();
+      stopAudition();
+      auditionEl.src = src;
+      auditionEl.currentTime = 0;
+      auditionEl.volume = 0.6;
+      auditionEl.play().then(() => {
+        auditionId = src;
+        button.dataset.playing = "true";
+        button.textContent = "■";
+      }).catch(() => toast("Could not play that track"));
+    });
+  });
+}
+
+// Uploading your own track reuses the image upload path.
+document.querySelector("[data-upload-audio]")?.addEventListener("click", function () {
+  const button = this;
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "audio/mpeg,.mp3";
+  input.addEventListener("change", async () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    if (file.size > 3_000_000) return toast("That MP3 is over 3 MB - please use a shorter clip");
+    button.disabled = true;
+    const label = button.textContent;
+    button.textContent = "Uploading…";
+    try {
+      const dataBase64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error("Could not read that file"));
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+      const { tooBig, payload } = await postUpload({ field: "music", contentType: "audio/mpeg", dataBase64 });
+      // 3 MB of MP3 is about 4 MB once base64 has had it, which sits right up
+      // against the platform's limit - so this one can genuinely be refused
+      // for size even though the file itself passed the check above.
+      if (tooBig) throw new Error("That MP3 is too large to upload - please use a shorter clip");
+      if (!payload.ok) throw new Error(payload.error);
+      state.form.music = { enabled: true, track: payload.url };
+      stopAudition();
+      await renderMusic();
+      queueSave();
+      toast("Track added");
+    } catch (error) {
+      toast(error.message || "Upload failed");
+    } finally {
+      button.disabled = false;
+      button.textContent = label;
+    }
+  });
+  input.click();
+});
+
+// ---------- slug + publish ----------
+let slugTimer = 0;
+$("f_slug").addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-+/, "");
+  e.target.value = value;
+  clearTimeout(slugTimer);
+  $("slugMsg").className = "slug-msg";
+  $("slugMsg").textContent = "Checking…";
+  slugTimer = setTimeout(async () => {
+    if (value.length < 3) {
+      $("slugMsg").className = "slug-msg bad";
+      $("slugMsg").textContent = "Use at least 3 letters or numbers.";
+      return;
+    }
+    // Once it is live, the old link is in people's WhatsApp. Changing it
+    // 404s every copy already forwarded, so ask before doing that - the one
+    // thing a customer cannot undo by editing.
+    if (state.published && value !== state.slug) {
+      const ok = window.confirm(
+        "Your invite is already live at /i/" + state.slug + ".\n\n" +
+        "Changing the link name breaks that link for everyone you have already " +
+        "sent it to - they will see \"invitation not found\".\n\nChange it anyway?"
+      );
+      if (!ok) {
+        e.target.value = state.slug;
+        $("slugMsg").className = "slug-msg";
+        $("slugMsg").textContent = "";
+        return;
+      }
+    }
+    const payload = await save({ slug: value });
+    if (payload.ok) {
+      // The server trims what the client sanitiser cannot (a trailing "-"),
+      // so show the stored name rather than the typed one - otherwise they
+      // copy a link that does not exist.
+      $("f_slug").value = state.slug;
+      $("slugMsg").className = "slug-msg ok";
+      $("slugMsg").textContent = "Available - this is your link.";
+    } else if (payload.error === "offline") {
+      $("slugMsg").className = "slug-msg bad";
+      $("slugMsg").textContent = "Couldn't check right now - we'll retry.";
+    } else {
+      $("slugMsg").className = "slug-msg bad";
+      $("slugMsg").textContent = payload.error + (payload.suggestion ? ` Try “${payload.suggestion}”.` : "");
+    }
+  }, 600);
+});
+
+function liveUrl() { return location.origin + "/i/" + state.slug; }
+
+// Getting a corrected preview onto an invite that has already been shared.
+//
+// WhatsApp scrapes a link the first time it sees one and keeps the picture,
+// the title and the line under them against that URL. So an invite that went
+// out while the share card still carried the sample family's name goes on
+// previewing with that name however many times it is sent again - the fix on
+// our side never gets looked at.
+//
+// A URL it has not seen before is scraped afresh, and extra query is ignored
+// by /api/render, so ?s=<rev> is a link to the same invite that previews
+// correctly. Only invites that were already live when this page opened get
+// it: a brand-new one has never been scraped, so its clean link is already
+// correct and there is nothing to work around.
+//
+// Bump SHARE_REV if the card ever has to be corrected again.
+const SHARE_REV = 2;
+let sharedBeforeFix = false;
+
+function shareUrl() {
+  return sharedBeforeFix ? liveUrl() + "?s=" + SHARE_REV : liveUrl();
+}
+
+// What the customer forwards on WhatsApp. An English invite arriving under a
+// Marathi sentence is the first thing their guests would notice.
+const SHARE_TEXT = {
+  mr: "आमच्या घरी बाप्पांचे आगमन!",
+  hi: "हमारे घर बाप्पा का आगमन!",
+  en: "Bappa is coming home - you are invited!",
+};
+
+function renderPublishState() {
+  const slugField = $("f_slug");
+  if (document.activeElement !== slugField) slugField.value = state.slug;
+  // Shown, copied and forwarded all the same thing - a link that reads one
+  // way in the box and pastes another is the sort of difference a customer
+  // notices at exactly the wrong moment.
+  $("liveUrl").textContent = shareUrl();
+  $("waShare").href = "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT[state.lang] ?? SHARE_TEXT.mr) + encodeURIComponent(" " + shareUrl());
+  $("liveNote").hidden = !sharedBeforeFix;
+  $("liveBox").classList.toggle("show", state.published);
+  $("publishHint").innerHTML = state.published
+    ? "Live at <b>/i/" + escapeHtml(state.slug) + "</b> - changes appear instantly"
+    : "Not published yet";
+  // A live invite is still edited, so the button has to stay pressable. Greyed
+  // out at "Published ✓" it answered "I have made changes, let me publish
+  // again" with nothing to press, and customers read that as their changes
+  // never having gone out - the opposite of what was happening. Enabling is
+  // left to the click handler, which turns it off only while a save is away.
+  $("publishBtn").textContent = state.published ? "Update live invite" : "Publish invite website";
+}
+
+$("publishBtn").addEventListener("click", async () => {
+  const wasLive = state.published;
+
+  // Anything left blank falls back to the sample content, so an invite can
+  // go live carrying the sample family's name. Ask once before that happens -
+  // and only then. Once it is live the customer has seen their own invitation;
+  // re-asking on every update is how a warning teaches people to click
+  // straight through warnings.
+  if (!wasLive) {
+    const missing = [];
+    if (!state.form.hero?.familyName) missing.push("your family name (step 1)");
+    // A section switched off is not missing anything - it is not on the
+    // invite at all. Asking for a date they have deliberately removed is how
+    // a warning teaches people to click straight through warnings.
+    if (sectionOn("saveTheDate") && designHas("muhurat") && !state.form.saveTheDate?.dateBig) {
+      missing.push("the date (step 2)");
+    }
+    if (!state.form.location?.address) missing.push("the venue address (step 4)");
+    // Left empty the family section falls back to the sample family - guests
+    // would scroll past four strangers named Patil. Which upload is missing
+    // depends on which way they chose to show it.
+    if (sectionOn("family") && designHas("family")) {
+      if (familyMode() === "group") {
+        if (!state.form.family?.photo) missing.push("your family photo (step 3b)");
+      } else if (!(state.form.family?.members ?? []).length) {
+        missing.push("your family photos (step 3b)");
+      }
+    }
+    if (missing.length) {
+      const ok = window.confirm(
+        "You have not filled in " + missing.join(", ") +
+        ". Guests will see the sample details there until you do.\n\nPublish anyway?"
+      );
+      if (!ok) return;
+    }
+  }
+  // A link name typed a moment ago may still be sitting in its own debounce.
+  // Publishing without it would put the invite live at the auto-generated
+  // link while the field still shows what they chose - so send it with the
+  // publish, and if the name is refused, stop and let them fix it.
+  const typed = $("f_slug").value.trim();
+  const extra = { publish: true };
+  if (typed && typed !== state.slug) {
+    clearTimeout(slugTimer);
+    if (typed.length < 3) {
+      $("slugMsg").className = "slug-msg bad";
+      $("slugMsg").textContent = "Use at least 3 letters or numbers.";
+      $("f_slug").focus();
+      return;
+    }
+    extra.slug = typed;
+  }
+
+  $("publishBtn").disabled = true;
+  const payload = await save(extra);
+  $("publishBtn").disabled = false;
+
+  // What went live is what the server said it stored. `state.published` is
+  // already true on an invite being updated, so reading it here would call
+  // a failed save a success and let the customer walk away from an edit
+  // that never left the page.
+  if (payload?.ok) {
+    if (wasLive) return toast("Your changes are live");
+    toast("Your invite website is live");
+    $("liveBox").scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  // Never let a failed publish look like a save. Say what happened, in the
+  // words of whatever actually went wrong.
+  if (payload?.field === "slug") {
+    $("slugMsg").className = "slug-msg bad";
+    $("slugMsg").textContent = payload.error + (payload.suggestion ? ` Try “${payload.suggestion}”.` : "");
+    // that step may well be collapsed - a message nobody can see is no message
+    $("f_slug").closest("details")?.setAttribute("open", "");
+    $("f_slug").scrollIntoView({ behavior: "smooth", block: "center" });
+    $("f_slug").focus();
+    toast("Pick a different link name, then publish");
+  } else {
+    toast(payload?.error && payload.error !== "offline"
+      ? payload.error
+      : "Couldn't publish just now - check your connection, we'll keep trying");
+  }
+});
+
+$("copyLive").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(shareUrl()); toast("Link copied"); }
+  catch { toast("Copy failed - long-press the link"); }
+});
+
+document.querySelectorAll(".tabs button").forEach((button) => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach((b) => b.setAttribute("aria-selected", String(b === button)));
+    document.body.dataset.tab = button.dataset.tab;
+    if (button.dataset.tab === "preview") refreshPreview(true);
+  });
+});
+
+// Caps match LIMITS in api/_lib/schema.js - past these the server silently
+// slices, so the button has to stop first and say why.
+const MAX_EVENTS = 12;
+// Matches LIMITS.gallery in api/_lib/schema.js - past this the server
+// would silently drop the extras, so the button stops first and says so.
+const MAX_GALLERY = 6;
+const MAX_CAL = 6;
+
+$("addEvent").addEventListener("click", () => {
+  state.form.timeline = state.form.timeline ?? {};
+  state.form.timeline.events = state.form.timeline.events ?? [];
+  if (state.form.timeline.events.length >= MAX_EVENTS) return toast("That is the most items an invite can show");
+  state.form.timeline.events.push({ title: "", label: "", date: "", time: "", location: "", description: "", image: EVENT_ICONS[state.form.timeline.events.length % EVENT_ICONS.length] });
+  renderEvents();
+  queueSave();
+});
+$("addFamily")?.addEventListener("click", () => {
+  state.form.family = state.form.family ?? {};
+  state.form.family.members = state.form.family.members ?? [];
+  const at = state.form.family.members.length;
+  if (at >= MAX_FAMILY) return;
+  state.form.family.members.push({ name: "", photo: FAMILY_DEFAULTS[at % FAMILY_DEFAULTS.length] });
+  renderFamily();
+  queueSave();
+});
+document.querySelectorAll('#familyOrient input[name="famOrient"]').forEach((radio) => {
+  radio.addEventListener("change", () => {
+    if (!radio.checked) return;
+    state.form.family = state.form.family ?? {};
+    state.form.family.orientation = radio.value === "portrait" ? "portrait" : "landscape";
+    renderFamilyMode();
+    queueSave();
+  });
+});
+
+document.querySelectorAll('#familyMode input[name="famMode"]').forEach((radio) => {
+  radio.addEventListener("change", () => {
+    if (!radio.checked) return;
+    state.form.family = state.form.family ?? {};
+    state.form.family.mode = radio.value === "group" ? "group" : "members";
+    // Nothing is deleted on a switch - the other mode's photos stay in the
+    // form and are saved with it, so changing your mind costs nothing.
+    renderFamily();
+    queueSave();
+  });
+});
+
+$("addCal").addEventListener("click", () => {
+  state.form.saveTheDate = state.form.saveTheDate ?? {};
+  state.form.saveTheDate.events = state.form.saveTheDate.events ?? [];
+  if (state.form.saveTheDate.events.length >= MAX_CAL) return toast("That is the most calendar entries an invite can hold");
+  state.form.saveTheDate.events.push({ summary: "", start: "", end: "" });
+  renderCalendar();
+  queueSave();
+});
+
+// ---------- the pre-payment draft ----------
+// The landing page lets anyone type their family name, date and venue into
+// a live preview without paying (see preview.saveDraft in script.js). This
+// carries that across the payment hop and then throws it away, so a second
+// invite bought from the same browser starts clean.
+const DRAFT_KEY = "inviteo.draft";
+
+function adoptDraft() {
+  let draft;
+  try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); }
+  catch { return false; }
+  if (!draft || typeof draft !== "object") return false;
+
+  // path -> value, applied only where the customer has nothing yet
+  const fills = [
+    ["hero.familyName", draft.familyName],
+    ["footer.family", draft.familyName],
+    ["saveTheDate.dateBig", draft.date],
+    ["saveTheDate.location", draft.venue],
+    ["location.venue", draft.venue],
+    ["location.address", draft.venue],
+  ];
+
+  let used = false;
+  for (const [path, value] of fills) {
+    if (!value || get(state.form, path)) continue;
+    set(state.form, path, value);
+    used = true;
+  }
+
+  try { localStorage.removeItem(DRAFT_KEY); } catch { /* private mode */ }
+  return used;
+}
+
+function showScreen(title, text, actionHtml = "") {
+  $("app").hidden = true;
+  $("screen").style.display = "grid";
+  $("screenTitle").textContent = title;
+  $("screenText").textContent = text;
+  $("screenAction").innerHTML = actionHtml;
+}
+
+// ---------- counting the sale ----------
+// This page, not the landing page, is where a completed purchase is
+// observed: the customer arrives here only once PayU's money has been
+// proven to be ours (api/_lib/settle.js, from PayU's own hash or PayU's
+// own verify API). Nothing here decides whether the payment worked - it
+// only reports one our server has already confirmed.
+//
+// One sale must produce exactly one Purchase, however many times its
+// owner opens the editor, on however many devices. The PayU reference is
+// what makes that possible: it identifies the single transaction, so it
+// serves both as the local "already counted" key and as the event id
+// Meta itself de-duplicates on when the same browser is not available.
+const PURCHASE_KEY = "inviteo.purchased";
+// What the sale was actually worth to the ad platforms: ₹99 plus 18% GST,
+// which is the amount PayU charged and settles. Matching the charge is what
+// lets Meta and GA be reconciled against the gateway. Kept in step with
+// PRICE/TOTAL in /script.js and BASE_PAISE/GST_RATE in api/_lib/payu.js.
+const PURCHASE_VALUE = 117;
+
+function countedPurchases() {
+  try {
+    const seen = JSON.parse(localStorage.getItem(PURCHASE_KEY) || "[]");
+    return Array.isArray(seen) ? seen : [];
+  } catch (e) { return []; }
+}
+
+function countPurchase(ref) {
+  if (!ref) return;
+  const seen = countedPurchases();
+  if (seen.indexOf(ref) !== -1) return;
+  seen.push(ref);
+  // Written before the event, never after: a tag that throws must not
+  // leave the sale looking uncounted and fire again on the next reload.
+  try { localStorage.setItem(PURCHASE_KEY, JSON.stringify(seen.slice(-20))); }
+  catch (e) { /* private mode - the event id still de-duplicates at Meta */ }
+
+  const eventId = "purchase_" + ref;
+  try { window.fbq && window.fbq("track", "Purchase", { value: PURCHASE_VALUE, currency: "INR" }, { eventID: eventId }); } catch (e) {}
+  try { window.gtag && window.gtag("event", "Purchase", { value: PURCHASE_VALUE, currency: "INR", transaction_id: ref }); } catch (e) {}
+  try { (window.dataLayer = window.dataLayer || []).push({ event: "Purchase", params: { value: PURCHASE_VALUE, currency: "INR", transaction_id: ref } }); } catch (e) {}
+}
+
+// Meta discards events older than seven days, and a sale counted long
+// after the fact optimises nothing. Two days is the window in which a
+// real customer opens the link they were emailed.
+function paidRecently(paidAt) {
+  if (!paidAt) return false;
+  const at = Date.parse(paidAt);
+  return Number.isFinite(at) && Date.now() - at < 48 * 3600 * 1000;
+}
+
+// Straight back from PayU. The flag is dropped from the URL afterwards so
+// a reload, or the back button, cannot replay it.
+(function purchaseOnReturn() {
+  const params = new URLSearchParams(location.search);
+  if (params.get("paid") !== "1") return;
+  countPurchase(params.get("ref") || TOKEN);
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+})();
+
+// ---------- boot ----------
+(async function boot() {
+  if (!TOKEN) {
+    status("error", "No link");
+    return showScreen("That link looks incomplete",
+      "Open the edit link exactly as we sent it - it ends with a long code.",
+      '<a class="btn" href="/">Back to UtsavLink</a>');
+  }
+  try {
+    const res = await fetch("/api/edit?token=" + encodeURIComponent(TOKEN));
+    const payload = await res.json();
+    if (!payload.ok) {
+      status("error", "Link not valid");
+      return showScreen("We couldn't open this invite website", payload.error,
+        '<a class="btn" href="/">Back to UtsavLink</a>');
+    }
+
+    const invite = payload.invite;
+
+    // The redirect back from PayU is the happy path, not a guarantee. On
+    // UPI the customer leaves for their bank app and frequently never
+    // returns to this tab; PayU's webhook settles the payment instead and
+    // they arrive here days later from the emailed link, having bought
+    // something Meta was never told about. The call above has just had it
+    // confirmed server-side that this invite is paid, so count it here
+    // too - against the same transaction, so it still counts only once.
+    if (invite.paid && invite.txnid && paidRecently(invite.paidAt)) countPurchase(invite.txnid);
+
+    state.theme = invite.theme;
+    state.lang = invite.lang ?? invite.data?.lang ?? "mr";
+    state.slug = invite.slug;
+    state.published = invite.published;
+    // Live before this page was opened, so its link may already be sitting in
+    // a family group with the old preview against it. Publishing for the
+    // first time from here does not set this: WhatsApp has never seen that
+    // URL, so its clean form previews correctly on the first send.
+    sharedBeforeFix = !!invite.published;
+    state.form = toForm(invite.data);
+
+    // First visit after payment: start from the sample programme so the
+    // invitation is already complete and they only edit what differs.
+    let seeded = false;
+
+    // …and from whatever they typed into the free preview before paying.
+    // Making someone re-enter their own family name one screen after they
+    // paid is the surest way to make the purchase feel like a mistake.
+    // Only ever fills blanks, so re-opening the link later cannot resurrect
+    // an old draft over edits made since.
+    if (adoptDraft()) seeded = true;
+
+    // Seed a brand-new invite only. An invite bought a moment ago carries
+    // nothing but the language chosen before paying; the seeding below is
+    // saved straight away, so from the second visit on the programme is
+    // always stored. An empty one *then* is a customer who deleted those
+    // rows on purpose - putting the sample back would undo that, and the
+    // save at the end of boot would push it onto an invite already live.
+    const untouched = Object.keys(invite.data ?? {}).every((key) => key === "lang");
+
+    if (untouched && !state.form.timeline?.events?.length) {
+      state.form.timeline = { ...(state.form.timeline ?? {}), events: sampleEvents().map((e) => ({ ...e })) };
+      seeded = true;
+    }
+    if (untouched && !state.form.saveTheDate?.events?.length) {
+      state.form.saveTheDate = {
+        ...(state.form.saveTheDate ?? {}),
+        events: [{ summary: CALENDAR_SEED[state.lang] ?? CALENDAR_SEED.mr, start: "20260914T100000", end: "20260914T120000" }],
+      };
+      seeded = true;
+    }
+
+    $("themeName").textContent = DESIGN_NAMES[invite.theme] ?? "Kailash design";
+    $("slugHost").textContent = location.host + "/i/";
+    $("screen").style.display = "none";
+    $("app").hidden = false;
+
+    fillInputs();
+    syncLangRow();
+    syncPlaceholders();
+    bindLangRow();
+    syncDesignFields();
+    stampFunctionKeys();
+    renderFunctionPicker();
+    renderEvents();
+    renderFamily();
+    renderGallery();
+    renderSections();
+    hydratePlace();
+    renderCalendar();
+    renderMusic();
+    bindInputs();
+    bindUploads();
+    renderPublishState();
+    refreshPreview(true);
+    status("saved", "Saved");
+    if (seeded) save();
+  } catch (error) {
+    status("error", "Offline");
+    showScreen("We couldn't reach UtsavLink", "Check your internet connection and reload this page.",
+      '<button class="btn" onclick="location.reload()">Try again</button>');
+  }
+})();
+
+// Never lose an edit to a closed tab.
+window.addEventListener("pagehide", stopAudition);
+window.addEventListener("beforeunload", (event) => {
+  // an edit still waiting in the debounce, a save on the wire, or a failed
+  // save waiting to retry - all of it is work the customer would lose
+  if (saveTimer || retryTimer || inflight > 0) { event.preventDefault(); event.returnValue = ""; }
+});
+</script>
+</body>
+</html>

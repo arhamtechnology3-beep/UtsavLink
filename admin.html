@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UtsavLink Admin — Confirm payments</title>
+  <link rel="stylesheet" href="styles.css?v=admin-1" />
+  <style>
+    .admin{max-width:760px;margin:40px auto;padding:0 16px 80px}
+    .admin h1{font-family:var(--f-display);font-size:1.8rem;margin:0 0 8px}
+    .admin .lead{color:var(--muted);margin:0 0 22px}
+    .admin-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;box-shadow:0 8px 24px rgba(15,10,18,.06)}
+    .admin-card h3{margin:0 0 8px;font-size:1.1rem}
+    .admin-meta{display:grid;gap:4px;font-size:.92rem;color:var(--ink-2);margin-bottom:14px}
+    .admin-meta b{color:var(--ink)}
+    .admin-actions{display:flex;flex-wrap:wrap;gap:8px}
+    .admin-empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+    .admin-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+    .admin-bar input{flex:1;min-width:180px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit}
+    .pill-live{display:inline-flex;align-items:center;gap:6px;background:#e8f6ef;color:#12664a;border:1px solid #bfe5d5;padding:6px 10px;border-radius:999px;font-size:.82rem;font-weight:600}
+    .pill-live i{width:8px;height:8px;border-radius:50%;background:#1f8a5f;display:inline-block}
+    .err{color:#b03024;margin:10px 0}
+  </style>
+</head>
+<body>
+  <div class="admin">
+    <h1>Confirm payments</h1>
+    <p class="lead">When a customer pays to <strong>9769104020@nyes</strong> and submits their UTR, it appears here. Check your Navi/bank app, then Approve. You can WhatsApp them the unlock link.</p>
+
+    <div class="admin-bar">
+      <input id="key" type="password" placeholder="Admin key" autocomplete="off" />
+      <button class="btn btn-primary" id="loadBtn" type="button">Load pending</button>
+      <button class="btn btn-ghost" id="notifyBtn" type="button">Enable browser alerts</button>
+      <span class="pill-live" id="live" hidden><i></i> Auto-refresh on</span>
+    </div>
+    <p class="err" id="err" hidden></p>
+    <div id="list" class="admin-empty">Enter your admin key and load pending payments.</div>
+  </div>
+  <script>
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var keyInput = document.getElementById("key");
+    var list = document.getElementById("list");
+    var err = document.getElementById("err");
+    var live = document.getElementById("live");
+    var known = {};
+    var timer = null;
+
+    if (params.get("key")) keyInput.value = params.get("key");
+
+    function showErr(msg) {
+      if (!msg) { err.hidden = true; err.textContent = ""; return; }
+      err.hidden = false; err.textContent = msg;
+    }
+
+    function load() {
+      var key = keyInput.value.trim();
+      if (!key) return showErr("Enter admin key");
+      showErr("");
+      fetch("/api/admin/pending?key=" + encodeURIComponent(key))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data.ok) throw new Error(data.error || "Failed");
+          live.hidden = false;
+          render(data.pending || []);
+          (data.pending || []).forEach(function (o) {
+            if (!known[o.txnid]) {
+              known[o.txnid] = true;
+              ping("New payment to confirm", (o.name || "Customer") + " · UTR " + (o.utr || ""));
+            }
+          });
+        })
+        .catch(function (e) { showErr(e.message || "Could not load"); });
+    }
+
+    function ping(title, body) {
+      try {
+        if (Notification.permission === "granted") new Notification(title, { body: body });
+      } catch (e) {}
+      try {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        var o = ctx.createOscillator(); var g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.value = 880; g.gain.value = 0.04; o.start();
+        setTimeout(function () { o.stop(); ctx.close(); }, 180);
+      } catch (e) {}
+    }
+
+    function render(rows) {
+      if (!rows.length) {
+        list.className = "admin-empty";
+        list.textContent = "No pending payments. When someone pays and enters UTR, they show up here.";
+        return;
+      }
+      list.className = "";
+      list.innerHTML = rows.map(function (o) {
+        return '<article class="admin-card" data-txn="' + o.txnid + '">' +
+          "<h3>" + escapeHtml(o.name || "Customer") + "</h3>" +
+          '<div class="admin-meta">' +
+          "<div><b>UTR:</b> " + escapeHtml(o.utr || "-") + "</div>" +
+          "<div><b>Phone:</b> " + escapeHtml(o.phone || "-") + "</div>" +
+          "<div><b>Email:</b> " + escapeHtml(o.email || "-") + "</div>" +
+          "<div><b>Order:</b> " + escapeHtml(o.txnid) + "</div>" +
+          "<div><b>Theme:</b> " + escapeHtml(o.theme || "-") + " · ₹" + (o.amount || 117) + "</div>" +
+          "<div><b>Submitted:</b> " + escapeHtml(o.submittedAt || "-") + "</div>" +
+          "</div>" +
+          '<div class="admin-actions">' +
+          '<button class="btn btn-primary" data-approve="' + o.txnid + '" type="button">Approve & unlock</button>' +
+          '<button class="btn btn-ghost" data-wa="' + o.txnid + '" type="button" hidden>WhatsApp customer</button>' +
+          "</div></article>";
+      }).join("");
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+      });
+    }
+
+    list.addEventListener("click", function (e) {
+      var approve = e.target.getAttribute("data-approve");
+      var waBtn = e.target.getAttribute("data-wa");
+      var key = keyInput.value.trim();
+      if (approve) {
+        e.target.disabled = true;
+        e.target.textContent = "Approving…";
+        fetch("/api/admin/approve?key=" + encodeURIComponent(key), {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ txnid: approve })
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (!data.ok) throw new Error(data.error || "Approve failed");
+            var card = list.querySelector('[data-txn="' + approve + '"]');
+            if (card) {
+              var wa = card.querySelector("[data-wa]");
+              if (wa && data.customerWhatsApp) {
+                wa.hidden = false;
+                wa.dataset.href = data.customerWhatsApp;
+              }
+              e.target.textContent = "Approved ✓";
+              e.target.disabled = true;
+            }
+            if (data.customerWhatsApp && confirm("Approved. Open WhatsApp to send the edit link to the customer?")) {
+              window.open(data.customerWhatsApp, "_blank");
+            }
+            setTimeout(load, 800);
+          })
+          .catch(function (err) {
+            e.target.disabled = false;
+            e.target.textContent = "Approve & unlock";
+            showErr(err.message);
+          });
+      }
+      if (waBtn) {
+        var href = e.target.dataset.href;
+        if (href) window.open(href, "_blank");
+      }
+    });
+
+    document.getElementById("loadBtn").addEventListener("click", function () {
+      load();
+      if (timer) clearInterval(timer);
+      timer = setInterval(load, 8000);
+    });
+    document.getElementById("notifyBtn").addEventListener("click", function () {
+      if (!("Notification" in window)) return alert("Notifications not supported in this browser");
+      Notification.requestPermission();
+    });
+
+    if (keyInput.value) {
+      load();
+      timer = setInterval(load, 8000);
+    }
+  })();
+  </script>
+</body>
+</html>

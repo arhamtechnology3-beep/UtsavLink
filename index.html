@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ============ PRIMARY SEO ============ -->
+  <title>Ganpati Invite Website - Digital Invitation in 2 Minutes, ₹99 | UtsavLink</title>
+  <meta name="description" content="Make your own Ganpati invite website in 2 minutes for ₹99. Not a card or a PDF - a real animated website your guests walk through, shared as one WhatsApp link." />
+  <meta name="keywords" content="ganpati invite website, ganpati invitation website, digital ganpati invitation, ganpati invitation, ganesh chaturthi invitation, online ganpati invitation card, ganpati invitation maker, personalised ganpati invitation, ganpati aagman invitation, ganpati invite whatsapp, ganpati invite link" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="UtsavLink" />
+  <meta name="theme-color" content="#BE123C" />
+  <link rel="canonical" href="https://utsavlink.com/" />
+
+  <!-- ============ OPEN GRAPH / SOCIAL ============ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="UtsavLink" />
+  <meta property="og:title" content="Your Own Ganpati Invite Website - Ready in 2 Minutes | UtsavLink" />
+  <meta property="og:description" content="₹99. Not a card, not a PDF - a real website your guests walk through. Pay via UPI, we confirm, then you get your edit link." />
+  <meta property="og:url" content="https://utsavlink.com/" />
+  <meta property="og:image" content="assets/og-cover.jpg" />
+  <meta property="og:locale" content="en_IN" />
+
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;600;700&family=Sora:wght@400;500;600;700&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=pay-fix-4" />
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="UtsavLink home">
+        <img src="assets/logo.svg" alt="" width="34" height="34" style="height:34px;width:34px;" />
+        <span class="brand-word">Utsav<span>Link</span></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#designs">Designs</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-primary btn-sm" data-cta href="#">Get started · ₹99</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <a href="#designs">Designs</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary" data-cta href="#">Get started · ₹99</a>
+    </div>
+  </header>
+
+  <!-- days-to-festival urgency strip; script.js fills and self-removes after the date -->
+  <div class="countdown-bar" id="countdown"></div>
+  <!-- shown only if this browser already paid but never reached the editor -->
+  <div class="resume-bar" id="resume" hidden></div>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <!-- Temple arch + diya strands: digital-darshan motif (not marigold varmala). -->
+      <div class="hero-toran" aria-hidden="true"></div>
+      <div class="hero-petals" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="hero-mala hero-mala-l" aria-hidden="true"></div>
+      <div class="hero-mala hero-mala-r" aria-hidden="true"></div>
+
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="brand-kicker">UtsavLink</p>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span>Ganesh Chaturthi · 14 September 2026</span>
+          <h1>Invite everyone to Bappa’s darshan — <span class="hl">as a real website</span></h1>
+          <p class="lede">Skip the PDF. Guests open one WhatsApp link and walk through your date, venue, aarti and photos.</p>
+
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" data-cta href="#">Get my invite · ₹99</a>
+            <button class="btn btn-ghost btn-lg" type="button" data-preview="fort">
+              <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+              Preview a live invite
+            </button>
+          </div>
+          <div class="hero-trust">
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <span>Loved by families · <strong>ready in minutes</strong></span>
+          </div>
+          <!-- real published-invite count from /api/stats; script.js reveals
+               this only once the number is big enough to mean something -->
+          <p class="live-count" id="liveCount" hidden></p>
+        </div>
+
+        <div class="hero-visual">
+          <!-- The artwork is decorative: the invite inside it is sample content
+               and it scrolls itself, so it is not something to announce. -->
+          <div class="phone" aria-hidden="true">
+            <div class="phone-notch"></div>
+            <!-- The invitations open with a curtain; so does the page that
+                 sells them. Panels sit over the screen and draw back once,
+                 on load. Purely visual - the invite behind is already there
+                 for anyone whose browser skips this. -->
+            <div class="darshan" data-darshan>
+              <span class="darshan-panel darshan-panel--l"></span>
+              <span class="darshan-panel darshan-panel--r"></span>
+              <span class="darshan-seam"></span>
+            </div>
+            <div class="phone-screen">
+              <iframe data-preview-frame title="Live Ganpati invite website preview" loading="lazy" tabindex="-1"></iframe>
+              <img class="phone-fallback" src="assets/hero-invite.webp" width="1000" height="1400" fetchpriority="high" alt="" />
+            </div>
+          </div>
+          <!-- Real product claims, not decoration - one badge only ever said
+               "live venue map", which sold the smallest thing the invite does.
+               A list, so they still read in order once they stop floating and
+               become a row of chips under the phone on a narrow screen. -->
+          <ul class="hero-usps">
+            <li class="floaty floaty-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg><span>मराठी &middot; हिंदी &middot; English</span></li>
+            <li class="floaty floaty-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Live venue map</span></li>
+            <li class="floaty floaty-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg><span>Aarti timings</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span><span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span><span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span><span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span>
+          <span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span><span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span><span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span><span>Invite in all languages</span><span class="marquee-dot">◆</span><span>Ready in 2 minutes</span><span class="marquee-dot">◆</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DESIGNS ================= -->
+    <section class="section designs" id="designs">
+      <div class="wrap">
+        <p class="section-kicker">Templates</p>
+        <h2 class="section-title">See the whole invite website before you pay</h2>
+        <p class="section-sub">Real screens from the live invite websites - not mockups. Tap any card to scroll a working invite yourself.</p>
+
+        <!-- Language is a buying question, not a setting: a family in Nashik and
+             their relatives in New Jersey want different invites. The choice made
+             here rides into checkout, so the invite arrives in this language. -->
+        <div class="lang-pick" role="radiogroup" aria-label="Invite language">
+          <span class="lang-label">Preview in</span>
+          <div class="lang-opts">
+            <button class="lang-opt is-on" type="button" role="radio" aria-checked="true" data-lang="mr">मराठी</button>
+            <button class="lang-opt" type="button" role="radio" aria-checked="false" data-lang="hi">हिंदी</button>
+            <button class="lang-opt" type="button" role="radio" aria-checked="false" data-lang="en">English</button>
+          </div>
+        </div>
+
+        <div class="design-grid" data-stagger>
+
+          <!-- ---------- Raj Utsav (New Royal Edition) ---------- -->
+          <article class="card design is-royal" data-design="rajutsav">
+            <div class="design-shots" data-shots data-theme="rajutsav">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-rajutsav-phone.webp" width="780" height="1688" alt="राज उत्सव - Royal Crimson Palace Mandap & 24K Gold Ganpati invite" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="rajutsav" aria-label="Open a live preview of the Raj Utsav invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>राज उत्सव <span class="tag royal">Royal Edition</span></h3>
+              <p>Grand palace mandap in royal crimson velvet &amp; 24K gold with shlokas and animated diyas.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="rajutsav">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="rajutsav" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Aapla Bappa ---------- -->
+          <article class="card design" data-design="fort">
+            <div class="design-shots" data-shots data-theme="fort">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-fort-phone.webp?v=3" width="780" height="1688" alt="Aapla Bappa design - Ganpati invite website with the divine sun, bhagwa flags and the fort" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="fort" aria-label="Open a live preview of the Aapla Bappa invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>Aapla Bappa <span class="tag">Most popular</span></h3>
+              <p>Heritage fort, gold sun &amp; bhagwa - Maharashtra pride meets Bappa.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="fort">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="fort" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Kailash ---------- -->
+          <article class="card design" data-design="kailash">
+            <div class="design-shots" data-shots data-theme="kailash">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-kailash-phone.webp?v=3" width="780" height="1688" alt="Kailash design - Ganpati invite website with the Himalayan peak and Bappa" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="kailash" aria-label="Open a live preview of the Kailash invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>Kailash <span class="tag">New</span></h3>
+              <p>Himalayan ice &amp; the divine family of Shiva-Parvati.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="kailash">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="kailash" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Deep Utsav ---------- -->
+          <article class="card design" data-design="deep">
+            <div class="design-shots" data-shots data-theme="deep">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-deep-phone.webp?v=1" width="780" height="1688" alt="Deep Utsav design - Ganpati invite website in deep indigo and gold, Bappa on a lotus inside a gold archway with marigold malas and lamps" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="deep" aria-label="Open a live preview of the Deep Utsav invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>Deep Utsav <span class="tag">New</span></h3>
+              <p>The courtyard after dark - deep indigo, everything picked out in lamp gold, and a gallery of the days before Bappa arrives.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="deep">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="deep" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Shubh Patrika ---------- -->
+          <article class="card design" data-design="patrika">
+            <div class="design-shots" data-shots data-theme="patrika">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-patrika-phone.webp?v=6" width="780" height="1688" alt="Shubh Patrika design - Ganpati invite website styled as a printed cream invitation card with a gold border and a hand-painted Bappa" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="patrika" aria-label="Open a live preview of the Shubh Patrika invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>Shubh Patrika</h3>
+              <p>The printed invitation card itself - cream paper, a gold border and Bappa painted by hand.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="patrika">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="patrika" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Temple Darbar ---------- -->
+          <article class="card design" data-design="darbar">
+            <div class="design-shots" data-shots data-theme="darbar">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-darbar-phone.webp?v=3" width="780" height="1688" alt="Temple Darbar design - Ganpati invite website with a carved pink marble archway, Bappa on a throne and a flowering garden" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="darbar" aria-label="Open a live preview of the Temple Darbar invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>Temple Darbar</h3>
+              <p>Carved golden gateway on soft lilac - the light one, with your family's photos.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="darbar">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="darbar" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- Tulsi Angan ---------- -->
+          <article class="card design" data-design="nilambari">
+            <div class="design-shots" data-shots data-theme="nilambari">
+              <div class="mock">
+                <div class="mock-screen">
+                  <div class="mock-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2.4"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg><span>utsavlink.com/i/<b>patil</b></span></div>
+                  <img class="shot" src="assets/shots/shot-nilambari-phone.webp?v=4" width="780" height="1688" alt="Tulsi Angan design - Ganpati invite website in shalu green and gold, Bappa in a carved wooden shrine between two flowering pillars, under a marigold toran" loading="lazy" decoding="async" />
+                </div>
+              </div>
+              <button class="shot-eye" type="button" data-preview="nilambari" aria-label="Open a live preview of the Tulsi Angan invite website">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                <span>Preview</span>
+              </button>
+            </div>
+            <div class="design-body">
+              <h3>Tulsi Angan <span class="tag">New</span></h3>
+              <p>Shalu green and temple gold - Bappa in a carved shrine between two pillars, the programme read straight down like an order of service.</p>
+              <div class="design-actions">
+                <button class="btn btn-ghost btn-sm" type="button" data-preview="nilambari">
+                  <svg class="eye-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.8-7 10-7 10 7 10 7-3.8 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3.2"/></svg>
+                  Preview
+                </button>
+                <button class="btn btn-primary btn-sm" data-choose="nilambari" type="button">Choose this design</button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="center">
+          <a class="btn btn-primary btn-lg" data-cta href="#">Get my invite · ₹99</a>
+          <p class="demo-note">Every screen above becomes yours - your family name, your date, your venue, your photos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WHAT GUESTS RECEIVE =================
+         Nobody buying this has ever received one, so they cannot picture
+         the moment it lands. A link in a page is abstract; the same link
+         drawn inside a WhatsApp thread - with the preview card their
+         guests will actually see - is the product.
+         ======================================================= -->
+    <section class="section thread-proof" id="whatsapp">
+      <div class="wrap">
+        <h2 class="section-title">This is what lands in your family group</h2>
+        <p class="section-sub">One link, one message. It opens instantly on any phone - no app, no login, nothing to download.</p>
+
+        <div class="thread-grid">
+          <div class="wa-thread" data-lit aria-label="Example of the invite link shared in a WhatsApp group">
+            <div class="wa-top">
+              <span class="wa-avatar" aria-hidden="true">दे</span>
+              <div class="wa-who">
+                <strong>Patil Family ❤️</strong>
+                <small>Ramesh, Aai, Kaka, Sneha, +38</small>
+              </div>
+            </div>
+
+            <div class="wa-body">
+              <div class="wa-day"><span>TODAY</span></div>
+
+              <div class="wa-msg wa-in">
+                <p>बाप्पा येतोय! Sending the invitation to everyone 🙏</p>
+                <span class="wa-meta">10:42 am</span>
+              </div>
+
+              <div class="wa-msg wa-in wa-has-card">
+                <a class="wa-card" href="#designs">
+                  <img src="assets/shots/shot-fort-hero.webp" width="720" height="960"
+                       alt="Preview card of a Ganpati invite website as it appears in WhatsApp"
+                       loading="lazy" decoding="async" />
+                  <span class="wa-card-text">
+                    <b>पाटील परिवार - गणपती निमंत्रण</b>
+                    <em>१४ सप्टेंबर २०२६ · पाटील निवास, पुणे</em>
+                    <i>utsavlink.com</i>
+                  </span>
+                </a>
+                <p class="wa-link">utsavlink.com/i/patil-parivar</p>
+                <span class="wa-meta">10:42 am</span>
+              </div>
+
+              <div class="wa-msg wa-out">
+                <p>अरे वा! हे तर खूपच सुंदर आहे 😍 Map पण आहे!</p>
+                <span class="wa-meta">10:44 am <span class="wa-ticks" aria-hidden="true">✓✓</span></span>
+              </div>
+
+              <div class="wa-msg wa-out">
+                <p>Aaji could open it herself. Where did you make this?</p>
+                <span class="wa-meta">10:45 am <span class="wa-ticks" aria-hidden="true">✓✓</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="thread-copy">
+            <h3>The link does the explaining for you</h3>
+            <ul class="thread-list">
+              <li><b>It previews itself.</b> WhatsApp shows your family name, date and venue before anyone even taps.</li>
+              <li><b>It forwards.</b> Every guest who forwards it to their own group carries your invitation further - one message reaches hundreds.</li>
+              <li><b>It stays correct.</b> Change the timing later and the link everyone already has updates itself. No "please ignore previous message".</li>
+              <li><b>Elders can use it.</b> Large text, one tap, no app to install - it opens the same on a six-year-old phone.</li>
+            </ul>
+            <a class="btn btn-primary btn-lg" data-cta href="#">Get my invite · ₹99</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <div class="festive-divider" aria-hidden="true"></div>
+    <section class="section how" id="how">
+      <div class="wrap">
+        <h2 class="section-title">Three steps. Two minutes. Zero phone calls.</h2>
+        <p class="section-sub">You do the whole thing yourself, right now, on this phone.</p>
+        <div class="steps" data-stagger data-lit>
+          <div class="step"><span class="step-n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><path d="M14 17.2l2.4 2.4 4.3-4.6"/></svg><b>1</b></span><h3>Pick a design &amp; pay ₹99</h3><p>Scan our UPI QR (GPay / PhonePe / Paytm / Navi), pay ₹117, then enter your UTR. We confirm and unlock your editor.</p></div>
+          <div class="step"><span class="step-n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4.2L19 9.2a2.1 2.1 0 0 0-3-3L5.2 17V20z"/><path d="M14.5 7.2l2.3 2.3"/></svg><b>2</b></span><h3>Type your details</h3><p>A simple form opens straight after payment - family name, date, venue, aarti times, photos.</p></div>
+          <div class="step"><span class="step-n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 3.5L10.8 13.2"/><path d="M20.5 3.5l-6.2 17-3.5-7.3-7.3-3.5 17-6.2z"/></svg><b>3</b></span><h3>Press publish &amp; share</h3><p>Your invite website goes live at your own link, like <strong>utsavlink.com/i/patil-parivar</strong>. Forward it on WhatsApp to everyone at once.</p></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= PRICING ================= -->
+    <div class="festive-divider" aria-hidden="true"></div>
+    <section class="section pricing" id="pricing">
+      <div class="rangoli rangoli-top" aria-hidden="true"></div>
+      <div class="wrap">
+        <h2 class="section-title">One price. Unlimited guests.</h2>
+        <p class="section-sub">Pay once via UPI. No subscription, no per-guest charge.</p>
+        <div class="price-card card" data-lit>
+          <div class="price-top">
+            <div>
+              <h3>Personalised Ganpati Invite Website</h3>
+              <p class="price-note">Fully personalised · Live after payment confirm</p>
+            </div>
+            <div class="price-amt"><span class="price-was">₹299</span><span class="price-now"><span class="rupee">₹</span>99</span><span class="per">one-time</span>
+              <span class="price-save">You save ₹200</span>
+              <span class="price-tax">+ 18% GST · ₹117 payable</span></div>
+          </div>
+          <ul class="price-list" data-stagger>
+            <li>Your choice of premium animated design</li>
+            <li>Your names, date, venue &amp; live map</li>
+            <li>Full aarti &amp; visarjan schedule</li>
+            <li>Your photos &amp; a personal message</li>
+            <li>Unlimited guests - add-to-calendar &amp; WhatsApp share</li>
+            <li>Edit any time - your invite link never changes</li>
+          </ul>
+          <a class="btn btn-primary btn-lg btn-block" data-cta href="#">Get my invite · ₹99</a>
+          <p class="price-reassure">
+            <button class="linkish" type="button" data-preview="fort">See the full invite website first</button> -
+            then decide. Typed something wrong? We correct it free.
+          </p>
+          <div class="pay-trust">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>UPI to our Navi QR</span>
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>We confirm, then unlock</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section class="section testimonials">
+      <div class="wrap">
+        <h2 class="section-title">Families love their invite websites</h2>
+        <div class="quote-grid" data-stagger>
+          <figure class="card quote" data-lit><div class="stars" aria-hidden="true">★★★★★</div><blockquote>“Everyone in our building asked where we got it. It looked so premium and opened perfectly on my mother-in-law's phone.”</blockquote><figcaption>- Prajakta D., Pune</figcaption></figure>
+          <figure class="card quote" data-lit><div class="stars" aria-hidden="true">★★★★★</div><blockquote>“I did the whole thing myself at 11pm - paid, typed everything, done before midnight. Didn't have to message a single person.”</blockquote><figcaption>- Amit K., Mumbai</figcaption></figure>
+          <figure class="card quote" data-lit><div class="stars" aria-hidden="true">★★★★★</div><blockquote>“We bring Bappa home in Dubai and our family in Nashik could finally see a proper invitation. Sent it to everyone in one message.”</blockquote><figcaption>- Sneha R., Dubai</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ (AEO / GEO) ================= -->
+    <div class="festive-divider" aria-hidden="true"></div>
+    <section class="section faq" id="faq">
+      <div class="wrap wrap-narrow">
+        <h2 class="section-title">Frequently asked questions</h2>
+        <details class="faq-item" open><summary>How much does a Ganpati invite website cost?</summary><p><strong>₹99</strong>, one time, for unlimited guests. With 18% GST that comes to <strong>₹117</strong> at checkout. Pay via UPI, submit your UTR, and we unlock your editor after confirming the payment.</p></details>
+        <details class="faq-item"><summary>What is a Ganpati invite website?</summary><p>It is the modern form of a digital Ganpati invitation. Instead of a card image or a PDF you get a <strong>real website at your own link</strong> - animated, with music and a grand reveal - that guests walk through on their phone to see your date, venue, live map, aarti schedule and RSVP. You share it as one link on WhatsApp.</p></details>
+        <details class="faq-item"><summary>How do I get my invite website and how long does it take?</summary><p>Choose a design, pay ₹99 + GST via UPI, enter your UTR, and keep the page open. After we confirm the payment, your editor opens automatically — usually within a few minutes.</p></details>
+        <details class="faq-item"><summary>Can I get my invite in Hindi or English?</summary><p>Yes - every design comes in <strong>Marathi, Hindi and English</strong>. Pick the language above the designs and the preview changes instantly; your invite is then created in that language, and you can switch it later in the editor. Whatever you type yourself stays exactly as you type it, in any language or script.</p></details>
+        <details class="faq-item"><summary>Do I have to message or call anyone to order?</summary><p>No - and that's the point. There is <strong>no WhatsApp chat and no phone call</strong> anywhere in the process. You pay on this page, the editor opens by itself, you type your details and press publish. Nobody has to reply to you first.</p></details>
+        <details class="faq-item"><summary>Can I change the details after I have shared my invite link?</summary><p>Yes. Open your private edit link any time, change the venue, timing or photos, and press publish again. <strong>The invite link your guests already have stays the same</strong> and shows the new details instantly - no need to resend anything.</p></details>
+        <details class="faq-item"><summary>How long does my invite website stay online?</summary><p>Your invite link stays live through the full festival and well beyond - <strong>at minimum until 31 March of the following year</strong>, so you can keep it as a memory.</p></details>
+        <details class="faq-item"><summary>Can I share it on WhatsApp?</summary><p>Yes - that is what it is built for. It is one link that previews with your family name, date and venue before anyone even taps, and it forwards from group to group.</p></details>
+        <details class="faq-item"><summary>I am bringing Bappa home outside India - does this work?</summary><p>Yes. It is a website, so it opens exactly the same in Dubai, London, Singapore, Sydney or New Jersey. Payment is in ₹ (INR) and works with international cards. This is often the only way relatives across countries get a proper invitation at all.</p></details>
+      </div>
+    </section>
+
+    <!-- ================= FINAL CTA ================= -->
+    <section class="section cta-band">
+      <div class="rangoli rangoli-top" aria-hidden="true"></div>
+      <div class="cta-sparks" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="wrap center">
+        <img class="cta-idol" src="/assets/design-idol.webp" width="560" height="560" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <h2>Ready to invite everyone to Bappa's darshan?</h2>
+        <p>₹99 one-time, plus GST. Pay via UPI — we confirm and unlock your invite.</p>
+        <a class="btn btn-lg btn-on-dark" data-cta href="#">Get my invite · ₹99</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- price + CTA always within thumb reach on mobile -->
+  <div class="sticky-bar" id="stickyBar">
+    <div class="sticky-price"><b>₹99</b><span>+ GST · UPI</span></div>
+    <a class="btn btn-primary" data-cta href="#">Get my invite · ₹99</a>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <a class="brand" href="#top" aria-label="UtsavLink home">
+          <img src="assets/logo.svg" alt="" width="38" height="38" style="height:38px;width:38px;" />
+          <span class="brand-word">Utsav<span>Link</span></span>
+        </a>
+        <p class="footer-about" style="margin-top:10px;">UtsavLink makes personalised, animated <strong>Ganpati invite websites</strong> for Ganesh Chaturthi - a real invitation website your guests walk through, shared as one WhatsApp link. ₹99, fully personalised.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="#designs">Designs</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/refund">Cancellation &amp; Refund</a>
+        <a href="/shipping">Shipping &amp; Delivery</a>
+      </div>
+      <div class="footer-links">
+        <h4>Get in touch</h4>
+        <a href="/contact">Contact us</a>
+        <a href="tel:+917208804458">+91 72088 04458</a>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© <span id="yr"></span> UtsavLink · utsavlink.com - Ganpati &amp; Festival invite websites, made in India.</p>
+    </div>
+  </footer>
+
+  <a class="cta-fab" data-cta href="#">Get my invite · ₹99</a>
+
+  <!-- ================= CHECKOUT ================= -->
+  <div class="co-backdrop" id="checkout" hidden>
+    <div class="co-card" role="dialog" aria-modal="true" aria-labelledby="coTitle">
+      <button class="co-close" id="coClose" type="button" aria-label="Close">&times;</button>
+      
+      <!-- STEP 1: Details & Selection -->
+      <div id="coStep1">
+        <h2 id="coTitle">Create your invite website</h2>
+        <p class="co-sub">₹99 one-time, plus GST (₹117). Pay via UPI — we confirm, then your editor opens.</p>
+
+        <div class="co-themes" role="radiogroup" aria-label="Choose a design">
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="rajutsav" checked />
+            <img src="assets/shots/shot-rajutsav-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>राज उत्सव (Royal)</span>
+          </label>
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="fort" />
+            <img src="assets/shots/shot-fort-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>Aapla Bappa</span>
+          </label>
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="kailash" />
+            <img src="assets/shots/shot-kailash-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>Kailash</span>
+          </label>
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="deep" />
+            <img src="assets/shots/shot-deep-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>Deep Utsav</span>
+          </label>
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="patrika" />
+            <img src="assets/shots/shot-patrika-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>Shubh Patrika</span>
+          </label>
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="darbar" />
+            <img src="assets/shots/shot-darbar-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>Temple Darbar</span>
+          </label>
+          <label class="co-theme">
+            <input type="radio" name="cotheme" value="nilambari" />
+            <img src="assets/shots/shot-nilambari-hero.webp" alt="" width="720" height="960" decoding="sync" />
+            <span>Tulsi Angan</span>
+          </label>
+        </div>
+
+        <div class="co-field co-lang">
+          <label>Invite language</label>
+          <div class="lang-opts" role="radiogroup" aria-label="Invite language">
+            <button class="lang-opt" type="button" role="radio" data-lang="mr" aria-checked="false">मराठी</button>
+            <button class="lang-opt" type="button" role="radio" data-lang="hi" aria-checked="false">हिंदी</button>
+            <button class="lang-opt" type="button" role="radio" data-lang="en" aria-checked="false">English</button>
+          </div>
+          <small>Your invite is created in this language - you can change it any time in the editor.</small>
+        </div>
+
+        <div class="co-field">
+          <label for="coName">Your name</label>
+          <input id="coName" type="text" autocomplete="name" placeholder="Ramesh Patil" />
+        </div>
+        <div class="co-field">
+          <label for="coPhone">WhatsApp number</label>
+          <input id="coPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+91 98765 43210" />
+          <small>Your edit link opens after we confirm your UPI payment.</small>
+        </div>
+        <div class="co-field">
+          <label for="coEmail">Email</label>
+          <input id="coEmail" type="email" autocomplete="email" placeholder="you@example.com" required />
+          <small>For your order reference and support.</small>
+        </div>
+
+        <div class="co-total">
+          <div class="co-total-row"><span>Invite website</span><span id="coBase">₹99.00</span></div>
+          <div class="co-total-row"><span>GST 18%</span><span id="coGst">₹18.00</span></div>
+          <div class="co-total-row co-total-sum"><span>Total payable</span><span id="coSum">₹117.00</span></div>
+        </div>
+
+        <p class="co-error" id="coError" hidden></p>
+        <button class="btn btn-primary btn-lg btn-block" id="coProceedBtn" type="button">Proceed to UPI Payment (₹117) →</button>
+        <p class="co-fine">By continuing you accept our <a href="/terms">Terms</a> and <a href="/refund">Refund policy</a>.</p>
+      </div>
+
+      <!-- STEP 2: Simple UPI pay -->
+      <div id="coStep2" hidden>
+        <div class="pay-simple">
+          <p class="pay-kicker">Pay with any UPI app</p>
+          <div class="pay-amount" id="coPayAmount">₹117</div>
+          <p class="pay-amount-note">Total including GST</p>
+
+          <div class="pay-qr-wrap">
+            <img id="coQrImg" class="pay-qr" src="" alt="UPI QR code to pay" width="240" height="240" />
+          </div>
+          <p class="pay-scan-hint">Scan to pay</p>
+
+          <div class="pay-upi-row">
+            <code id="coUpiIdText" class="pay-upi-id">9769104020@nyes</code>
+            <button type="button" class="pay-copy" id="coCopyUpiBtn">Copy</button>
+          </div>
+          <a id="coUpiDeepLink" class="pay-app-link" href="#" target="_blank" rel="noopener">Or open in UPI app →</a>
+
+          <div class="pay-divider"></div>
+
+          <div class="pay-utr-box">
+            <label class="pay-utr-label" for="coUtr">Enter your 12-digit UTR / Ref No.</label>
+            <input id="coUtr" class="pay-utr-input" type="text" maxlength="18" inputmode="text" autocomplete="off" placeholder="e.g. 423981029384" />
+            <p class="pay-utr-help">Find it on your GPay / PhonePe / Paytm payment receipt</p>
+          </div>
+
+          <p class="co-error" id="coUpiError" hidden></p>
+          <div id="coSuccessMsg" class="pay-success" hidden>✓ Submitted — waiting for confirmation…</div>
+
+          <button class="btn btn-primary btn-lg btn-block pay-confirm" id="coConfirmBtn" type="button">I’ve paid — Confirm</button>
+          <button type="button" class="co-back-link" id="coBackBtn">← Back</button>
+          <p class="pay-ref" id="coRefBadge"></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= LIVE PREVIEW ==================
+       The whole argument of this page is "look before you pay", so the
+       preview has to stay on the page. Opening a new tab loses in-app
+       browsers (WhatsApp / Instagram), which is where the ad traffic is.
+       ================================================================= -->
+  <div class="pv-backdrop" id="preview" hidden>
+    <div class="pv-card" role="dialog" aria-modal="true" aria-labelledby="pvTitle">
+      <button class="pv-close" id="pvClose" type="button" aria-label="Close preview">&times;</button>
+
+      <div class="pv-head">
+        <div class="pv-titles">
+          <h2 id="pvTitle">Aapla Bappa</h2>
+          <p class="pv-sub">A real, live invite website - scroll it exactly like your guests will.</p>
+        </div>
+        <div class="pv-tabs" role="tablist" aria-label="Choose a design to preview">
+          <button class="pv-tab is-on" type="button" role="tab" aria-selected="true" data-pv-theme="fort">Aapla Bappa</button>
+          <button class="pv-tab" type="button" role="tab" aria-selected="false" data-pv-theme="kailash">Kailash</button>
+          <button class="pv-tab" type="button" role="tab" aria-selected="false" data-pv-theme="deep">Deep Utsav</button>
+          <button class="pv-tab" type="button" role="tab" aria-selected="false" data-pv-theme="nilambari">Tulsi Angan</button>
+          <button class="pv-tab" type="button" role="tab" aria-selected="false" data-pv-theme="patrika">Shubh Patrika</button>
+          <button class="pv-tab" type="button" role="tab" aria-selected="false" data-pv-theme="darbar">Temple Darbar</button>
+        </div>
+      </div>
+
+      <div class="pv-stage">
+        <div class="pv-viewer">
+          <div class="phone pv-phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <iframe id="pvFrame" title="Live preview of your Ganpati invite website"></iframe>
+              <div class="pv-loading" id="pvLoading"><span class="pv-spin" aria-hidden="true"></span>Loading the live invite website...</div>
+            </div>
+          </div>
+          <p class="pv-hint" id="pvHint">Scroll inside the phone - this is exactly what your guests see.</p>
+        </div>
+      </div>
+
+      <div class="pv-actions">
+        <a class="btn btn-ghost" id="pvOpen" href="/t/fort?preview=1" target="_blank" rel="noopener">Open full screen ↗</a>
+        <button class="btn btn-primary" id="pvChoose" type="button">Get my invite · ₹99 →</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

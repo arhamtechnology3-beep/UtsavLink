@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 88" fill="none" aria-hidden="true">
+  <!-- Clear geometric temple lintel + bells (not floral) -->
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="40%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+  </defs>
+  <!-- top beam -->
+  <rect x="6" y="4" width="208" height="12" rx="2" fill="url(#gold)"/>
+  <rect x="10" y="16" width="200" height="5" fill="#9F1239"/>
+  <rect x="14" y="21" width="192" height="3" fill="url(#gold)"/>
+  <!-- pillars of light / hanging chains -->
+  <g stroke="#F59E0B" stroke-width="1.6">
+    <line x1="40" y1="24" x2="40" y2="48"/>
+    <line x1="110" y1="24" x2="110" y2="48"/>
+    <line x1="180" y1="24" x2="180" y2="48"/>
+  </g>
+  <!-- temple bells -->
+  <g fill="url(#gold)" stroke="#92400E" stroke-width=".6">
+    <path d="M40 48c-8 0-12 6-12 10h24c0-4-4-10-12-10z"/>
+    <circle cx="40" cy="60" r="2.5" fill="#FEF3C7"/>
+    <path d="M110 48c-8 0-12 6-12 10h24c0-4-4-10-12-10z"/>
+    <circle cx="110" cy="60" r="2.5" fill="#FEF3C7"/>
+    <path d="M180 48c-8 0-12 6-12 10h24c0-4-4-10-12-10z"/>
+    <circle cx="180" cy="60" r="2.5" fill="#FEF3C7"/>
+  </g>
+  <!-- diya cups between bells -->
+  <g>
+    <ellipse cx="75" cy="52" rx="9" ry="3.2" fill="#7F0D2E"/>
+    <path d="M75 38c2.2 4 4.5 7 4.5 9.5 0 2.5-2 4.5-4.5 4.5s-4.5-2-4.5-4.5c0-2.5 2.3-5.5 4.5-9.5z" fill="#FBBF24"/>
+    <ellipse cx="145" cy="52" rx="9" ry="3.2" fill="#7F0D2E"/>
+    <path d="M145 38c2.2 4 4.5 7 4.5 9.5 0 2.5-2 4.5-4.5 4.5s-4.5-2-4.5-4.5c0-2.5 2.3-5.5 4.5-9.5z" fill="#FBBF24"/>
+  </g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 300" fill="none" aria-hidden="true">
+  <!-- Vertical hanging diya strand -->
+  <defs>
+    <linearGradient id="chain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="55%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+  </defs>
+  <line x1="24" y1="0" x2="24" y2="290" stroke="url(#chain)" stroke-width="2" stroke-dasharray="2 6"/>
+  <!-- diyas -->
+  <g>
+    <ellipse cx="24" cy="48" rx="14" ry="5" fill="#7C2D12"/>
+    <ellipse cx="24" cy="45" rx="11" ry="3.5" fill="#B45309"/>
+    <path d="M24 22 C27 28 30 32 30 36 C30 40 27.3 42.5 24 42.5 C20.7 42.5 18 40 18 36 C18 32 21 28 24 22Z" fill="url(#flame)"/>
+  </g>
+  <g>
+    <ellipse cx="24" cy="118" rx="14" ry="5" fill="#7C2D12"/>
+    <ellipse cx="24" cy="115" rx="11" ry="3.5" fill="#B45309"/>
+    <path d="M24 92 C27 98 30 102 30 106 C30 110 27.3 112.5 24 112.5 C20.7 112.5 18 110 18 106 C18 102 21 98 24 92Z" fill="url(#flame)"/>
+  </g>
+  <g>
+    <ellipse cx="24" cy="188" rx="14" ry="5" fill="#7C2D12"/>
+    <ellipse cx="24" cy="185" rx="11" ry="3.5" fill="#B45309"/>
+    <path d="M24 162 C27 168 30 172 30 176 C30 180 27.3 182.5 24 182.5 C20.7 182.5 18 180 18 176 C18 172 21 168 24 162Z" fill="url(#flame)"/>
+  </g>
+  <g>
+    <ellipse cx="24" cy="258" rx="14" ry="5" fill="#7C2D12"/>
+    <ellipse cx="24" cy="255" rx="11" ry="3.5" fill="#B45309"/>
+    <path d="M24 232 C27 238 30 242 30 246 C30 250 27.3 252.5 24 252.5 C20.7 252.5 18 250 18 246 C18 242 21 238 24 232Z" fill="url(#flame)"/>
+  </g>
+</svg>

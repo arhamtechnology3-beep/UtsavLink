@@ -1,0 +1,21 @@
+{
+  "name": "utsavlink",
+  "version": "1.0.0",
+  "description": "UtsavLink digital invitation website with manual UPI checkout and admin approval",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ganpati",
+    "invitation",
+    "utsavlink",
+    "digital-invites"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
