@@ -242,6 +242,10 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
 
 /* social share */
 .share-block{margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,252,250,.16);max-width:520px;margin-inline:auto}
+@media(max-width:900px){
+  .cta-band{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+  .share-block{position:relative;z-index:5}
+}
 .share-label{margin:0 0 12px !important;font-size:.92rem !important;color:rgba(255,252,250,.7) !important}
 .share-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .share-btn{
@@ -249,9 +253,11 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
   font-family:var(--f);font-weight:600;font-size:.88rem;line-height:1;
   padding:11px 16px;border-radius:var(--radius-btn);border:1.5px solid transparent;
   cursor:pointer;text-decoration:none;color:inherit;background:rgba(255,252,250,.1);
-  transition:transform .15s ease, background .2s, border-color .2s
+  transition:transform .15s ease, background .2s, border-color .2s;
+  min-height:44px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  position:relative;z-index:2
 }
-.share-btn svg{width:18px;height:18px;flex:0 0 auto}
+.share-btn svg{width:18px;height:18px;flex:0 0 auto;pointer-events:none}
 .share-btn:hover{transform:translateY(-1px)}
 .share-wa{background:#25D366;color:#fff;border-color:#1ebe57}
 .share-wa:hover{background:#1ebe57;color:#fff}

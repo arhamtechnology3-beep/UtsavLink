@@ -1556,60 +1556,96 @@
   }
 
   // Share this marketing page (OG preview) on WhatsApp / Facebook / clipboard.
+  // Mobile browsers (esp. in-app WhatsApp/Instagram) block window.open popups,
+  // so WA/FB use real href navigation; native share is preferred when available.
   function mountSiteShare() {
     var SHARE_URL = "https://utsavlink.arhamtechnology.com/";
     var SHARE_TITLE = "Create Your Personalized Ganpati Invitation Website | UtsavLink";
     var SHARE_TEXT =
       "Create your own digital Ganpati invitation — premium designs, your details, venue map & aarti schedule. Starting at ₹99 + GST.\n" +
       SHARE_URL;
+    var WA_HREF = "https://api.whatsapp.com/send?text=" + encodeURIComponent(SHARE_TEXT);
+    var FB_HREF =
+      "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(SHARE_URL);
 
-    function openShare(kind, e) {
-      if (e) e.preventDefault();
-      if (kind === "whatsapp") {
-        window.open(
-          "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT),
-          "_blank",
-          "noopener"
-        );
+    function copyLink() {
+      var toast = document.getElementById("shareToast");
+      var done = function () {
+        if (!toast) return;
+        toast.hidden = false;
+        clearTimeout(toast._t);
+        toast._t = setTimeout(function () { toast.hidden = true; }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(SHARE_URL).then(done).catch(function () {
+          legacyCopy(SHARE_URL, done);
+        });
         return;
       }
-      if (kind === "facebook") {
-        window.open(
-          "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(SHARE_URL),
-          "_blank",
-          "noopener,width=600,height=520"
-        );
-        return;
-      }
-      if (kind === "copy") {
-        var toast = document.getElementById("shareToast");
-        var done = function () {
-          if (!toast) return;
-          toast.hidden = false;
-          clearTimeout(toast._t);
-          toast._t = setTimeout(function () { toast.hidden = true; }, 1800);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(SHARE_URL).then(done).catch(function () {
-            window.prompt("Copy this link:", SHARE_URL);
-          });
-        } else {
-          window.prompt("Copy this link:", SHARE_URL);
-        }
-        return;
-      }
-      if (kind === "native" && navigator.share) {
-        navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL }).catch(function () {});
-      }
+      legacyCopy(SHARE_URL, done);
+    }
+
+    function legacyCopy(text, done) {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, text.length);
+        var ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        if (ok) { done(); return; }
+      } catch (err) {}
+      window.prompt("Copy this link:", text);
+    }
+
+    function nativeShare() {
+      if (!navigator.share) return false;
+      navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL }).catch(function () {});
+      return true;
     }
 
     each(document.querySelectorAll("[data-share]"), function (el) {
       var kind = el.getAttribute("data-share");
-      if (kind === "native") {
-        if (navigator.share) el.hidden = false;
-        else return;
+
+      if (kind === "whatsapp") {
+        el.setAttribute("href", WA_HREF);
+        el.setAttribute("target", "_blank");
+        el.setAttribute("rel", "noopener noreferrer");
+        // Let the browser navigate — do not preventDefault / window.open.
+        return;
       }
-      el.addEventListener("click", function (e) { openShare(kind, e); });
+
+      if (kind === "facebook") {
+        el.setAttribute("href", FB_HREF);
+        el.setAttribute("target", "_blank");
+        el.setAttribute("rel", "noopener noreferrer");
+        return;
+      }
+
+      if (kind === "native") {
+        if (!navigator.share) return;
+        el.hidden = false;
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          nativeShare();
+        });
+        return;
+      }
+
+      if (kind === "copy") {
+        el.addEventListener("click", function (e) {
+          e.preventDefault();
+          // On phones, prefer the system share sheet when available.
+          if (navigator.share && window.matchMedia && window.matchMedia("(max-width: 900px)").matches) {
+            if (nativeShare()) return;
+          }
+          copyLink();
+        });
+      }
     });
   }
 
