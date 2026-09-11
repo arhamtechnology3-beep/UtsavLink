@@ -1552,7 +1552,67 @@
     mountFaq();
     mountQuoteCarousel();
     mountParallax();
+    mountSiteShare();
   }
+
+  // Share this marketing page (OG preview) on WhatsApp / Facebook / clipboard.
+  function mountSiteShare() {
+    var SHARE_URL = "https://utsavlink.arhamtechnology.com/";
+    var SHARE_TITLE = "Create Your Personalized Ganpati Invitation Website | UtsavLink";
+    var SHARE_TEXT =
+      "Create your own digital Ganpati invitation — premium designs, your details, venue map & aarti schedule. Starting at ₹99 + GST.\n" +
+      SHARE_URL;
+
+    function openShare(kind, e) {
+      if (e) e.preventDefault();
+      if (kind === "whatsapp") {
+        window.open(
+          "https://wa.me/?text=" + encodeURIComponent(SHARE_TEXT),
+          "_blank",
+          "noopener"
+        );
+        return;
+      }
+      if (kind === "facebook") {
+        window.open(
+          "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(SHARE_URL),
+          "_blank",
+          "noopener,width=600,height=520"
+        );
+        return;
+      }
+      if (kind === "copy") {
+        var toast = document.getElementById("shareToast");
+        var done = function () {
+          if (!toast) return;
+          toast.hidden = false;
+          clearTimeout(toast._t);
+          toast._t = setTimeout(function () { toast.hidden = true; }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(SHARE_URL).then(done).catch(function () {
+            window.prompt("Copy this link:", SHARE_URL);
+          });
+        } else {
+          window.prompt("Copy this link:", SHARE_URL);
+        }
+        return;
+      }
+      if (kind === "native" && navigator.share) {
+        navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: SHARE_URL }).catch(function () {});
+      }
+    }
+
+    each(document.querySelectorAll("[data-share]"), function (el) {
+      var kind = el.getAttribute("data-share");
+      if (kind === "native") {
+        if (navigator.share) el.hidden = false;
+        else return;
+      }
+      el.addEventListener("click", function (e) { openShare(kind, e); });
+    });
+  }
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();

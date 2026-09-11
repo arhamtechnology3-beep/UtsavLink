@@ -38,7 +38,7 @@ const ADMIN_KEY = process.env.ADMIN_KEY || "utsav-admin-change-me";
 const DEMO_EDIT = process.env.DEMO_EDIT === "1";
 // Where YOU get the “someone paid” note (optional)
 const OWNER_EMAIL = (process.env.OWNER_EMAIL || "jesalp85@gmail.com").trim();
-const OWNER_WHATSAPP = (process.env.OWNER_WHATSAPP || "917208804458").replace(/\D/g, "");
+const OWNER_WHATSAPP = (process.env.OWNER_WHATSAPP || "919769104020").replace(/\D/g, "");
 const PUBLIC_BASE = (process.env.PUBLIC_BASE || "http://localhost:3000").replace(/\/$/, "");
 
 const THEMES = ["rajutsav", "fort", "kailash", "deep", "patrika", "darbar", "nilambari"];
