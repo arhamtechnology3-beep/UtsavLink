@@ -391,11 +391,30 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
   .promise{font-size:.9rem}
 }
 
-/* price anchor */
+/* price anchor — compare-at ₹500, festival 80% off → ₹99 */
 .price-was{color:var(--muted);text-decoration:line-through;font-size:.62em;font-weight:500;margin-right:.28em}
 .price-tax{display:block;font-family:var(--f-body);font-size:.78rem;font-weight:500;color:var(--muted);margin-top:6px}
 .price-save{display:inline-block;background:rgba(47,93,58,.1);color:var(--leaf);border:1px solid rgba(47,93,58,.28);
   font-family:var(--f);font-weight:700;font-size:.78rem;padding:4px 11px;border-radius:8px;margin-top:8px}
+.price-off{
+  display:inline-block;font-family:var(--f);font-weight:700;font-size:.72rem;letter-spacing:.06em;
+  color:#FFFCFA;background:var(--maroon);border:1px solid var(--maroon-2);
+  padding:5px 10px;border-radius:6px;margin-bottom:10px;line-height:1
+}
+.hero-offer{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin:4px 0 14px;font-family:var(--f);font-size:.92rem;color:var(--ink-2)
+}
+.hero-offer .price-off{margin-bottom:0}
+.hero-offer s{color:var(--muted);font-weight:500}
+.sticky-was{font-weight:500;color:var(--muted);text-decoration:line-through;font-size:.78em;margin-right:.28em}
+.co-offer{
+  display:inline-block;font-family:var(--f);font-weight:700;font-size:.7rem;letter-spacing:.05em;
+  color:#FFFCFA;background:var(--maroon);padding:3px 8px;border-radius:5px;margin-right:6px;vertical-align:middle
+}
+.co-off-tag{font-style:normal;font-size:.78em;font-weight:700;color:var(--leaf);margin-left:6px}
+.co-was{color:var(--muted);margin-right:6px;font-weight:500}
+.cta-band s{opacity:.75}
 
 /* printed card vs UtsavLink */
 .versus{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
@@ -1079,7 +1098,7 @@ h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;letter-spacing:-.02em;
   0%,100%{box-shadow:0 8px 24px rgba(22,26,20,.06),0 0 0 1px rgba(184,51,42,.22),0 0 22px rgba(184,51,42,.12)}
   50%{box-shadow:0 12px 30px rgba(22,26,20,.09),0 0 0 1px rgba(184,51,42,.4),0 0 36px rgba(184,51,42,.22)}}
 
-/* ₹999 is struck through as you watch, and ₹489 lands after it. */
+/* ₹500 is struck through as you watch, and ₹99 lands after it. */
 .anim-on .price-was{text-decoration:none;position:relative}
 .anim-on .price-was::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:2px;
   background:currentColor;transform:scaleX(0);transform-origin:left center}
