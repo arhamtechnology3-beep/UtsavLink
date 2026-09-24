@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander & Victoria - Wedding Invitation</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg"
+        href="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+    <link class="js-favicon" rel="apple-touch-icon" sizes="180x180"
+        href="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+    <link class="js-favicon" rel="icon" type="image/png" sizes="32x32" href="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+    <link class="js-favicon" rel="icon" type="image/png" sizes="16x16" href="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+    <meta name="msapplication-TileImage" content="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+
+    <!-- Open Graph / Social Media Sharing Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" id="og-title" content="Alexander & Victoria - Wedding Invitation">
+    <meta property="og:description"
+        content="We cordially solicit your esteemed presence and prayerful blessings on the occasion of our marriage.">
+    <meta property="og:image"
+        content="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" id="twitter-title" content="Alexander & Victoria - Wedding Invitation">
+    <meta name="twitter:description"
+        content="We cordially solicit your esteemed presence and prayerful blessings on the occasion of our marriage.">
+    <meta name="twitter:image"
+        content="https://theluxuryinvites.com/wp-content/uploads/2026/03/g6.jpg">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Exact Fonts Requested -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Aboreto&family=Cormorant+Upright:wght@400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Gotu&family=Montserrat:wght@300;400;500&family=Yaldevi:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- GSAP for Scroll Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Strict html/body rules to prevent unwanted horizontal scrolling */
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdf5f6;
+            /* Soft pink background */
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Font Classes */
+        .font-cormorant {
+            font-family: 'Cormorant', serif;
+        }
+
+        .font-gotu {
+            font-family: 'Gotu', sans-serif;
+        }
+
+        .font-cormorant-upright {
+            font-family: 'Cormorant Upright', serif;
+        }
+
+        .font-aboreto {
+            font-family: 'Aboreto', sans-serif;
+        }
+
+        .font-yaldevi {
+            font-family: 'Yaldevi', sans-serif;
+        }
+
+        /* Responsive Container */
+        .app-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            background-color: #fdf5f6;
+            background-image: url('https://shehnaayi.com/wp-content/uploads/2026/03/bg.png');
+            background-blend-mode: multiply;
+            background-repeat: repeat;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+            container-type: inline-size;
+            overflow: hidden;
+        }
+
+        /* --- PREMIUM FULL-PAGE TILED WATERMARK --- */
+        .luxury-watermark-bg {
+            position: absolute;
+            inset: 0;
+            /* Tiled diagonal vector pattern using premium 'Aboreto' font in a rich dark brown color (#4e3629) */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='180' viewBox='0 0 320 180'%3E%3Ctext x='40' y='110' fill='%234e3629' font-family='Aboreto, sans-serif' font-size='15' font-weight='bold' letter-spacing='5' transform='rotate(-22 40 110)' opacity='0.15'%3ELuxury Invites%3C/text%3E%3C/svg%3E");
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: 2; /* Layered exactly above backgrounds/skies but below cards, text, and graphics */
+        }
+
+        /* --- LANTERNS ANIMATION --- */
+        .lantern-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 45%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .lantern {
+            position: absolute;
+            filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.95));
+        }
+
+        @keyframes floatUp {
+            0% {
+                top: 120%;
+                transform: scale(1) rotate(-5deg);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 0.8;
+            }
+
+            95% {
+                opacity: 0.8;
+            }
+
+            100% {
+                top: -30%;
+                transform: scale(0.8) rotate(5deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- PULSE BUTTON --- */
+        .pulse-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .pulse-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .pulse-icon::before,
+        .pulse-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            animation: pulseAnim 2s linear infinite;
+        }
+
+        .pulse-icon::after {
+            animation-delay: 1s;
+        }
+
+        @keyframes pulseAnim {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* --- SPARKLE ANIMATION FOR FOOTER --- */
+        @keyframes sparkleAnim {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.5) translateY(-10px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0) translateY(-20px);
+            }
+        }
+
+        .animate-sparkle {
+            animation: sparkleAnim 1.5s ease-out forwards;
+        }
+
+        /* Audio Button Attention Pulse */
+        @keyframes attentionPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(223, 168, 86, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(223, 168, 86, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(223, 168, 86, 0);
+            }
+        }
+
+        .audio-pulse {
+            animation: attentionPulse 2s infinite;
+        }
+
+        /* Modal Custom Transitions */
+        .modal-active {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: scale(1) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- AUDIO LINK: Background Music with Autoplay -->
+    <audio id="bgMusic" loop autoplay preload="auto">
+        <source src="/media/music/cathedral.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Music Toggle Button (Repositioned slightly upward to not overlap the floating pill action bar on mobile devices) -->
+    <button id="music-toggle"
+        class="fixed bottom-[110px] right-6 w-14 h-14 bg-[#dfa856] text-[#fff] rounded-full flex items-center justify-center z-[999] cursor-pointer transition-transform hover:scale-110 audio-pulse border-2 border-white shadow-lg">
+        <!-- Play Icon -->
+        <svg id="icon-play" class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+        </svg>
+        <!-- Pause Icon -->
+        <svg id="icon-pause" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+        </svg>
+    </button>
+
+    <!-- PREMIUM ACTION BAR (Floating dynamically at bottom center) -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[1000] w-[90%] max-w-[480px]">
+        <div class="bg-[#232125]/95 backdrop-blur-md border border-white/10 rounded-full p-2.5 flex items-center justify-between shadow-[0_12px_40px_rgba(0,0,0,0.5)]">
+            <!-- CREATE DEMO Button (hollow/outlined gold thin border, gold text) -->
+            <button id="btn-create-demo" class="flex-1 mr-2 px-4 py-3 border border-[#dfa856] rounded-full text-[#dfa856] font-cormorant text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.18em] transition-all hover:bg-[#dfa856]/10 active:scale-95">
+                Create Demo
+            </button>
+            <!-- BUY NOW Button (filled gold, white text) -->
+            <a href="https://theluxuryinvites.com/checkout/?add-to-cart=832" target="_blank" class="flex-1 ml-2 px-4 py-3 bg-gradient-to-r from-[#dfa856] to-[#b38135] text-white font-cormorant text-[14px] sm:text-[16px] font-bold uppercase tracking-[0.18em] rounded-full text-center shadow-[0_4px_15px_rgba(223,168,86,0.3)] transition-all hover:brightness-110 active:scale-95">
+                Buy Now
+            </a>
+        </div>
+    </div>
+
+    <!-- LIVE DEMO CUSTOMIZER MODAL OVERLAY -->
+    <div id="demo-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[10001] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-[#0c1c16] border border-[#dfa856]/30 rounded-2xl w-full max-w-[480px] p-6 sm:p-8 relative transform scale-95 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-y-auto max-h-[90vh]">
+            <!-- Close Button -->
+            <button id="close-modal" class="absolute top-4 right-4 text-white/60 hover:text-white transition-colors cursor-pointer p-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Customizer Header -->
+            <div class="text-center mb-6">
+                <h2 class="font-cormorant text-[#dfa856] text-[32px] font-bold tracking-[0.05em] leading-tight">
+                    Live Demo Customizer
+                </h2>
+                <p class="font-gotu text-[#dfa856]/80 text-[10px] tracking-[0.2em] uppercase mt-2">
+                    This is a sample demo for preview purposes. All details entered here are temporary—our team will finalize and customize everything for you after confirmation.
+                </p>
+            </div>
+
+            <!-- Customizer Form -->
+            <form id="customizer-form" class="space-y-4 font-gotu text-[11px] tracking-[0.15em] uppercase text-[#dfa856] font-bold">
+                <!-- Bride's Name -->
+                <div>
+                    <label class="block mb-2 text-[#dfa856]/90">Bride's Name</label>
+                    <input type="text" id="input-bride" placeholder="e.g. Victoria" value="Victoria"
+                        class="w-full bg-[#132c23] border border-[#dfa856]/20 rounded-xl px-4 py-3.5 text-white placeholder-white/30 tracking-normal font-normal normal-case focus:outline-none focus:border-[#dfa856] transition-colors text-[14px]">
+                </div>
+
+                <!-- Groom's Name -->
+                <div>
+                    <label class="block mb-2 text-[#dfa856]/90">Groom's Name</label>
+                    <input type="text" id="input-groom" placeholder="e.g. Alexander" value="Alexander"
+                        class="w-full bg-[#132c23] border border-[#dfa856]/20 rounded-xl px-4 py-3.5 text-white placeholder-white/30 tracking-normal font-normal normal-case focus:outline-none focus:border-[#dfa856] transition-colors text-[14px]">
+                </div>
+
+                <!-- Wedding Date -->
+                <div>
+                    <label class="block mb-2 text-[#dfa856]/90">Wedding Date</label>
+                    <input type="text" id="input-date" placeholder="e.g. Thursday, 21st May 2026" value="Thursday, 21st May 2026"
+                        class="w-full bg-[#132c23] border border-[#dfa856]/20 rounded-xl px-4 py-3.5 text-white placeholder-white/30 tracking-normal font-normal normal-case focus:outline-none focus:border-[#dfa856] transition-colors text-[14px]">
+                    <p class="text-[9px] tracking-normal lowercase text-white/40 mt-1 font-normal">Format: Year-Month-Day inside calendar is assumed May 21, 2026 for timer.</p>
+                </div>
+
+                <!-- Venue Name -->
+                <div>
+                    <label class="block mb-2 text-[#dfa856]/90">Venue Name</label>
+                    <input type="text" id="input-venue" placeholder="e.g. C.S.I. St. John's Church" value="C.S.I. St. John's Church"
+                        class="w-full bg-[#132c23] border border-[#dfa856]/20 rounded-xl px-4 py-3.5 text-white placeholder-white/30 tracking-normal font-normal normal-case focus:outline-none focus:border-[#dfa856] transition-colors text-[14px]">
+                </div>
+
+                <!-- Wedding Hashtag -->
+                <div>
+                    <label class="block mb-2 text-[#dfa856]/90">Wedding Hashtag</label>
+                    <input type="text" id="input-hashtag" placeholder="e.g. #VictoriaWedsAlexander" value="#VictoriaWedsAlexander"
+                        class="w-full bg-[#132c23] border border-[#dfa856]/20 rounded-xl px-4 py-3.5 text-white placeholder-white/30 tracking-normal font-normal normal-case focus:outline-none focus:border-[#dfa856] transition-colors text-[14px]">
+                </div>
+
+                <!-- Generate Button -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-[#dfa856] to-[#b38135] text-white font-gotu text-[12px] sm:text-[13px] tracking-[0.15em] font-bold rounded-xl text-center shadow-lg hover:brightness-110 active:scale-95 transition-all uppercase cursor-pointer">
+                        Generate My Demo Invite
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-6">
+                <p class="font-gotu text-[#dfa856]/40 text-[9px] tracking-[0.3em] uppercase">
+                    Luxury Invites
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST FOR DEMO CREATION -->
+    <div id="toast-notification" class="fixed top-6 left-1/2 -translate-x-1/2 z-[10002] bg-[#232125] border border-[#dfa856] text-white px-6 py-4 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] transform -translate-y-20 opacity-0 transition-all duration-500 flex items-center space-x-3 pointer-events-none">
+        <svg class="w-6 h-6 text-[#dfa856]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="font-cormorant font-bold tracking-[0.05em] text-[16px] text-[#f4e8c1]" id="toast-message">Demo invite generated successfully!</span>
+    </div>
+
+    <div class="app-container relative">
+
+        <!-- Repeating watermark layer applied absolutely to the background of the app-container -->
+        <div class="luxury-watermark-bg"></div>
+
+        <!-- ========================================================================= -->
+        <!-- 1. The Main Long Background Image (Seamlessly Extended Sky Trick) -->
+        <!-- ========================================================================= -->
+
+        <!-- Sky Extension: Flips the top 25cqw of the image upside down to perfectly connect the gradient -->
+        <div class="absolute top-0 left-0 w-full h-[25cqw] z-0 pointer-events-none">
+            <div class="w-full h-full"
+                style="background-image: url('https://theluxuryinvites.com/wp-content/uploads/2026/05/Gemini_Generated_Image_z3bf8sz3bf8sz3bf-Edited.png'); background-size: 100% auto; background-position: top center; transform: scaleY(-1);">
+            </div>
+        </div>
+
+        <!-- Main Background (Pushed down by 25cqw to give room to the new sky, with a negative margin to fix sub-pixel gap line) -->
+        <img src="https://theluxuryinvites.com/wp-content/uploads/2026/05/Gemini_Generated_Image_z3bf8sz3bf8sz3bf-Edited.png"
+            alt="Background"
+            class="absolute top-[25cqw] -mt-[2px] left-0 w-full h-auto z-0 pointer-events-none object-top">
+
+        <!-- Lanterns Layer -->
+        <div class="lantern-container" id="lanterns-wrapper">
+            <!-- Continuous floating injected via JS -->
+        </div>
+
+        <!-- HERO TEXT (Perfectly centered in the new expanded sky, avoiding church) -->
+        <div
+            class="absolute top-[10cqw] sm:top-[8cqw] left-0 w-full flex flex-col items-center z-20 gs-parallax-hero px-[5cqw]">
+            <h1 id="hero-groom-text"
+                class="font-cormorant text-[#f4e8c1] text-[9cqw] sm:text-[7.5cqw] font-bold tracking-[0.1em] uppercase leading-none drop-shadow-md text-center whitespace-nowrap">
+                Alexander</h1>
+            <div class="my-[3cqw] drop-shadow-md text-[#f4e8c1]">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    class="w-[8cqw] sm:w-[6cqw] opacity-90">
+                    <path d="M12 3v18M8 8h8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            <h1 id="hero-bride-text"
+                class="font-cormorant text-[#f4e8c1] text-[9cqw] sm:text-[7.5cqw] font-bold tracking-[0.1em] uppercase leading-none drop-shadow-md text-center whitespace-nowrap">
+                Victoria</h1>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 1: INVITATION DETAILS -->
+        <!-- ========================================================================= -->
+        <div class="relative w-full z-40 flex flex-col items-center pt-[135cqw] pb-[10cqw]">
+            
+            <!-- Bible Verse -->
+            <div class="gs-reveal flex flex-col items-center w-full mt-[2cqw] px-[10cqw] relative z-10">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                    class="w-[12cqw] sm:w-[8cqw] text-[#e6c27a] mb-[4cqw] opacity-80">
+                    <path d="M12 2v20M7 8h10" />
+                </svg>
+
+                <p
+                    class="text-[3.5cqw] font-gotu font-bold uppercase tracking-[0.15em] text-[#e6c27a] mb-[4cqw] opacity-90 drop-shadow-sm">
+                    With the blessings of parents</p>
+
+                <p
+                    class="text-[6cqw] sm:text-[5cqw] font-cormorant font-bold text-[#e6c27a] mb-[1.5cqw] text-center px-[4cqw] leading-relaxed drop-shadow-sm">
+                    Mrs. Ella James <br>
+                    <span
+                        class="block text-[4.5cqw] sm:text-[3.5cqw] font-normal italic text-[#e6c27a] my-[1cqw]">&amp;</span>
+                    Mr. John James
+                </p>
+            </div>
+
+            <h2
+                class="text-[14cqw] font-cormorant text-[#e6c27a] tracking-[0.2em] font-bold mb-[6cqw] mt-[10cqw] gs-reveal opacity-100 drop-shadow-sm relative z-10">
+                INVITE</h2>
+
+            <div class="gs-reveal flex flex-col items-center w-full px-[5cqw] relative z-10">
+                <p
+                    class="text-[4cqw] sm:text-[3.2cqw] font-semibold tracking-[0.1em] text-[#e6c27a] mb-[8cqw] leading-relaxed text-center px-[8cqw] max-w-[80%] drop-shadow-sm">
+                    We cordially solicit your esteemed presence and prayerful blessings with your family on the occasion
+                    of the marriage of our son
+                </p>
+
+                <!-- Groom -->
+                <h3 id="groom-detail-name"
+                    class="text-[12cqw] sm:text-[10cqw] font-cormorant-upright font-bold text-[#e6c27a] leading-none mb-[2cqw] text-center drop-shadow-sm">
+                    Alexander</h3>
+                <p class="text-[3.5cqw] sm:text-[2.8cqw] font-bold text-[#e6c27a] text-center mb-[1cqw] drop-shadow-sm">
+                    M.E., MBA.</p>
+                <p
+                    class="text-[3.2cqw] sm:text-[2.5cqw] font-gotu font-semibold text-[#e6c27a] text-center mb-[4cqw] drop-shadow-sm">
+                    Senior Engineer, Renault Group</p>
+
+                <p
+                    class="text-[10cqw] sm:text-[8cqw] font-cormorant-upright italic text-[#e6c27a] mb-[4cqw] text-center drop-shadow-sm">
+                    &amp;</p>
+
+                <!-- Bride -->
+                <h3 id="bride-detail-name"
+                    class="text-[12cqw] sm:text-[10cqw] font-cormorant-upright font-bold text-[#e6c27a] leading-none mb-[2cqw] text-center drop-shadow-sm">
+                    Victoria</h3>
+                <p class="text-[3.5cqw] sm:text-[2.8cqw] font-bold text-[#e6c27a] text-center mb-[1cqw] drop-shadow-sm">
+                    B.Tech.</p>
+                <p
+                    class="text-[3.2cqw] sm:text-[2.5cqw] font-gotu font-semibold text-[#e6c27a] text-center mb-[4cqw] drop-shadow-sm">
+                    Middleware Administrator, Kyndryl Solutions</p>
+
+                <p
+                    class="text-[3.5cqw] font-gotu uppercase tracking-[0.1em] font-bold text-[#e6c27a] mb-[1.5cqw] text-center px-[8cqw] mt-[4cqw] drop-shadow-sm">
+                    Daughter of</p>
+                <p
+                    class="text-[6cqw] sm:text-[5cqw] font-cormorant font-bold text-[#e6c27a] mb-[12cqw] text-center px-[4cqw] leading-relaxed drop-shadow-sm">
+                    Mrs. Sophia Williams <br>
+                    <span
+                        class="block text-[4.5cqw] sm:text-[3.5cqw] font-normal italic text-[#e6c27a] my-[1cqw]">&amp;</span>
+                    Mr. Henry Williams
+                </p>
+            </div>
+
+            <!-- EVENTS GRID (Exactly 2 cards to cover empty space perfectly on responsive) -->
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-y-[10cqw] gap-x-[6cqw] w-[85cqw] max-w-[900px] mx-auto z-20 relative">
+
+                <!-- Wedding Ceremony -->
+                <div class="relative flex justify-center items-center gs-reveal w-full">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&amp;height=952"
+                        class="w-full drop-shadow-xl" alt="Card BG">
+                    <!-- Tint flowers to soft pink using CSS filter -->
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&amp;height=1166"
+                        class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md"
+                        style="filter: hue-rotate(300deg) saturate(0.6);" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&amp;height=1174"
+                        class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180"
+                        style="filter: hue-rotate(300deg) saturate(0.6);" alt="Flowers">
+
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[6cqw] text-center z-20">
+                        <svg class="w-[6cqw] sm:w-[4cqw] text-[#6e3042] mb-[2cqw] opacity-80" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2v20M7 8h10" />
+                        </svg>
+                        <h4
+                            class="font-aboreto font-bold text-[#6e3042] text-[5cqw] sm:text-[3cqw] tracking-widest mb-[3cqw]">
+                            WEDDING</h4>
+                        <p id="wedding-card-date" class="text-[#6e3042] text-[3cqw] sm:text-[2cqw] font-bold mb-[1cqw]">Thursday, 21st May 2026
+                        </p>
+                        <p id="wedding-card-venue" class="text-[#6e3042] text-[3cqw] sm:text-[2cqw] font-medium mb-[0.8cqw]">C.S.I. St. John's Church</p>
+                        <p class="text-[#6e3042] text-[2.6cqw] sm:text-[1.6cqw] font-medium mb-[0.8cqw] opacity-80">Manchester,
+                            England</p>
+                        <p class="text-[#6e3042] text-[3.2cqw] sm:text-[2cqw] font-bold mt-[1.5cqw] mb-[1cqw]">5:00 PM
+                        </p>
+                        <p class="text-[#6e3042] text-[2.4cqw] sm:text-[1.4cqw] font-medium italic opacity-90">
+                            Officiated By: Rev. I. Thaines Raja</p>
+                        <a href="https://maps.app.goo.gl/NoKxhjRT4PLpsHi47?g_st=aw" target="_blank"
+                            class="mt-[2.5cqw] font-gotu text-[2.4cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] text-[#6e3042] font-bold border-b border-[#6e3042] pb-[2px] hover:opacity-70 transition-opacity pointer-events-auto relative z-30">SEE
+                            THE ROUTE</a>
+                    </div>
+                </div>
+
+                <!-- Reception -->
+                <div class="relative flex justify-center items-center gs-reveal w-full">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&amp;height=952"
+                        class="w-full drop-shadow-xl" alt="Card BG">
+                    <!-- Tint flowers to soft pink -->
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&amp;height=1166"
+                        class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md"
+                        style="filter: hue-rotate(300deg) saturate(0.6);" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&amp;height=1174"
+                        class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180"
+                        style="filter: hue-rotate(300deg) saturate(0.6);" alt="Flowers">
+
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[6cqw] text-center z-20">
+                        <svg class="w-[6cqw] sm:w-[4cqw] text-[#6e3042] mb-[2cqw] opacity-80" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 21v-8M8 21h8M6 8h12l-1 5H7z" />
+                        </svg>
+                        <h4
+                            class="font-aboreto font-bold text-[#6e3042] text-[5cqw] sm:text-[3cqw] tracking-widest mb-[3cqw]">
+                            RECEPTION</h4>
+                        <p id="reception-card-date" class="text-[#6e3042] text-[3cqw] sm:text-[2cqw] font-bold mb-[1cqw]">Thursday, 21st May 2026
+                        </p>
+                        <p class="text-[#6e3042] text-[3cqw] sm:text-[2cqw] font-medium mb-[0.8cqw] leading-tight">
+                            Vermilion</p>
+                        <p class="text-[#6e3042] text-[2.6cqw] sm:text-[1.6cqw] font-medium mb-[0.8cqw] opacity-80">
+                            Manchester, England</p>
+                        <p class="text-[#6e3042] text-[3.2cqw] sm:text-[2cqw] font-bold mt-[1.5cqw]">7:00 PM Onwards</p>
+                        <a href="https://maps.app.goo.gl/DFH4Ridw57rDU7gMA" target="_blank"
+                            class="mt-[2.5cqw] font-gotu text-[2.4cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] text-[#6e3042] font-bold border-b border-[#6e3042] pb-[2px] hover:opacity-70 transition-opacity pointer-events-auto relative z-30">SEE
+                            THE ROUTE</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SEE THE ROUTE -->
+            <div class="route-parallax flex flex-col items-center mt-[15cqw] mb-[35cqw] w-full relative z-40">
+                <h3
+                    class="font-aboreto font-bold text-[#e6c27a] text-[8cqw] tracking-widest mb-[2cqw] leading-tight text-center drop-shadow-sm">
+                    VENUE<br>
+                    <span
+                        class="block text-[6cqw] sm:text-[5cqw] font-normal italic text-[#e6c27a] my-[1cqw] drop-shadow-sm">&amp;</span>
+                    ROUTE
+                </h3>
+                <p
+                    class="text-[#e6c27a] text-[2.6cqw] tracking-[0.15em] uppercase mb-[4cqw] opacity-90 font-medium drop-shadow-sm">
+                    Click to open the map</p>
+                <a href="https://maps.app.goo.gl/NoKxhjRT4PLpsHi47?g_st=aw" target="_blank"
+                    class="pulse-icon text-[#e6c27a] w-[14cqw] h-[14cqw] pointer-events-auto shadow-sm bg-white bg-opacity-30 z-30">
+                    <div class="w-[3.5cqw] h-[3.5cqw] border border-current rounded-full bg-[#e6c27a]"></div>
+                </a>
+            </div>
+
+            <!-- 1ST VINTAGE CAR -->
+            <div class="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none z-50"
+                style="transform: translateY(30%);">
+                <img src="http://mydrape.com/wp-content/uploads/2026/03/car.png" alt="Vintage Car"
+                    class="w-[85%] sm:w-[60%] drop-shadow-2xl object-contain pointer-events-auto gs-car-reveal"
+                    style="filter: hue-rotate(320deg) saturate(0.8);">
+            </div>
+
+        </div> <!-- End of Section 1 -->
+
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 2: COUPLE & BLESSINGS -->
+        <!-- ========================================================================= -->
+        <!-- Sits beneath Section 1. Soft pink floral background perfectly fits the theme -->
+        <div class="relative w-full z-30 pt-[20cqw] pb-[10cqw]"
+            style="background-image: url('https://framerusercontent.com/images/CxMq9eNVYFWeipRkOH7L6BF7EV4.png?width=1350&amp;height=3716'); background-size: 100% auto; background-repeat: repeat;">
+
+            <div
+                class="flex flex-col items-center px-[8cqw] pt-[15cqw] gs-reveal font-aboreto text-[rgb(251,237,226)] relative z-20">
+                <p class="text-[3cqw] font-bold uppercase tracking-[0.2em] mb-[2cqw] opacity-90 text-[#fdf5f6]">With
+                    Love</p>
+                <h2
+                    class="font-yaldevi text-[#fdf5f6] text-[9cqw] font-bold tracking-[0.15em] mb-[6cqw] leading-tight text-center drop-shadow-sm">
+                    BLESSINGS &amp;<br>COMPLIMENTS</h2>
+
+                <div
+                    class="text-center bg-black bg-opacity-10 p-[6cqw] rounded-xl border border-white border-opacity-20 mb-[10cqw] max-w-[85%] mx-auto backdrop-blur-sm relative z-10">
+                    <p
+                        class="text-[3.5cqw] sm:text-[2.5cqw] font-medium text-center leading-relaxed text-[#fdf5f6] mb-[2cqw]">
+                        Best Compliments From:
+                    </p>
+                    <p
+                        class="text-[4.5cqw] sm:text-[3.5cqw] font-bold font-cormorant text-center text-white drop-shadow-sm mb-[2cqw]">
+                        Miss. C. Jane Mini Delphine B.E., <br><span
+                            class="text-[3cqw] font-normal italic">(Sister)</span>
+                    </p>
+                    <p class="text-[3.5cqw] sm:text-[2.5cqw] font-medium text-center text-[#fdf5f6] mt-[4cqw]">
+                        &amp;<br>Friends &amp; Relatives
+                    </p>
+                </div>
+            </div>
+
+            <!-- CSS CAROUSEL FRAME -->
+            <div class="relative w-[80cqw] sm:w-[50cqw] mx-auto gs-reveal mb-[15cqw] z-20">
+                <div
+                    class="relative w-full p-[2.5cqw] bg-[#f9e8e8] rounded-t-[35cqw] rounded-b-[6cqw] shadow-[0_20px_40px_rgba(0,0,0,0.3)] border-[3px] border-[#d8a3aa]">
+                    <div
+                        class="absolute -top-[5cqw] left-1/2 transform -translate-x-1/2 w-[10cqw] h-[10cqw] bg-[#f9e8e8] rounded-full border-[3px] border-[#d8a3aa] flex items-center justify-center z-30 shadow-lg">
+                        <div class="w-[5cqw] h-[5cqw] border border-[#a86a71] rounded-full bg-[#fdf5f6]"></div>
+                    </div>
+                    <div
+                        class="relative w-full aspect-[3/4] rounded-t-[30cqw] rounded-b-[4cqw] overflow-hidden border-[2px] border-[#a86a71] bg-white">
+                        <img src="https://theluxuryinvites.com/wp-content/uploads/2026/05/94a69df356c5ee641328420fbc5f7495.jpg"
+                            class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100"
+                            style="filter: saturate(0.8) contrast(1.1);" alt="Couple Slide 1">
+                        <img src="https://theluxuryinvites.com/wp-content/uploads/2026/05/download-42.jpg"
+                            class="carousel-img absolute inset-0 w-full h-full object-contain transition-opacity duration-1000 opacity-0"
+                            style="filter: saturate(0.8) contrast(1.1);" alt="Couple Slide 2">
+                        <img src="https://theluxuryinvites.com/wp-content/uploads/2026/05/download-41.jpg"
+                            class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                            style="filter: saturate(0.8) contrast(1.1);" alt="Couple Slide 3">
+                        <img src="https://theluxuryinvites.com/wp-content/uploads/2026/05/download-42.jpg"
+                            class="carousel-img absolute inset-0 w-full h-full object-contain transition-opacity duration-1000 opacity-0"
+                            style="filter: saturate(0.8) contrast(1.1);" alt="Couple Slide 4">
+                        <div class="absolute bottom-[3cqw] left-0 w-full flex justify-center space-x-[2cqw] z-40">
+                            <div
+                                class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-100 transition-opacity duration-300 shadow-sm border border-gray-400">
+                            </div>
+                            <div
+                                class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-50 transition-opacity duration-300 shadow-sm border border-gray-400">
+                            </div>
+                            <div
+                                class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-50 transition-opacity duration-300 shadow-sm border border-gray-400">
+                            </div>
+                            <div
+                                class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-50 transition-opacity duration-300 shadow-sm border border-gray-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RSVP Parallax Section -->
+            <div
+                class="rsvp-parallax flex flex-col items-center mt-[10cqw] mb-[35cqw] w-full relative z-40 font-aboreto text-[rgb(251,237,226)]">
+                <h3
+                    class="font-yaldevi text-[rgb(251,237,226)] text-[11cqw] font-bold tracking-[0.1em] mb-[2cqw] leading-tight text-center drop-shadow-md">
+                    PLEASE<br>RSVP</h3>
+                <p class="text-[2.6cqw] tracking-[0.15em] font-bold uppercase mb-[4cqw] opacity-90 drop-shadow-sm">Click
+                    to message on WhatsApp</p>
+                <a href="https://wa.me/919524967785" target="_blank"
+                    class="pulse-icon text-[rgb(251,237,226)] w-[14cqw] h-[14cqw] pointer-events-auto bg-black bg-opacity-10 backdrop-blur-sm shadow-lg z-30">
+                    <div class="w-[3.5cqw] h-[3.5cqw] border border-current rounded-full bg-[rgb(251,237,226)]"></div>
+                </a>
+            </div>
+
+            <!-- 2ND VINTAGE CAR -->
+            <div class="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none z-50"
+                style="transform: translateY(30%);">
+                <img src="http://mydrape.com/wp-content/uploads/2026/03/car2.png" alt="Second Vintage Car"
+                    class="w-[75%] sm:w-[50%] drop-shadow-2xl object-contain pointer-events-auto gs-car-reveal"
+                    style="filter: hue-rotate(320deg) saturate(0.8);">
+            </div>
+
+        </div> <!-- End of Pink Section -->
+
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 3: NIGHT SECTION -->
+        <!-- ========================================================================= -->
+        <div class="relative w-full z-10 pt-[30cqw] pb-[50cqw] flex flex-col items-center overflow-hidden bg-[#0c1822]"
+            style="background-image: url('https://framerusercontent.com/images/ySQ0SbzHWfVo1ClVjS303cCa9E.png?width=1536&amp;height=1620'); background-size: cover; background-position: top center; background-repeat: no-repeat;">
+
+            <!-- Content Area -->
+            <div class="gs-reveal flex flex-col items-center text-center px-[10cqw] pt-[20cqw] z-20 relative">
+                <h2 class="text-[8cqw] font-cormorant text-[#dfa856] tracking-[0.1em] mb-[2cqw] font-bold">The countdown
+                    begins</h2>
+
+                <!-- Dynamic Text-based Format Countdown -->
+                <div id="countdown-timer"
+                    class="font-cormorant text-[#dfa856] text-[5cqw] tracking-[0.15em] font-bold mb-[6cqw]">
+                    <!-- Injected by JS -->
+                </div>
+
+                <p class="text-[3cqw] font-medium text-[#dfa856] leading-relaxed opacity-80 mb-[10cqw] max-w-[85%]">
+                    Our families are excited that you are able to join us in celebrating what we hope will be one of the
+                    happiest days of our lives.
+                </p>
+
+                <!-- WE ARE GETTING MARRIED & Sparkles Area -->
+                <div class="relative w-full mt-[10cqw] flex flex-col justify-center items-center" id="sparkle-container">
+                    <h3 id="bottom-hashtag" class="text-[7cqw] sm:text-[6cqw] font-cormorant text-white tracking-[0.3em] font-bold drop-shadow-lg z-20 mb-2"
+                        style="text-shadow: 0 0 20px rgba(255,255,255,0.5);">
+                        #VictoriaWedsAlexander
+                    </h3>
+                    <h4 class="text-[3.5cqw] sm:text-[3cqw] font-cormorant text-[#dfa856] tracking-[0.15em] font-bold uppercase drop-shadow-md z-20">
+                        WE ARE GETTING MARRIED
+                    </h4>
+                </div>
+            </div>
+
+        </div>
+
+    </div> <!-- End of App Container -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Global Target Date for countdown (customizable dynamically)
+            let weddingTargetDate = new Date("May 21, 2026 17:00:00").getTime();
+            let timerInterval;
+
+            // 1. Bruteforce Audio Autoplay Logic
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('music-toggle');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            let isPlaying = false;
+
+            function toggleMusic() {
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    iconPlay.classList.remove('hidden');
+                    iconPause.classList.add('hidden');
+                    musicBtn.classList.add('audio-pulse');
+                } else {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        iconPlay.classList.add('hidden');
+                        iconPause.classList.remove('hidden');
+                        musicBtn.classList.remove('audio-pulse');
+                    }).catch(e => console.log("Audio waiting for stronger interaction"));
+                }
+            }
+
+            musicBtn.addEventListener('click', toggleMusic);
+
+            function initialForcePlay() {
+                if (!isPlaying) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        iconPlay.classList.add('hidden');
+                        iconPause.classList.remove('hidden');
+                        musicBtn.classList.remove('audio-pulse');
+                    }).catch(e => console.log("Autoplay blocked, waiting for interaction"));
+                }
+            }
+
+            // Force play instantly on any interaction
+            window.addEventListener('scroll', initialForcePlay, { once: true });
+            window.addEventListener('click', initialForcePlay, { once: true });
+            window.addEventListener('touchstart', initialForcePlay, { once: true });
+
+            setTimeout(initialForcePlay, 500);
+
+            initGSAP();
+            initCarousel();
+            initCountdown();
+            initSparkles();
+
+            // 2. Smooth Continuous Lanterns 
+            const lanternContainer = document.getElementById('lanterns-wrapper');
+            lanternContainer.innerHTML = '';
+            const lanternAssets = [
+                'https://framerusercontent.com/images/DdFrH1xuj9wKnCb1V2cCwhyUujQ.png?width=240&height=382',
+                'https://framerusercontent.com/images/RXBpca6GqTplpajDfA7doITJQA.png?width=323&height=506'
+            ];
+
+            for (let i = 0; i < 40; i++) {
+                let img = document.createElement('img');
+                img.src = lanternAssets[Math.floor(Math.random() * lanternAssets.length)];
+                img.className = 'lantern';
+
+                let baseSize = Math.random() * 8 + 6;
+                let scale = Math.random() > 0.5 ? 1.8 : 1.5;
+                let size = baseSize * scale;
+
+                let left = Math.random() * 95;
+                let duration = Math.random() * 18 + 10;
+                let delay = -(Math.random() * 30);
+                img.style.width = `${size}cqw`;
+                img.style.left = `${left}%`;
+                img.style.animation = `floatUp ${duration}s linear ${delay}s infinite`;
+                lanternContainer.appendChild(img);
+            }
+
+            // 3. Carousel Logic for Couple Images
+            function initCarousel() {
+                const images = document.querySelectorAll('.carousel-img');
+                const dots = document.querySelectorAll('.carousel-dot');
+                let currentIndex = 0;
+
+                if (images.length > 0) {
+                    setInterval(() => {
+                        images[currentIndex].style.opacity = '0';
+                        dots[currentIndex].style.opacity = '0.5';
+
+                        currentIndex = (currentIndex + 1) % images.length;
+
+                        images[currentIndex].style.opacity = '1';
+                        dots[currentIndex].style.opacity = '1';
+                    }, 3000);
+                }
+            }
+
+            // 4. Exact Text Format Countdown Logic
+            function initCountdown() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+
+                const timerElement = document.getElementById("countdown-timer");
+
+                timerInterval = setInterval(function () {
+                    const now = new Date().getTime();
+                    const distance = weddingTargetDate - now;
+
+                    if (distance < 0) {
+                        clearInterval(timerInterval);
+                        timerElement.innerHTML = "00 Days 00 Hours 00 Mins 00 Secs";
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerElement.innerHTML = `
+                        <span class="text-white">${String(days).padStart(2, '0')}</span> Days 
+                        <span class="text-white ml-[1cqw]">${String(hours).padStart(2, '0')}</span> Hours 
+                        <span class="text-white ml-[1cqw]">${String(minutes).padStart(2, '0')}</span> Mins 
+                        <span class="text-white ml-[1cqw]">${String(seconds).padStart(2, '0')}</span> Secs
+                    `;
+                }, 1000);
+            }
+
+            // 5. Wedding Sparkles/Firework Animation
+            function initSparkles() {
+                const container = document.getElementById('sparkle-container');
+
+                setInterval(() => {
+                    let sparkle = document.createElement('div');
+                    sparkle.className = 'absolute rounded-full bg-white opacity-0 animate-sparkle z-10';
+
+                    let size = Math.random() * 6 + 2;
+                    let left = Math.random() * 100;
+                    let top = Math.random() * 100;
+
+                    sparkle.style.width = `${size}px`;
+                    sparkle.style.height = `${size}px`;
+                    sparkle.style.left = `${left}%`;
+                    sparkle.style.top = `${top}%`;
+                    sparkle.style.boxShadow = '0 0 10px 3px rgba(255, 215, 0, 0.8)';
+
+                    container.appendChild(sparkle);
+
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, 150);
+            }
+
+            // 6. GSAP Animations
+            function initGSAP() {
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.to('.gs-parallax-hero', {
+                    y: "40cqw",
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: '.app-container',
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+
+                gsap.utils.toArray('.gs-reveal').forEach(el => {
+                    gsap.fromTo(el,
+                        { y: 40, opacity: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            duration: 1,
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 85%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                });
+
+                ['.route-parallax', '.rsvp-parallax'].forEach(selector => {
+                    gsap.to(selector, {
+                        y: "40cqw",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: selector,
+                            start: "top 50%",
+                            end: "bottom top",
+                            scrub: true
+                        }
+                    });
+                });
+
+                gsap.utils.toArray('.gs-car-reveal').forEach(el => {
+                    gsap.fromTo(el,
+                        { y: 60, opacity: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            duration: 1.2,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 95%"
+                            }
+                        }
+                    );
+                });
+            }
+
+            // =========================================================================
+            // LIVE DEMO CUSTOMIZER CODE
+            // =========================================================================
+
+            const demoModal = document.getElementById('demo-modal');
+            const openModalBtn = document.getElementById('btn-create-demo');
+            const closeModalBtn = document.getElementById('close-modal');
+            const customizerForm = document.getElementById('customizer-form');
+            const toastNotification = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+
+            // Interactive elements to update inside invitation template
+            const heroGroom = document.getElementById('hero-groom-text');
+            const heroBride = document.getElementById('hero-bride-text');
+            const detailGroom = document.getElementById('groom-detail-name');
+            const detailBride = document.getElementById('bride-detail-name');
+            const weddingCardDate = document.getElementById('wedding-card-date');
+            const receptionCardDate = document.getElementById('reception-card-date');
+            const weddingCardVenue = document.getElementById('wedding-card-venue');
+            const bottomHashtag = document.getElementById('bottom-hashtag');
+
+            // Toggle Modal Visibility
+            openModalBtn.addEventListener('click', () => {
+                demoModal.classList.add('modal-active');
+            });
+
+            closeModalBtn.addEventListener('click', () => {
+                demoModal.classList.remove('modal-active');
+            });
+
+            // Prevent closing when clicking modal card content
+            demoModal.addEventListener('click', (e) => {
+                if (e.target === demoModal) {
+                    demoModal.classList.remove('modal-active');
+                }
+            });
+
+            // Handle Custom Form Submit & Live Generation
+            customizerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Get custom values
+                const brideVal = document.getElementById('input-bride').value.trim() || "Victoria";
+                const groomVal = document.getElementById('input-groom').value.trim() || "Alexander";
+                const dateVal = document.getElementById('input-date').value.trim() || "Thursday, 21st May 2026";
+                const venueVal = document.getElementById('input-venue').value.trim() || "C.S.I. St. John's Church";
+                let hashtagVal = document.getElementById('input-hashtag').value.trim() || "#VictoriaWedsAlexander";
+
+                if (!hashtagVal.startsWith('#')) {
+                    hashtagVal = '#' + hashtagVal;
+                }
+
+                // Update text elements on the live card template dynamically
+                heroGroom.textContent = groomVal;
+                heroBride.textContent = brideVal;
+                detailGroom.textContent = groomVal;
+                detailBride.textContent = brideVal;
+                weddingCardDate.textContent = dateVal;
+                receptionCardDate.textContent = dateVal;
+                weddingCardVenue.textContent = venueVal;
+                bottomHashtag.textContent = hashtagVal;
+
+                // Dynamically update document/tab title & Open Graph tags
+                document.title = `${groomVal} & ${brideVal} - Wedding Invitation`;
+                document.getElementById('og-title').setAttribute('content', `${groomVal} & ${brideVal} - Wedding Invitation`);
+                document.getElementById('twitter-title').setAttribute('content', `${groomVal} & ${brideVal} - Wedding Invitation`);
+
+                // Parse customizable countdown target (Attempt parsing customized user string context if possible, fallback gracefully)
+                try {
+                    // Try to scan for standard years or dates. If user updates year, recalculate countdown targeting.
+                    let customYear = 2026;
+                    const matchesYear = dateVal.match(/\b(20\d{2})\b/);
+                    if (matchesYear) {
+                        customYear = parseInt(matchesYear[0]);
+                    }
+                    // Reset to custom computed target for demo logic
+                    weddingTargetDate = new Date(`May 21, ${customYear} 17:00:00`).getTime();
+                    initCountdown();
+                } catch (err) {
+                    console.log("Could not dynamically parse custom countdown date, fallback to May 21st, 2026.");
+                }
+
+                // Close Modal
+                demoModal.classList.remove('modal-active');
+
+                // Custom premium Toast Notification rather than basic 'alert()' (which breaks iframe environments)
+                toastMessage.textContent = `Demo invitation generated for ${groomVal} & ${brideVal}!`;
+                toastNotification.classList.remove('opacity-0', '-translate-y-20', 'pointer-events-none');
+                toastNotification.classList.add('opacity-100', 'translate-y-0');
+
+                setTimeout(() => {
+                    toastNotification.classList.remove('opacity-100', 'translate-y-0');
+                    toastNotification.classList.add('opacity-0', '-translate-y-20', 'pointer-events-none');
+                }, 3500);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibrahim & Amina - Wedding Invitation</title>
+    <meta name="description"
+        content="Ibrahim & Amina are getting married! Join us as we celebrate our new journey together.">
+
+    <!-- Updated Favicon -->
+    <link rel="icon" href="https://theluxuryinvites.com/wp-content/uploads/2026/05/download-4-4.jpg" type="image/jpeg" sizes="32x32">
+    <link rel="shortcut icon" href="https://theluxuryinvites.com/wp-content/uploads/2026/05/download-4-4.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://theluxuryinvites.com/wp-content/uploads/2026/05/download-4-4.jpg">
+
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Ibrahim & Amina - Wedding Invitation">
+    <meta property="og:description"
+        content="Ibrahim & Amina are getting married! Join us as we celebrate our new journey together.">
+    <meta property="og:image"
+        content="https://theluxuryinvites.com/wp-content/uploads/2026/05/Gemini_Generated_Image_upxwpgupxwpgupxw-scaled.png">
+    <meta property="og:image:secure_url"
+        content="https://theluxuryinvites.com/wp-content/uploads/2026/05/Gemini_Generated_Image_upxwpgupxwpgupxw-scaled.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ibrahim & Amina - Wedding Invitation">
+    <meta name="twitter:description"
+        content="Ibrahim & Amina are getting married! Join us as we celebrate our new journey together.">
+    <meta name="twitter:image"
+        content="https://theluxuryinvites.com/wp-content/uploads/2026/05/Gemini_Generated_Image_upxwpgupxwpgupxw-scaled.png">
+    <meta property="og:url" content="https://theluxuryinvites.com/custom/ibrahim-amina">
+    <meta property="og:type" content="website">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playball&family=Cinzel:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#400101',            /* Classic luxury maroon */
+                        bgLight: '#FCFBF9',          /* Warm off-white canvas */
+                        gold: '#C2944B',              /* Rich gold tone */
+                        goldLight: '#F3E5AB',        /* Soft accent gold */
+                    },
+                    fontFamily: {
+                        script: ['"Playball"', 'cursive'],
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        number: ['"Cinzel"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FCFBF9;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Subtle floating animations for premium feels */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+
+        .animate-bounce-subtle {
+            animation: bounce-subtle 2s infinite ease-in-out;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite ease-in-out;
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(194, 148, 75, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .glass-pill:hover {
+            background: rgba(255, 255, 255, 1);
+            border-color: rgba(194, 148, 75, 0.6);
+            transform: scale(1.05);
+        }
+
+        .tap-fade-out {
+            opacity: 0 !important;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .scratch-container {
+            border: 5px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: #fff;
+        }
+
+        canvas.scratch-canvas {
+            touch-action: none;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Smooth reveal-on-scroll trigger animation styling */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1s cubic-bezier(0.215, 0.61, 0.355, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-reveal {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .hero-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tap-fade-out {
+            opacity: 0 !important;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Classic elegant lace-like pattern separator background */
+        .lace-pattern {
+            background-color: #fcfbf9;
+            background-image: radial-gradient(rgba(194, 148, 75, 0.15) 1px, transparent 0), radial-gradient(rgba(194, 148, 75, 0.15) 1px, transparent 0);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        /* Custom inputs styling */
+        .wedding-input {
+            border: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .wedding-input:focus {
+            outline: none;
+            border-bottom: 2px solid #400101;
+            box-shadow: none;
+        }
+        
+        /* Modal Scrollbar hiding */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body id="main-body"
+    class="relative w-full flex flex-col font-serif text-brand selection:bg-brand selection:text-white overflow-hidden">
+
+    <!-- Watermark -->
+    <div class="fixed inset-0 z-[90] flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span class="transform -rotate-45 text-[#c45b5b] opacity-[0.12] font-bold uppercase tracking-[0.4em] text-2xl sm:text-4xl md:text-5xl lg:text-7xl whitespace-nowrap">
+            Luxury Invites
+        </span>
+    </div>
+
+    <!-- Cinematic Entrance curtain video / image backdrops -->
+    <div class="relative w-full min-h-screen flex flex-col overflow-hidden bg-cover bg-center bg-no-repeat"
+        style="background-image: url('https://theatre-demo.thedigitalyes.com/assets/curtain-open-C9MqdT6G.jpg');">
+
+        <!-- Tap to open Curtain overlay -->
+        <div id="intro-overlay"
+            class="absolute inset-0 z-[60] bg-[#400101] flex items-center justify-center transition-opacity duration-1000 cursor-pointer">
+            <video id="intro-video" class="w-full h-full object-cover absolute inset-0 pointer-events-none" muted
+                playsinline preload="auto">
+                <source src="/media/music/heritage.mp3" type="video/mp4">
+            </video>
+            <div id="tap-text"
+                class="relative z-50 flex flex-col items-center pointer-events-none transition-all duration-300 -translate-y-12 md:-translate-y-16">
+                <!-- Royal Monogram -->
+                <div class="w-20 h-20 border-2 border-gold/60 rounded-full flex items-center justify-center mb-6 scale-95 animate-pulse">
+                    <span id="monogram-text" class="font-number text-white text-3xl tracking-widest font-light ml-1">IA</span>
+                </div>
+                <span
+                    class="text-white/95 font-serif text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.3em] uppercase animate-pulse-slow drop-shadow-2xl">
+                    Tap to Open
+                </span>
+                <span class="text-gold/80 text-xs tracking-widest uppercase mt-3 font-medium">The Wedding Gateway</span>
+            </div>
+        </div>
+
+        <!-- Floating ambient music controller -->
+        <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-[50]">
+            <div id="audio-toggle"
+                class="glass-pill w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center">
+                <svg id="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <svg id="icon-playing" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+            </div>
+        </div>
+
+        <section
+            class="relative z-40 flex flex-col items-center justify-center text-center px-8 md:px-16 w-full max-w-6xl mx-auto flex-1 pt-[58vh] sm:pt-[62vh] md:pt-[66vh] pb-10 pointer-events-none">
+            <div class="mb-4 flex flex-col items-center gap-1.5">
+                <h3
+                    class="hero-reveal text-[20px] sm:text-[24px] md:text-[28px] font-bold text-gold tracking-widest leading-none mb-1">
+                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                </h3>
+                <h4
+                    class="hero-reveal text-[9px] sm:text-[11px] md:text-[13px] tracking-[0.2em] font-medium text-brand/80 uppercase">
+                    In the Name of Allah, the Most Gracious, the Most Merciful
+                </h4>
+                <div class="w-16 h-[1px] bg-gold/50 my-2 hero-reveal"></div>
+                <h3
+                    class="hero-reveal text-[11px] sm:text-[13px] md:text-[15px] tracking-widest uppercase font-medium leading-tight text-brand/90">
+                    Under the grace and blessings of Allah (SWT),
+                </h3>
+                <h3
+                    class="hero-reveal text-[11px] sm:text-[13px] md:text-[15px] tracking-widest uppercase font-bold leading-tight text-gold">
+                    you are cordially invited to witness the Nikkah & celebrate the Wedding of
+                </h3>
+            </div>
+
+            <div class="flex flex-col items-center justify-center py-2 mb-4">
+                <h1 id="hero-groom" class="hero-reveal font-script text-[4rem] sm:text-[5.5rem] md:text-[7rem] leading-[1] drop-shadow-lg" style="color:#400101;">Ibrahim
+                </h1>
+                <span class="hero-reveal font-script text-3xl md:text-5xl leading-none my-2" style="color:#400101;">&</span>
+                <h1 id="hero-bride" class="hero-reveal font-script text-[4rem] sm:text-[5.5rem] md:text-[7rem] leading-[1] drop-shadow-lg" style="color:#400101;">
+                    Amina</h1>
+            </div>
+
+            <div class="mt-2 md:mt-4 flex flex-col items-center gap-2 w-full max-w-[90%] mx-auto">
+                <p
+                    class="hero-reveal text-[11px] sm:text-[13px] md:text-[15px] font-serif italic text-brand/80 max-w-lg leading-relaxed">
+                    "And among His signs is this, that He created for you mates from among yourselves, that you may dwell in tranquility with them; and He has put love and mercy between your hearts." <br>
+                    <span class="text-[9px] tracking-widest uppercase font-bold text-gold block mt-1">— Surah Ar-Rum [30:21]</span>
+                </p>
+                <p
+                    class="hero-reveal text-[9px] sm:text-[11px] md:text-[13px] tracking-widest uppercase font-semibold leading-snug text-brand/90 mt-2">
+                    We request the honor of your presence and precious Duas
+                </p>
+                <p
+                    class="hero-reveal text-[9px] sm:text-[11px] md:text-[13px] tracking-widest uppercase font-semibold leading-snug text-brand/90">
+                    as we embark on this blessed journey to complete half of our Deen.
+                </p>
+            </div>
+
+            <div class="hero-reveal mt-8 md:mt-12 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity pointer-events-auto"
+                onclick="document.getElementById('reveal-section').scrollIntoView({behavior: 'smooth'})">
+                <span
+                    class="text-[12px] sm:text-[14px] md:text-[16px] tracking-widest uppercase font-semibold text-gold">Scroll</span>
+                <span class="text-2xl md:text-3xl font-light animate-bounce-subtle mt-1 text-gold">↓</span>
+            </div>
+        </section>
+    </div>
+
+    <section id="reveal-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-20 md:py-24 w-full mx-auto bg-white lace-pattern border-t border-b border-gold/10">
+        
+        <!-- Rose Petals / Confetti canvas wrapper -->
+        <canvas id="confettiCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+        
+        <div class="relative z-10 flex flex-col items-center w-full max-w-4xl">
+            <!-- Ornate top divider -->
+            <div class="flex items-center gap-4 mb-4 opacity-70">
+                <div class="h-[1px] w-12 bg-gold"></div>
+                <span class="text-gold">✦</span>
+                <div class="h-[1px] w-12 bg-gold"></div>
+            </div>
+
+            <div id="instruction-header" class="flex flex-col items-center mb-10 reveal-on-scroll">
+                <p class="text-[16px] sm:text-[18px] font-bold text-brand tracking-[0.15em] uppercase">
+                    Scratch to reveal the Nikkah date
+                </p>
+                <p class="text-[11px] text-gold font-medium tracking-wider uppercase mt-1">Rub on the golden coins below</p>
+            </div>
+
+            <!-- Scratch cards wrapper -->
+            <div class="flex flex-row justify-center items-center gap-3 sm:gap-6 md:gap-10 reveal-on-scroll delay-100">
+                <!-- Scratch Card 1 (Day) -->
+                <div
+                    class="relative w-[100px] h-[100px] sm:w-[135px] sm:h-[135px] md:w-[165px] md:h-[165px] rounded-full scratch-container flex items-center justify-center overflow-hidden">
+                    <span id="scratch-day" class="font-number text-3xl sm:text-5xl md:text-6xl font-medium text-brand">23</span>
+                    <canvas class="scratch-canvas absolute inset-0 w-full h-full rounded-full cursor-pointer z-10"
+                        id="scratch1"></canvas>
+                </div>
+                <!-- Scratch Card 2 (Month) -->
+                <div
+                    class="relative w-[100px] h-[100px] sm:w-[135px] sm:h-[135px] md:w-[165px] md:h-[165px] rounded-full scratch-container flex items-center justify-center overflow-hidden">
+                    <span id="scratch-month"
+                        class="font-serif text-2xl sm:text-4xl md:text-5xl font-medium uppercase tracking-tight text-brand">Sep</span>
+                    <canvas class="scratch-canvas absolute inset-0 w-full h-full rounded-full cursor-pointer z-10"
+                        id="scratch2"></canvas>
+                </div>
+                <!-- Scratch Card 3 (Year) -->
+                <div
+                    class="relative w-[100px] h-[100px] sm:w-[135px] sm:h-[135px] md:w-[165px] md:h-[165px] rounded-full scratch-container flex items-center justify-center overflow-hidden">
+                    <span id="scratch-year" class="font-number text-3xl sm:text-5xl md:text-6xl font-medium text-brand">2026</span>
+                    <canvas class="scratch-canvas absolute inset-0 w-full h-full rounded-full cursor-pointer z-10"
+                        id="scratch3"></canvas>
+                </div>
+            </div>
+
+            <!-- Big reveal success indicator -->
+            <div id="success-text"
+                class="mt-8 md:mt-14 flex flex-col items-center gap-3 opacity-0 transition-opacity duration-1000">
+                <h2 class="font-script text-[3.2rem] md:text-[5rem] text-gold leading-none">Save the Date!</h2>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+                    <span class="text-xs uppercase tracking-[0.25em] text-brand font-semibold">Join Our Celebration</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Timer Section -->
+    <section id="countdown-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-20 md:py-28 w-full max-w-4xl mx-auto">
+        <div class="flex flex-col items-center mb-10 md:mb-14 reveal-on-scroll">
+            <h2 class="font-script text-[3.8rem] md:text-[5.5rem] leading-none mb-3 text-brand">The Countdown</h2>
+            <p class="text-[11px] sm:text-[13px] tracking-[0.3em] uppercase text-brand/70 font-semibold">Until our lifetime together begins</p>
+        </div>
+
+        <!-- Countdown Digits Grid -->
+        <div class="flex flex-row justify-center items-center gap-3 sm:gap-6 md:gap-8 reveal-on-scroll delay-100">
+            <!-- Days Card -->
+            <div class="flex flex-col items-center">
+                <div
+                    class="w-[75px] h-[75px] sm:w-[95px] sm:h-[95px] md:w-[115px] md:h-[115px] border-[1px] border-gold/30 rounded-2xl flex items-center justify-center mb-3 bg-white/70 shadow-sm backdrop-blur-[2px]">
+                    <span id="cd-days" class="font-number text-3xl sm:text-5xl md:text-6xl font-medium text-brand">00</span>
+                </div>
+                <span class="text-[10px] md:text-[13px] tracking-[0.25em] uppercase font-bold text-brand">Days</span>
+            </div>
+            <!-- Hours Card -->
+            <div class="flex flex-col items-center">
+                <div
+                    class="w-[75px] h-[75px] sm:w-[95px] sm:h-[95px] md:w-[115px] md:h-[115px] border-[1px] border-gold/30 rounded-2xl flex items-center justify-center mb-3 bg-white/70 shadow-sm backdrop-blur-[2px]">
+                    <span id="cd-hours" class="font-number text-3xl sm:text-5xl md:text-6xl font-medium text-brand">00</span>
+                </div>
+                <span class="text-[10px] md:text-[13px] tracking-[0.25em] uppercase font-bold text-brand">Hours</span>
+            </div>
+            <!-- Minutes Card -->
+            <div class="flex flex-col items-center">
+                <div
+                    class="w-[75px] h-[75px] sm:w-[95px] sm:h-[95px] md:w-[115px] md:h-[115px] border-[1px] border-gold/30 rounded-2xl flex items-center justify-center mb-3 bg-white/70 shadow-sm backdrop-blur-[2px]">
+                    <span id="cd-mins" class="font-number text-3xl sm:text-5xl md:text-6xl font-medium text-brand">Min</span>
+                </div>
+                <span class="text-[10px] md:text-[13px] tracking-[0.25em] uppercase font-bold text-brand">Mins</span>
+            </div>
+            <!-- Seconds Card -->
+            <div class="flex flex-col items-center">
+                <div
+                    class="w-[75px] h-[75px] sm:w-[95px] sm:h-[95px] md:w-[115px] md:h-[115px] border-[1px] border-gold/30 rounded-2xl flex items-center justify-center mb-3 bg-white/70 shadow-sm backdrop-blur-[2px]">
+                    <span id="cd-secs" class="font-number text-3xl sm:text-5xl md:text-6xl font-medium text-brand">00</span>
+                </div>
+                <span class="text-[10px] md:text-[13px] tracking-[0.25em] uppercase font-bold text-brand">Sec</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wedding Events Timeline / Cards Section -->
+    <section id="events-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-20 md:py-26 w-full bg-bgLight">
+        <div class="reveal-on-scroll mb-14">
+            <h2 class="font-script text-[3.8rem] md:text-[5.5rem] leading-none mb-3 text-brand">Wedding Events</h2>
+            <div class="w-24 h-[1px] bg-gold mx-auto my-3"></div>
+            <p class="text-xs uppercase tracking-[0.2em] text-gold font-semibold">Step inside our celebration roadmap</p>
+        </div>
+
+        <!-- Event Card 1: 2nd June (Haldi & Sangeet) -->
+        <div class="relative w-full max-w-[700px] mx-auto reveal-on-scroll delay-100 mb-10 md:mb-14">
+            <img src="https://thecentre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png" 
+                 onerror="this.src='https://theatre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png'" 
+                 alt="Frame decoration"
+                 class="w-full h-auto mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 flex flex-col items-center justify-center pt-[13%] pb-[18%] px-6 sm:px-12">
+                <!-- Haldi Sub-section -->
+                <div
+                    class="flex flex-col items-center gap-1 sm:gap-1.5 mb-3 sm:mb-4 border-b border-brand/20 w-[80%] pb-2 sm:pb-3">
+                    <h2 class="font-script text-[1.8rem] sm:text-[3rem] md:text-[3.5rem] text-brand leading-none">Haldi
+                    </h2>
+                    <p class="dynamic-event-date font-number font-bold text-[12px] sm:text-[15px] md:text-[18px] tracking-[0.15em] text-brand uppercase">
+                        22nd Sep 2026</p>
+                    <p class="font-serif text-[11px] sm:text-[14px] md:text-[17px] text-brand/80"><span
+                            class="font-number">4:00</span> PM till <span class="font-number">7:00</span> PM</p>
+                </div>
+                <!-- Sangeet Sub-section -->
+                <div class="flex flex-col items-center gap-1 sm:gap-1.5 w-[80%]">
+                    <h2 class="font-script text-[1.8rem] sm:text-[3rem] md:text-[3.5rem] text-brand leading-none">
+                        Sangeet</h2>
+                    <p class="dynamic-event-date font-number font-bold text-[12px] sm:text-[15px] md:text-[18px] tracking-[0.15em] text-brand uppercase">
+                        22nd Sep 2026</p>
+                    <p class="font-serif text-[11px] sm:text-[14px] md:text-[17px] text-brand/80"><span
+                            class="font-number">10:00</span> PM till <span class="font-number">4:00</span> AM</p>
+                </div>
+                <!-- Venue & map triggers -->
+                <p
+                    class="font-serif text-[13px] sm:text-[18px] md:text-[21px] tracking-wide text-brand font-bold italic mt-3 sm:mt-5 text-gold">
+                    Venue: <span class="dynamic-venue">The Royal Pavilions</span></p>
+                <span
+                    class="mt-2.5 sm:mt-4 inline-flex items-center gap-2 px-4 py-1.5 bg-brand text-white rounded-full text-[9px] sm:text-[10px] tracking-widest uppercase font-semibold transition-all shadow-sm">
+                    View on Map
+                </span>
+            </div>
+        </div>
+
+        <!-- Event Card 2: 3rd June (Barat & Nikkah) -->
+        <div class="relative w-full max-w-[700px] mx-auto reveal-on-scroll delay-200 mb-10 md:mb-14">
+            <img src="https://thecentre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png" 
+                 onerror="this.src='https://theatre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png'" 
+                 alt="Frame decoration"
+                 class="w-full h-auto mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 flex flex-col items-center justify-center pt-[13%] pb-[18%] px-6 sm:px-12">
+                <div class="flex flex-col items-center gap-1.5 sm:gap-3.5">
+                    <h2 class="font-script text-[2rem] sm:text-[3.5rem] md:text-[4rem] text-brand leading-none">Barat &
+                        Nikkah</h2>
+                    <p class="dynamic-event-date font-number font-bold text-[13px] sm:text-[18px] md:text-[22px] tracking-[0.15em] text-brand uppercase">
+                        23rd Sep 2026</p>
+                    <p class="font-serif text-[12px] sm:text-[16px] md:text-[20px] text-brand/80"><span
+                            class="font-number">9:30</span> PM till <span class="font-number">3:00</span> AM</p>
+                    <p
+                        class="font-serif text-[13px] sm:text-[18px] md:text-[22px] tracking-wide text-brand font-bold italic mt-2 text-gold">
+                        Venue: <span class="dynamic-venue">The Royal Pavilions</span></p>
+                    <span
+                        class="mt-3 inline-flex items-center gap-2 px-4 py-1.5 bg-brand text-white rounded-full text-[9px] sm:text-[10px] tracking-widest uppercase font-semibold transition-all shadow-sm">
+                        View on Map
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Card 3: 5th June (Reception) -->
+        <div class="relative w-full max-w-[700px] mx-auto reveal-on-scroll delay-300">
+            <img src="https://thecentre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png" 
+                 onerror="this.src='https://theatre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png'" 
+                 alt="Frame decoration"
+                 class="w-full h-auto mix-blend-multiply opacity-95" />
+            <div class="absolute inset-0 flex flex-col items-center justify-center pt-[13%] pb-[18%] px-6 sm:px-12">
+                <div class="flex flex-col items-center gap-1.5 sm:gap-3.5">
+                    <h2 class="font-script text-[2rem] sm:text-[3.5rem] md:text-[4rem] text-brand leading-none">
+                        Reception</h2>
+                    <p class="dynamic-event-date font-number font-bold text-[13px] sm:text-[18px] md:text-[22px] tracking-[0.15em] text-brand uppercase">
+                        24th Sep 2026</p>
+                    <p class="font-serif text-[12px] sm:text-[16px] md:text-[20px] text-brand/80"><span
+                            class="font-number">7:00</span> PM till <span class="font-number">11:00</span> PM</p>
+                    <p
+                        class="font-serif text-[13px] sm:text-[18px] md:text-[22px] tracking-wide text-brand font-bold italic mt-2 text-gold">
+                        Venue: <span class="dynamic-venue">The Royal Pavilions</span></p>
+                    <span
+                        class="mt-3 inline-flex items-center gap-2 px-4 py-1.5 bg-brand text-white rounded-full text-[9px] sm:text-[10px] tracking-widest uppercase font-semibold transition-all shadow-sm">
+                        View on Map
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Photos and Details -->
+    <section id="venue-details-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-20 md:py-26 w-full bg-bgLight border-t border-brand/5">
+        <div class="reveal-on-scroll flex flex-col items-center w-full max-w-2xl">
+            <h2 class="font-script text-[3.5rem] md:text-[5rem] text-brand mb-8">Venue Details</h2>
+            <div class="relative p-6 md:p-10 border border-brand/10 rounded-[2.5rem] bg-white shadow-md max-w-2xl w-full">
+                <div class="flex flex-col items-center gap-8">
+                    <div class="group overflow-hidden rounded-2xl aspect-[16/9] w-full shadow-md border border-brand/5">
+                        <img src="https://theluxuryinvites.com/wp-content/uploads/2026/05/venue-1.jpg"
+                            alt="The Royal Pavilions"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="flex flex-col items-center gap-2 mt-2">
+                        <svg class="w-8 h-8 text-gold opacity-85" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <h3 class="text-[10px] md:text-[11px] tracking-[0.3em] font-bold uppercase text-brand/70">
+                            The Celebration at</h3>
+                        <h4 class="dynamic-venue font-serif font-bold text-[20px] sm:text-[24px] md:text-[28px] leading-tight text-brand">
+                            The Royal Pavilions</h4>
+                        <p class="font-serif italic text-[13px] md:text-[15px] text-brand/70 max-w-sm">We are honored to host our celebration at this grand and elegant pavilion.</p>
+                    </div>
+                    <span
+                        class="inline-flex items-center gap-2 px-5 py-2 bg-brand text-white rounded-full text-[10px] tracking-widest uppercase font-semibold transition-all shadow-sm">
+                        View on Map
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Functional Interactive RSVP Section -->
+    <section id="rsvp-section"
+        class="relative z-10 flex flex-col items-center justify-center px-4 pt-12 pb-4 w-full max-w-4xl mx-auto bg-bgLight">
+        <div
+            class="relative w-full max-w-[600px] bg-brand p-3 md:p-10 rounded-[3rem] shadow-2xl reveal-on-scroll">
+            <div
+                class="relative bg-white w-full h-full flex flex-col items-start text-left p-8 sm:p-12 rounded-[2rem]">
+                <h2 class="font-script text-[3.5rem] md:text-[5.5rem] mb-4 text-brand pt-4">RSVP</h2>
+                <p
+                    class="font-serif text-[15px] sm:text-[18px] leading-relaxed mb-6 text-brand opacity-90 max-w-[500px]">
+                    Kindly respond to help us prepare for the celebration. We look forward to seeing you!</p>
+
+                <form id="rsvp-form" class="w-full grid gap-4">
+                    <div class="grid gap-4">
+                        <div class="flex flex-col">
+                            <label for="rsvp-name" class="text-[10px] uppercase tracking-[0.3em] text-brand/70 mb-2">Full Name</label>
+                            <input id="rsvp-name" name="name" type="text" required placeholder="Guest Name"
+                                class="rounded-2xl border border-brand/10 bg-bgLight px-4 py-3 text-sm text-brand placeholder:text-brand/50 focus:border-gold focus:outline-none" />
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="flex flex-col">
+                            <label for="rsvp-attendance" class="text-[10px] uppercase tracking-[0.3em] text-brand/70 mb-2">Attendance</label>
+                            <select id="rsvp-attendance" name="attendance" required
+                                class="rounded-2xl border border-brand/10 bg-bgLight px-4 py-3 text-sm text-brand focus:border-gold focus:outline-none">
+                                <option value="" disabled selected>Select one</option>
+                                <option value="accept">Joyfully Accept</option>
+                                <option value="decline">Regretfully Decline</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="rsvp-guests" class="text-[10px] uppercase tracking-[0.3em] text-brand/70 mb-2">Number of Guests</label>
+                            <select id="rsvp-guests" name="guests"
+                                class="rounded-2xl border border-brand/10 bg-bgLight px-4 py-3 text-sm text-brand focus:border-gold focus:outline-none">
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5+ People</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="rsvp-message" class="text-[10px] uppercase tracking-[0.3em] text-brand/70 mb-2">Wishes or Dietary Notes</label>
+                        <textarea id="rsvp-message" name="message" rows="4" placeholder="Warm wishes..."
+                            class="rounded-2xl border border-brand/10 bg-bgLight px-4 py-3 text-sm text-brand placeholder:text-brand/50 focus:border-gold focus:outline-none"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full rounded-full bg-brand py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-gold">Submit Response</button>
+                </form>
+                
+                <div id="rsvp-thankyou" class="w-full hidden flex-col items-center justify-center text-center py-10 fade-in">
+                    <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="font-serif text-2xl text-brand font-bold mb-2">Response Received</h3>
+                    <p class="text-sm text-brand/70">Thank you for letting us know!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="thankyou-section"
+        class="relative z-10 flex flex-col items-center justify-center px-4 pt-8 pb-32 w-full max-w-4xl mx-auto bg-bgLight">
+        <div
+            class="relative w-full max-w-[550px] aspect-[5/4] bg-brand p-3 md:p-10 rounded-[2.5rem] shadow-2xl flex items-center justify-center overflow-hidden reveal-on-scroll mb-12">
+            <div class="relative bg-white w-full h-full flex flex-col items-center justify-center text-center p-8">
+                <h2 class="font-script text-[3rem] md:text-[4.5rem] mb-4 text-brand">Thank You</h2>
+                <p
+                    class="font-serif text-[18px] sm:text-[22px] leading-relaxed mb-6 text-brand opacity-90 max-w-[400px]">
+                    Your presence and blessings are the best gift we could receive.
+                </p>
+                <h3 id="thankyou-names" class="font-script text-[2.2rem] md:text-[3.2rem] text-brand mt-2">Ibrahim & Amina</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE DEMO CUSTOMIZER MODAL OVERLAY -->
+    <div id="demo-modal-overlay" class="fixed inset-0 z-[110] bg-black/70 hidden items-center justify-center p-4 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <!-- Modal Content Box -->
+        <div id="demo-modal" class="bg-[#0B120E] border border-gold/30 rounded-3xl p-6 md:p-10 max-w-[500px] w-full relative transform scale-95 transition-transform duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.5)] max-h-[90vh] overflow-y-auto no-scrollbar">
+            
+            <!-- Close Button -->
+            <button id="close-demo-modal" class="absolute top-5 right-5 text-gold/70 hover:text-white transition-colors p-1" aria-label="Close modal">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center mb-8 pt-2">
+                <h2 class="font-number text-2xl md:text-[28px] font-bold text-gold mb-2 tracking-widest uppercase">Live Demo Customizer</h2>
+                <p class="text-white/80 text-sm font-serif">This is a sample demo for preview purposes. All details entered here are temporary—our team will finalize and customize everything for you after confirmation.</p>
+            </div>
+
+            <!-- Form -->
+            <form id="live-demo-form" class="space-y-5">
+                <div class="flex flex-col text-left">
+                    <label class="text-gold text-[11px] uppercase tracking-[0.15em] mb-1.5 font-bold">Bride's Name</label>
+                    <input type="text" id="demo-bride" class="bg-[#131C16] border border-gold/20 rounded-xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-gold/60 transition-colors shadow-inner" placeholder="Enter Bride's name" required>
+                </div>
+                
+                <div class="flex flex-col text-left">
+                    <label class="text-gold text-[11px] uppercase tracking-[0.15em] mb-1.5 font-bold">Groom's Name</label>
+                    <input type="text" id="demo-groom" class="bg-[#131C16] border border-gold/20 rounded-xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-gold/60 transition-colors shadow-inner" placeholder="Enter Groom's name" required>
+                </div>
+
+                <div class="flex flex-col text-left">
+                    <label class="text-gold text-[11px] uppercase tracking-[0.15em] mb-1.5 font-bold">Wedding Date</label>
+                    <input type="date" id="demo-date" class="bg-[#131C16] border border-gold/20 rounded-xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-gold/60 transition-colors shadow-inner [color-scheme:dark]" required>
+                </div>
+
+                <div class="flex flex-col text-left">
+                    <label class="text-gold text-[11px] uppercase tracking-[0.15em] mb-1.5 font-bold">Venue Name</label>
+                    <input type="text" id="demo-venue" class="bg-[#131C16] border border-gold/20 rounded-xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-gold/60 transition-colors shadow-inner" placeholder="e.g. The Royal Pavilions" required>
+                </div>
+
+                <div class="flex flex-col text-left">
+                    <label class="text-gold text-[11px] uppercase tracking-[0.15em] mb-1.5 font-bold">Wedding Hashtag</label>
+                    <input type="text" id="demo-hashtag" class="bg-[#131C16] border border-gold/20 rounded-xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-gold/60 transition-colors shadow-inner" placeholder="#IbrahimWedsAmina">
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" id="generate-demo-btn" class="w-full py-4 rounded-full bg-gradient-to-r from-[#d4af37] via-[#C2944B] to-[#b8860b] text-white text-[13px] font-bold tracking-[0.15em] uppercase shadow-[0_4px_15px_rgba(194,148,75,0.3)] transition-transform hover:scale-[1.02] flex justify-center items-center">
+                        <span id="btn-text">Generate My Demo Invite</span>
+                        <svg id="btn-loader" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FLOATING ACTION BUTTONS (CREATE DEMO / BUY NOW) -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] flex items-center bg-[#2A2A2A] rounded-full p-2 shadow-[0_10px_30px_rgba(0,0,0,0.3)] border border-white/5 backdrop-blur-md">
+        <button id="open-demo-modal" class="px-5 sm:px-7 py-2.5 rounded-full border border-gold text-gold text-[11px] sm:text-[13px] font-bold tracking-[0.15em] uppercase font-number transition-all hover:bg-gold/10 hover:shadow-[inset_0_0_10px_rgba(194,148,75,0.2)] mr-2 whitespace-nowrap">
+            Create Demo
+        </button>
+        <a href="https://theluxuryinvites.com/checkout/?add-to-cart=1074" class="px-6 sm:px-9 py-2.5 rounded-full bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-white text-[11px] sm:text-[13px] font-bold tracking-[0.15em] uppercase font-number shadow-[0_0_15px_rgba(194,148,75,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(194,148,75,0.6)] whitespace-nowrap">
+            Buy Now
+        </a>
+    </div>
+
+    <footer class="relative z-10 w-full text-center py-6 bg-bgLight border-t border-brand/10 pb-24">
+        <p class="text-[10px] uppercase tracking-[0.25em] text-brand/70">
+            Made by <a href="https://theluxuryinvites.com/" target="_blank" rel="noopener noreferrer" class="text-brand font-semibold underline hover:text-gold">The luxury Invites</a>
+        </p>
+    </footer>
+
+    <audio id="bg-music" loop preload="auto">
+        <source src="/media/music/heritage.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Start romantic pinkish-red rose petal shower on date reveal
+        function startPetalShower() {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            const petals = [];
+            const colors = ['#e31b23', '#be1e2d', '#9b1c1c', '#ff4d4d', '#fda4af'];
+            
+            for (let i = 0; i < 75; i++) {
+                petals.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * -canvas.height,
+                    size: Math.random() * 6 + 4,
+                    weight: Math.random() * 1 + 0.5,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 2 - 1,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    swing: Math.random() * 2,
+                    swingSpeed: Math.random() * 0.04
+                });
+            }
+            
+            function drawPetal(p) {
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate((p.rotation * Math.PI) / 180);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(p.size, -p.size, p.size * 2, p.size, 0, p.size * 1.5);
+                ctx.bezierCurveTo(-p.size * 2, p.size, -p.size, -p.size, 0, 0);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+                ctx.restore();
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                petals.forEach(p => {
+                    p.y += p.weight;
+                    p.x += Math.sin(p.y * p.swingSpeed) * p.swing;
+                    p.rotation += p.rotationSpeed;
+                    if (p.y > canvas.height) { 
+                        p.y = -20; 
+                        p.x = Math.random() * canvas.width; 
+                    }
+                    drawPetal(p);
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const introOverlay = document.getElementById('intro-overlay');
+            const introVideo = document.getElementById('intro-video');
+            const mainBody = document.getElementById('main-body');
+            const audio = document.getElementById('bg-music');
+            const audioToggle = document.getElementById('audio-toggle');
+            const iconMuted = document.getElementById('icon-muted');
+            const iconPlaying = document.getElementById('icon-playing');
+
+            let introStarted = false;
+            let isPlaying = false;
+
+            function triggerHeroReveal() {
+                document.querySelectorAll('.hero-reveal').forEach((el, index) => {
+                    setTimeout(() => el.classList.add('is-visible'), index * 120);
+                });
+            }
+
+            function closeIntro() {
+                if (!introOverlay) return;
+                introOverlay.style.opacity = '0';
+                mainBody.classList.remove('overflow-hidden');
+                setTimeout(() => { if (introOverlay.parentNode) introOverlay.remove(); }, 1000);
+            }
+
+            function startIntro() {
+                if (introStarted) return;
+                introStarted = true;
+                mainBody.classList.remove('overflow-hidden');
+                if (audio) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        iconMuted.classList.add('hidden');
+                        iconPlaying.classList.remove('hidden');
+                    }).catch(() => { });
+                }
+                document.getElementById('tap-text').classList.add('tap-fade-out');
+                introOverlay.style.pointerEvents = 'none';
+                
+                if (introVideo) {
+                    let revealTriggered = false;
+                    introVideo.addEventListener('timeupdate', () => {
+                        if (introVideo.currentTime >= 1.5 && !revealTriggered) {
+                            revealTriggered = true;
+                            triggerHeroReveal();
+                        }
+                    });
+                    introVideo.play().catch(() => { closeIntro(); triggerHeroReveal(); });
+                } else { 
+                    closeIntro(); 
+                    triggerHeroReveal(); 
+                }
+            }
+
+            if (introVideo) introVideo.addEventListener('ended', closeIntro);
+            if (introOverlay) introOverlay.addEventListener('click', startIntro);
+
+            // Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+            // Audio Toggle
+            audioToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isPlaying) { 
+                    audio.pause(); 
+                    iconPlaying.classList.add('hidden'); 
+                    iconMuted.classList.remove('hidden'); 
+                } else { 
+                    audio.play(); 
+                    iconMuted.classList.add('hidden'); 
+                    iconPlaying.classList.remove('hidden'); 
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // Scratch Cards Logic
+            let completedCards = 0;
+            function initScratchCard(canvasId) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                const dpr = window.devicePixelRatio || 1;
+                const size = 165;
+                
+                canvas.width = size * dpr;
+                canvas.height = size * dpr;
+                ctx.scale(dpr, dpr);
+
+                const gradient = ctx.createConicGradient(Math.PI / 4, size / 2, size / 2);
+                gradient.addColorStop(0, '#be944b');
+                gradient.addColorStop(0.2, '#fef4cc');
+                gradient.addColorStop(0.4, '#a27c36');
+                gradient.addColorStop(0.6, '#e5c07b');
+                gradient.addColorStop(0.8, '#fef4cc');
+                gradient.addColorStop(1, '#be944b');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, size, size);
+
+                ctx.strokeStyle = 'rgba(92, 32, 24, 0.2)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(size / 2, size / 2, size / 2 - 10, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(size / 2, size / 2, size / 2 - 15, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                ctx.font = 'bold 10px Georgia';
+                ctx.textAlign = 'center';
+                ctx.fillText('✦', size / 2, size / 2 - 8);
+
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                ctx.font = 'bold 11px system-ui, sans-serif';
+                ctx.fillText('SCRATCH', size / 2, size / 2 + 10);
+                ctx.font = '8px system-ui, sans-serif';
+                ctx.fillText('ME', size / 2, size / 2 + 21);
+
+                let isDrawing = false;
+                let isCardComplete = false;
+
+                function getMousePos(e) {
+                    const rect = canvas.getBoundingClientRect();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    return { 
+                        x: (clientX - rect.left) * (size / rect.width), 
+                        y: (clientY - rect.top) * (size / rect.height) 
+                    };
+                }
+                
+                function scratch(e) {
+                    if (!isDrawing || isCardComplete) return;
+                    e.preventDefault();
+                    const pos = getMousePos(e);
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.beginPath(); 
+                    ctx.arc(pos.x, pos.y, 20, 0, Math.PI * 2); 
+                    ctx.fill();
+                    
+                    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                    let trans = 0; 
+                    for (let i = 3; i < pixels.length; i += 40) {
+                        if (pixels[i] < 128) trans++;
+                    }
+                    
+                    if ((trans / (pixels.length / 40)) * 100 > 45) {
+                        isCardComplete = true; 
+                        canvas.style.opacity = '0';
+                        setTimeout(() => canvas.style.display = 'none', 500);
+                        
+                        if (++completedCards === 3) {
+                            document.getElementById('instruction-header').style.opacity = '0';
+                            document.getElementById('success-text').style.opacity = '1';
+                            startPetalShower();
+                        }
+                    }
+                }
+                
+                canvas.addEventListener('mousedown', () => isDrawing = true);
+                canvas.addEventListener('mousemove', scratch);
+                canvas.addEventListener('mouseup', () => isDrawing = false);
+                canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: false });
+                canvas.addEventListener('touchmove', scratch, { passive: false });
+                canvas.addEventListener('touchend', () => isDrawing = false);
+            }
+            
+            ['scratch1', 'scratch2', 'scratch3'].forEach(id => setTimeout(() => initScratchCard(id), 500));
+
+            // Target date: December 23, 2026 at 9:30 PM
+            let targetTime = new Date("December 23, 2026 21:30:00").getTime();
+            setInterval(() => {
+                const dist = targetTime - new Date().getTime();
+                if (dist < 0) return;
+                document.getElementById('cd-days').innerText = Math.floor(dist / 86400000).toString().padStart(2, '0');
+                document.getElementById('cd-hours').innerText = Math.floor((dist % 86400000) / 3600000).toString().padStart(2, '0');
+                document.getElementById('cd-mins').innerText = Math.floor((dist % 3600000) / 60000).toString().padStart(2, '0');
+                document.getElementById('cd-secs').innerText = Math.floor((dist % 60000) / 1000).toString().padStart(2, '0');
+            }, 1000);
+
+            // Local Storage RSVP form system
+            const rsvpForm = document.getElementById('rsvp-form');
+            const rsvpThankYou = document.getElementById('rsvp-thankyou');
+            
+            rsvpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                rsvpForm.classList.add('hidden');
+                rsvpThankYou.classList.remove('hidden');
+                rsvpThankYou.classList.add('flex');
+            });
+
+            // Demo Modal Logic
+            const modalOverlay = document.getElementById('demo-modal-overlay');
+            const modalBox = document.getElementById('demo-modal');
+            const openModalBtn = document.getElementById('open-demo-modal');
+            const closeModalBtn = document.getElementById('close-demo-modal');
+            const demoForm = document.getElementById('live-demo-form');
+            const generateBtn = document.getElementById('generate-demo-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+
+            function openModal() {
+                modalOverlay.classList.remove('hidden');
+                modalOverlay.classList.add('flex');
+                setTimeout(() => {
+                    modalOverlay.classList.remove('opacity-0');
+                    modalBox.classList.remove('scale-95');
+                    modalBox.classList.add('scale-100');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            }
+
+            function closeModal() {
+                modalOverlay.classList.add('opacity-0');
+                modalBox.classList.remove('scale-100');
+                modalBox.classList.add('scale-95');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    modalOverlay.classList.add('hidden');
+                    modalOverlay.classList.remove('flex');
+                    demoForm.reset();
+                    btnText.innerText = "Generate My Demo Invite";
+                    btnLoader.classList.add('hidden');
+                    generateBtn.disabled = false;
+                    generateBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+                }, 300);
+            }
+
+            openModalBtn.addEventListener('click', openModal);
+            
+            closeModalBtn.addEventListener('click', closeModal);
+            
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeModal();
+            });
+
+            // Handle Demo Form Submission
+            demoForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                btnText.innerText = "Generating...";
+                btnLoader.classList.remove('hidden');
+                generateBtn.disabled = true;
+                generateBtn.classList.add('opacity-80', 'cursor-not-allowed');
+
+                setTimeout(() => {
+                    const brideName = document.getElementById('demo-bride').value;
+                    const groomName = document.getElementById('demo-groom').value;
+                    const dateVal = document.getElementById('demo-date').value;
+                    const venueVal = document.getElementById('demo-venue').value;
+                    const hashtagVal = document.getElementById('demo-hashtag').value;
+
+                    if (brideName && groomName) {
+                        document.getElementById('hero-bride').innerText = brideName;
+                        document.getElementById('hero-groom').innerText = groomName;
+                        document.getElementById('thankyou-names').innerText = `${groomName} & ${brideName}`;
+                        const initialGroom = groomName.charAt(0).toUpperCase();
+                        const initialBride = brideName.charAt(0).toUpperCase();
+                        document.getElementById('monogram-text').innerText = `${initialGroom}${initialBride}`;
+                    }
+
+                    if (dateVal) {
+                        const dateObj = new Date(dateVal);
+                        document.getElementById('scratch-day').innerText = dateObj.getDate().toString().padStart(2, '0');
+                        document.getElementById('scratch-month').innerText = dateObj.toLocaleString('default', { month: 'short' });
+                        document.getElementById('scratch-year').innerText = dateObj.getFullYear();
+                        
+                        const getOrdinalNum = (n) => n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
+                        const formattedDate = `${getOrdinalNum(dateObj.getDate())} ${dateObj.toLocaleString('default', { month: 'short' })} ${dateObj.getFullYear()}`;
+                        
+                        document.querySelectorAll('.dynamic-event-date').forEach(el => {
+                            el.innerText = formattedDate;
+                        });
+
+                        targetTime = new Date(`${dateVal}T21:30:00`).getTime();
+                    }
+
+                    if (venueVal) {
+                        document.querySelectorAll('.dynamic-venue').forEach(el => {
+                            el.innerText = venueVal;
+                        });
+                    }
+
+                    if (hashtagVal) {
+                        document.title = `${hashtagVal} - Wedding Invitation`;
+                    }
+
+                    btnLoader.classList.add('hidden');
+                    btnText.innerText = "Demo Generated Successfully!";
+                    
+                    setTimeout(() => {
+                        closeModal();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 1500);
+                    
+                }, 1500);
+            });
+        });
+    </script>
+
+</body>
+</html>

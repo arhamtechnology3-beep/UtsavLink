@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Shambavi & Dr. Lakshman - Wedding Invitation</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="https://shehnaayi.com/wp-content/uploads/2026/03/IMG_4918.JPG.webp">
+    <link rel="apple-touch-icon" href="https://shehnaayi.com/wp-content/uploads/2026/03/IMG_4918.JPG.webp">
+
+    <!-- Open Graph / Social Media Sharing Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dr. Shambavi & Dr. Lakshman - Wedding Invitation">
+    <meta property="og:description" content="You are invited to join us in the wedding celebrations of Dr. Shambavi & Dr. Lakshman.">
+    <meta property="og:image" content="https://shehnaayi.com/wp-content/uploads/2026/03/IMG_4918.JPG.webp">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dr. Shambavi & Dr. Lakshman - Wedding Invitation">
+    <meta name="twitter:description" content="You are invited to join us in the wedding celebrations of Dr. Shambavi & Dr. Lakshman.">
+    <meta name="twitter:image" content="https://shehnaayi.com/wp-content/uploads/2026/03/IMG_4918.JPG.webp">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Exact Fonts Requested -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Cormorant+Upright:wght@400;500;600;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Gotu&family=Montserrat:wght@300;400;500&family=Yaldevi:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for Scroll Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        /* Strict html/body rules to prevent unwanted horizontal scrolling */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Font Classes */
+        .font-cormorant { font-family: 'Cormorant', 'Cormorant Placeholder', serif; }
+        .font-gotu { font-family: 'Gotu', 'Gotu Placeholder', sans-serif; }
+        .font-cormorant-upright { font-family: 'Cormorant Upright', 'Cormorant Upright Placeholder', serif; }
+        .font-aboreto { font-family: 'Aboreto', sans-serif; }
+        .font-yaldevi { font-family: 'Yaldevi', 'Yaldevi Placeholder', sans-serif; }
+
+        /* Responsive Container */
+        .app-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            background-color: #3b9b8b; 
+            background-image: url('https://shehnaayi.com/wp-content/uploads/2026/03/bg.png');
+            background-repeat: repeat; 
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            container-type: inline-size;
+            overflow: hidden;
+        }
+
+        /* --- WATERMARK STYLE --- */
+        .luxury-watermark {
+            position: absolute;
+            font-size: 6.5cqw;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.18); /* Premium visibility across template */
+            pointer-events: none;
+            user-select: none;
+            transform: rotate(-30deg);
+            z-index: 45; /* Brought forward to ensure it's not hidden */
+            white-space: nowrap;
+        }
+        .luxury-watermark.dark {
+            color: rgba(0, 0, 0, 0.15); /* Sophisticated dark watermark layer on lighter background */
+        }
+
+        /* --- LANTERNS ANIMATION --- */
+        .lantern-container {
+            position: absolute;
+            top: 0; left: 0; 
+            width: 100%; height: 35%; 
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .lantern {
+            position: absolute;
+            filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.95));
+        }
+        @keyframes floatUp {
+            0% { top: 120%; transform: scale(1) rotate(-5deg); opacity: 0; }
+            5% { opacity: 0.95; }
+            95% { opacity: 0.95; }
+            100% { top: -30%; transform: scale(0.8) rotate(5deg); opacity: 0; }
+        }
+
+        /* --- PULSE BUTTON --- */
+        .pulse-icon {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .pulse-icon:hover {
+            transform: scale(1.1);
+        }
+        .pulse-icon::before, .pulse-icon::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 1px solid currentColor;
+            animation: pulseAnim 2s linear infinite;
+        }
+        .pulse-icon::after { animation-delay: 1s; }
+        @keyframes pulseAnim {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
+        }
+
+        /* --- SPARKLE ANIMATION FOR FOOTER --- */
+        @keyframes sparkleAnim {
+            0% { opacity: 0; transform: scale(0) translateY(0); }
+            50% { opacity: 1; transform: scale(1.5) translateY(-10px); }
+            100% { opacity: 0; transform: scale(0) translateY(-20px); }
+        }
+        .animate-sparkle {
+            animation: sparkleAnim 1.5s ease-out forwards;
+        }
+
+        /* Audio Button Attention Pulse */
+        @keyframes attentionPulse {
+            0% { box-shadow: 0 0 0 0 rgba(223, 168, 86, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(223, 168, 86, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(223, 168, 86, 0); }
+        }
+        .audio-pulse {
+            animation: attentionPulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUDIO LINK: Background Music with Autoplay -->
+    <audio id="bgMusic" loop autoplay preload="auto">
+        <source src="/media/music/lanterns.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Music Toggle Button -->
+    <button id="music-toggle" class="fixed bottom-6 right-6 w-14 h-14 bg-[#dfa856] text-[#000] rounded-full flex items-center justify-center z-[999] cursor-pointer transition-transform hover:scale-110 audio-pulse border-2 border-white">
+        <!-- Play Icon -->
+        <svg id="icon-play" class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Pause Icon -->
+        <svg id="icon-pause" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
+    <div class="app-container">
+        
+        <!-- ========================================================================= -->
+        <!-- 1. The Main Long Background Image (Anchored absolutely) -->
+        <!-- ========================================================================= -->
+        <img src="https://framerusercontent.com/images/zB6koVKqO70HPnGHzeeNgMHgrUw.png?width=1386&height=7106" alt="Background" class="absolute top-0 left-0 w-full h-auto z-0 pointer-events-none object-top">
+
+        <!-- Lanterns Layer -->
+        <div class="lantern-container" id="lanterns-wrapper">
+            <!-- Continuous floating injected via JS -->
+        </div>
+
+        <!-- HERO WATERMARK (To cover the top of the template) -->
+        <div class="luxury-watermark" style="top: 15cqw; left: -10%;">LUXURY INVITES</div>
+
+        <!-- HERO TEXT (Sizes adjusted for longer names) -->
+        <div class="absolute top-[30cqw] -mt-[50px] left-0 w-full flex flex-col items-center z-20 gs-parallax-hero px-[5cqw]">
+            <h1 class="font-cormorant text-[#f4e8c1] text-[11cqw] sm:text-[9cqw] tracking-[0.1em] uppercase leading-none drop-shadow-md text-center">Dr. Shambavi</h1>
+            <p class="font-cormorant italic text-[#f4e8c1] text-[6cqw] sm:text-[5cqw] tracking-[0.2em] my-[1.5cqw] drop-shadow-md">WEDS</p>
+            <h1 class="font-cormorant text-[#f4e8c1] text-[11cqw] sm:text-[9cqw] tracking-[0.1em] uppercase leading-none drop-shadow-md text-center">Dr. Lakshman</h1>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 1: GREEN SECTION (z-40) - Highest layer in the flow -->
+        <!-- ========================================================================= -->
+        <div class="relative w-full z-40 flex flex-col items-center pt-[198cqw] pb-[10cqw]">
+            
+            <!-- WATERMARK 1 -->
+            <div class="luxury-watermark" style="top: 15%; left: -5%;">LUXURY INVITES</div>
+
+            <img src="https://framerusercontent.com/images/tjsmDC8g305SmMs98B3ABqR5QE.png?width=279&height=296" alt="Ganesha" class="w-[22cqw] sm:w-[15cqw] -mt-[40px] mb-[4cqw] drop-shadow-lg gs-reveal">
+            
+            <div class="gs-reveal flex flex-col items-center w-full mt-[2cqw]">
+                <p class="text-[3cqw] font-gotu uppercase tracking-[0.15em] text-[#d1e0d9] mb-[4cqw]">With the heavenly blessings of</p>
+                
+                <p class="text-[5.5cqw] sm:text-[4.5cqw] font-cormorant text-[#f4e8c1] mb-[1.5cqw] text-center px-[4cqw]">Smt. Lata Devi & Sh. Kamal Kapoor</p>
+                <div class="w-[12cqw] h-[1px] bg-[#f4e8c1] opacity-40 my-[2cqw]"></div>
+                <p class="text-[5.5cqw] sm:text-[4.5cqw] font-cormorant text-[#f4e8c1] mb-[8cqw] text-center px-[4cqw]">Mrs. Reena & Mr. Rajiv Kapoor</p>
+            </div>
+
+            <!-- WATERMARK 1.5 -->
+            <div class="luxury-watermark" style="top: 45%; right: -8%;">LUXURY INVITES</div>
+
+            <h2 class="text-[14cqw] font-cormorant text-[#f4e8c1] tracking-[0.2em] mb-[6cqw] mt-[6cqw] gs-reveal opacity-90">INVITE</h2>
+
+            <div class="gs-reveal flex flex-col items-center w-full px-[5cqw]">
+                <p class="text-[3cqw] font-light uppercase tracking-[0.15em] text-[#d1e0d9] mb-[5cqw] leading-relaxed text-center px-[8cqw]">You to join us in the wedding celebrations of</p>
+                
+                <h3 class="text-[13cqw] sm:text-[9cqw] font-cormorant-upright text-[#f4e8c1] leading-none mb-[2cqw] text-center">Dr. Shambavi</h3>
+                <p class="text-[8cqw] sm:text-[6cqw] font-cormorant-upright italic text-[#f4e8c1] mb-[2cqw] text-center">&</p>
+                <h3 class="text-[13cqw] sm:text-[9cqw] font-cormorant-upright text-[#f4e8c1] leading-none mb-[6cqw] text-center">Dr. Lakshman</h3>
+                
+                <p class="text-[2.6cqw] font-light uppercase tracking-[0.15em] text-[#d1e0d9] mb-[2cqw] text-center px-[8cqw]">Daughter of</p>
+                <p class="text-[5cqw] sm:text-[4cqw] font-cormorant text-[#f4e8c1] mb-[10cqw] text-center">Mrs. Shalini & Mr. Aakash Mittal,</p>
+
+                <p class="text-[2.6cqw] font-light uppercase tracking-[0.15em] text-[#d1e0d9] mb-[8cqw] text-center px-[8cqw]">On the following events</p>
+            </div>
+
+            <!-- WATERMARK 1.8 -->
+            <div class="luxury-watermark" style="top: 72%; left: -8%;">LUXURY INVITES</div>
+
+            <!-- EVENTS GRID (Desktop Font Sizes Fixed) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-[10cqw] sm:gap-y-[6cqw] gap-x-[5cqw] w-[80cqw] sm:w-[85cqw] mx-auto z-20">
+                <!-- Mehendi -->
+                <div class="relative flex justify-center items-center gs-reveal">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&height=952" class="w-full drop-shadow-xl" alt="Card BG">
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&height=1166" class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&height=1174" class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180" alt="Flowers">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[4cqw] text-center">
+                        <h4 class="font-aboreto font-bold text-[#3c6a58] text-[7cqw] sm:text-[3.5cqw] tracking-widest mb-[2cqw] sm:mb-[1.5cqw]">MEHENDI</h4>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Thursday, May 13th 2027</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Rambagh, Jaipur</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-bold mb-[3.5cqw] sm:mb-[2cqw]">6pm Onwards</p>
+                        <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="font-aboreto font-bold text-[#3c6a58] text-[2.8cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] border-b-2 border-[#3c6a58] pb-[0.2cqw] relative z-20">See the route</a>
+                    </div>
+                </div>
+                
+                <!-- Haldi -->
+                <div class="relative flex justify-center items-center gs-reveal">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&height=952" class="w-full drop-shadow-xl" alt="Card BG">
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&height=1166" class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&height=1174" class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180" alt="Flowers">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[4cqw] text-center">
+                        <h4 class="font-aboreto font-bold text-[#3c6a58] text-[7cqw] sm:text-[3.5cqw] tracking-widest mb-[2cqw] sm:mb-[1.5cqw]">HALDI</h4>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Friday, May 14th 2027</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Rambagh, Jaipur</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-bold mb-[3.5cqw] sm:mb-[2cqw]">10am Onwards</p>
+                        <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="font-aboreto font-bold text-[#3c6a58] text-[2.8cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] border-b-2 border-[#3c6a58] pb-[0.2cqw] relative z-20">See the route</a>
+                    </div>
+                </div>
+
+                <!-- Cocktail -->
+                <div class="relative flex justify-center items-center gs-reveal">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&height=952" class="w-full drop-shadow-xl" alt="Card BG">
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&height=1166" class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&height=1174" class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180" alt="Flowers">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[4cqw] text-center">
+                        <h4 class="font-aboreto font-bold text-[#3c6a58] text-[7cqw] sm:text-[3.5cqw] tracking-widest mb-[2cqw] sm:mb-[1.5cqw]">COCKTAIL</h4>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Friday, May 14th 2027</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Rambagh, Jaipur</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-bold mb-[3.5cqw] sm:mb-[2cqw]">7pm Onwards</p>
+                        <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="font-aboreto font-bold text-[#3c6a58] text-[2.8cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] border-b-2 border-[#3c6a58] pb-[0.2cqw] relative z-20">See the route</a>
+                    </div>
+                </div>
+
+                <!-- Engagement -->
+                <div class="relative flex justify-center items-center gs-reveal">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&height=952" class="w-full drop-shadow-xl" alt="Card BG">
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&height=1166" class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&height=1174" class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180" alt="Flowers">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[4cqw] text-center">
+                        <h4 class="font-aboreto font-bold text-[#3c6a58] text-[7cqw] sm:text-[3.5cqw] tracking-widest mb-[2cqw] sm:mb-[1.5cqw]">ENGAGEMENT</h4>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Friday, May 14th 2027</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Rambagh, Jaipur</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-bold mb-[3.5cqw] sm:mb-[2cqw]">6pm Onwards</p>
+                        <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="font-aboreto font-bold text-[#3c6a58] text-[2.8cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] border-b-2 border-[#3c6a58] pb-[0.2cqw] relative z-20">See the route</a>
+                    </div>
+                </div>
+
+                <!-- Shaadi -->
+                <div class="relative flex justify-center items-center gs-reveal">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&height=952" class="w-full drop-shadow-xl" alt="Card BG">
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&height=1166" class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&height=1174" class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180" alt="Flowers">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[4cqw] text-center">
+                        <h4 class="font-aboreto font-bold text-[#3c6a58] text-[7cqw] sm:text-[3.5cqw] tracking-widest mb-[2cqw] sm:mb-[1.5cqw]">SHAADI</h4>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Saturday, May 15th 2027</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Rambagh, Jaipur</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-bold mb-[3.5cqw] sm:mb-[2cqw]">7pm Onwards</p>
+                        <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="font-aboreto font-bold text-[#3c6a58] text-[2.8cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] border-b-2 border-[#3c6a58] pb-[0.2cqw] relative z-20">See the route</a>
+                    </div>
+                </div>
+
+                <!-- Reception -->
+                <div class="relative flex justify-center items-center gs-reveal">
+                    <img src="https://framerusercontent.com/images/z8fNGgEf83GUW8GN7ddabomNq0.png?width=774&height=952" class="w-full drop-shadow-xl" alt="Card BG">
+                    <img src="https://framerusercontent.com/images/FLSOOveTOLX34LMuvOegzZoZ2eo.png?width=1094&height=1166" class="absolute -top-[10%] -left-[10%] w-[45%] z-10 drop-shadow-md" alt="Flowers">
+                    <img src="https://framerusercontent.com/images/ndc7VHWOkcPiELsDteUplHBg.png?width=1103&height=1174" class="absolute -bottom-[10%] -right-[10%] w-[45%] z-10 drop-shadow-md transform rotate-180" alt="Flowers">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pt-[2cqw] px-[4cqw] text-center">
+                        <h4 class="font-aboreto font-bold text-[#3c6a58] text-[7cqw] sm:text-[3.5cqw] tracking-widest mb-[2cqw] sm:mb-[1.5cqw]">RECEPTION</h4>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Sunday, May 16th 2027</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-medium mb-[0.8cqw] sm:mb-[0.5cqw]">Rambagh, Jaipur</p>
+                        <p class="text-[#3c6a58] text-[3.6cqw] sm:text-[1.8cqw] font-bold mb-[3.5cqw] sm:mb-[2cqw]">7pm Onwards</p>
+                        <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="font-aboreto font-bold text-[#3c6a58] text-[2.8cqw] sm:text-[1.4cqw] uppercase tracking-[0.1em] border-b-2 border-[#3c6a58] pb-[0.2cqw] relative z-20">See the route</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEE THE ROUTE -->
+            <!-- Huge margin-bottom (35cqw) ensures text never hits the car below it -->
+            <div class="route-parallax flex flex-col items-center mt-[15cqw] mb-[35cqw] w-full relative z-40">
+                <h3 class="font-aboreto font-bold text-[#f4e8c1] text-[9cqw] tracking-widest mb-[2cqw] leading-tight text-center">SEE THE<br>ROUTE</h3>
+                <p class="text-[#d1e0d9] text-[2.6cqw] tracking-[0.15em] uppercase mb-[4cqw] opacity-80 font-light">Click to open the map</p>
+                <a href="https://maps.app.goo.gl/ocG8VVgqKRfnwyv78" target="_blank" class="pulse-icon text-[#f4e8c1] w-[14cqw] h-[14cqw] pointer-events-auto">
+                    <div class="w-[3.5cqw] h-[3.5cqw] border border-current rounded-full bg-[#f4e8c1]"></div>
+                </a>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- 1ST VINTAGE CAR (BLUE) -->
+            <!-- PERFECT GUARANTEED 70/30 OVERLAP FIX -->
+            <!-- ========================================================================= -->
+            <div class="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none z-50" style="transform: translateY(30%);">
+                <!-- GSAP animates the image INSIDE this wrapper, preserving the CSS position rules -->
+                <img src="http://mydrape.com/wp-content/uploads/2026/03/car.png" alt="Vintage Car" class="w-[85%] sm:w-[60%] drop-shadow-2xl object-contain pointer-events-auto gs-car-reveal">
+            </div>
+
+        </div> <!-- End of Green Section -->
+
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 2: PINK SECTION (z-30) -->
+        <!-- ========================================================================= -->
+        <!-- Sits beneath Green section. The 1st car from Green section naturally overlays this background! -->
+        <div class="relative w-full z-30 pt-[20cqw] pb-[10cqw]" style="background-image: url('https://framerusercontent.com/images/CxMq9eNVYFWeipRkOH7L6BF7EV4.png?width=1350&height=3716'); background-size: 100% auto; background-repeat: repeat;">
+            
+            <!-- WATERMARK 2 -->
+            <div class="luxury-watermark dark" style="top: 22%; left: -5%;">LUXURY INVITES</div>
+
+            <!-- Padding top pushes content down safely below the overlapping car above it -->
+            <div class="flex flex-col items-center px-[8cqw] pt-[15cqw] gs-reveal font-aboreto text-[rgb(251,237,226)] relative z-20">
+                <p class="text-[2.6cqw] font-bold uppercase tracking-[0.2em] mb-[2cqw] opacity-90">Meet the</p>
+                <h2 class="font-yaldevi text-[rgb(251,237,226)] text-[10cqw] font-bold tracking-[0.15em] mb-[6cqw] leading-tight text-center">BRIDE AND<br>GROOM</h2>
+                <p class="text-[3cqw] sm:text-[2.5cqw] font-medium text-center leading-relaxed opacity-100 mb-[10cqw] px-[6cqw] max-w-[85%] mx-auto">
+                    We are both so delighted that you are able to join us in celebrating what we hope will be one of the happiest days of our lives. The affection shown to us by so many people since our roka has been incredibly moving, and has touched us both deeply. We would like to take this opportunity to thank everyone most sincerely for their kindness. We are looking forward to see you at the wedding.
+                </p>
+            </div>
+
+            <!-- WATERMARK 2.2 -->
+            <div class="luxury-watermark dark" style="top: 45%; right: -5%;">LUXURY INVITES</div>
+
+            <!-- CSS CAROUSEL FRAME (Restored) -->
+            <div class="relative w-[80cqw] sm:w-[50cqw] mx-auto gs-reveal mb-[15cqw] z-20">
+                <div class="relative w-full p-[2.5cqw] bg-[#efe3d1] rounded-t-[35cqw] rounded-b-[6cqw] shadow-[0_20px_40px_rgba(0,0,0,0.3)] border-[3px] border-[#c2aa80]">
+                    <div class="absolute -top-[5cqw] left-1/2 transform -translate-x-1/2 w-[10cqw] h-[10cqw] bg-[#efe3d1] rounded-full border-[3px] border-[#c2aa80] flex items-center justify-center z-30 shadow-lg">
+                        <div class="w-[5cqw] h-[5cqw] border border-[#a88f63] rounded-full bg-[#f4e8c1]"></div>
+                    </div>
+                    <div class="relative w-full aspect-[3/4] rounded-t-[30cqw] rounded-b-[4cqw] overflow-hidden border-[2px] border-[#a88f63] bg-white">
+                        <img src="https://shehnaayi.com/wp-content/uploads/2026/03/IMG_4918.JPG.webp" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100">
+                        <img src="https://shehnaayi.com/wp-content/uploads/2026/03/kiddaanentertainment_1759576596_3735921726019725669_59004414476.jpg" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
+                        <img src="https://framerusercontent.com/images/fKFg2vQEmI70QHKfOSr54pE7KQ4.jpeg?scale-down-to=1024&width=1080&height=1349" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0">
+                        <div class="absolute bottom-[3cqw] left-0 w-full flex justify-center space-x-[2cqw] z-40">
+                            <div class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-100 transition-opacity duration-300 shadow-sm border border-gray-400"></div>
+                            <div class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-50 transition-opacity duration-300 shadow-sm border border-gray-400"></div>
+                            <div class="carousel-dot w-[2cqw] h-[2cqw] rounded-full bg-white opacity-50 transition-opacity duration-300 shadow-sm border border-gray-400"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WATERMARK 2.5 -->
+            <div class="luxury-watermark dark" style="top: 75%; left: -5%;">LUXURY INVITES</div>
+
+            <!-- RSVP Parallax Section -->
+            <!-- Huge margin-bottom ensures text never hits the car below it -->
+            <div class="rsvp-parallax flex flex-col items-center mt-[10cqw] mb-[35cqw] w-full relative z-40 font-aboreto text-[rgb(251,237,226)]">
+                <h3 class="font-yaldevi text-[rgb(251,237,226)] text-[11cqw] font-bold tracking-[0.1em] mb-[2cqw] leading-tight text-center">PLEASE<br>RSVP</h3>
+                <p class="text-[2.6cqw] tracking-[0.15em] font-bold uppercase mb-[4cqw] opacity-90">Click to message on WhatsApp</p>
+                <a href="https://wa.me/917999433490" target="_blank" class="pulse-icon text-[rgb(251,237,226)] w-[14cqw] h-[14cqw] pointer-events-auto">
+                    <div class="w-[3.5cqw] h-[3.5cqw] border border-current rounded-full bg-[rgb(251,237,226)]"></div>
+                </a>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- 2ND VINTAGE CAR (BLACK) -->
+            <!-- ========================================================================= -->
+            <div class="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none z-50" style="transform: translateY(30%);">
+                <img src="http://mydrape.com/wp-content/uploads/2026/03/car2.png" alt="Second Vintage Car" class="w-[75%] sm:w-[50%] drop-shadow-2xl object-contain pointer-events-auto gs-car-reveal">
+            </div>
+
+        </div> <!-- End of Pink Section -->
+
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 3: YELLOW SECTION (z-20) -->
+        <!-- ========================================================================= -->
+        <!-- Sits beneath Pink section. The 2nd car naturally overlays this background! -->
+        <div class="relative w-full z-20 pt-[20cqw] pb-[10cqw]" style="background-image: url('https://framerusercontent.com/images/munXckNtNDlAiOMLLgrVsV1o.png?width=1350&height=2048'); background-size: 100% auto; background-repeat: repeat;">
+            
+            <!-- WATERMARK 3 -->
+            <div class="luxury-watermark dark" style="top: 25%; right: -5%;">LUXURY INVITES</div>
+
+            <!-- Padding top pushes content down safely below the overlapping car above it -->
+            <div class="px-[8cqw] pt-[15cqw] gs-reveal text-[#696b36] relative z-20">
+                <h2 class="font-aboreto font-bold text-[9cqw] tracking-[0.15em] mb-[6cqw] leading-tight text-center">THINGS TO<br>KNOW</h2>
+                <p class="text-[2.6cqw] font-medium text-center leading-relaxed opacity-90 mb-[12cqw] px-[4cqw]">
+                    To help you feel at ease and enjoy every moment of the celebrations, we've gathered a few thoughtful details we'd love for you to know before the big day.
+                </p>
+
+                <!-- WATERMARK 3.2 -->
+                <div class="luxury-watermark dark" style="top: 50%; left: 10%;">LUXURY INVITES</div>
+
+                <!-- Grid of 4 info items -->
+                <div class="grid grid-cols-2 gap-y-[10cqw] gap-x-[4cqw] mb-[15cqw]">
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-[7cqw] h-[7cqw] mb-[3cqw] opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <h4 class="font-aboreto font-bold text-[4.5cqw] tracking-widest mb-[1cqw]">HASHTAG</h4>
+                        <p class="text-[2.2cqw] font-medium">While posting photos on social media please use the hashtag<br><span class="font-bold text-[3cqw] mt-[0.5cqw] block">#ShambaviWedsLakshman</span></p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-[7cqw] h-[7cqw] mb-[3cqw] opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <h4 class="font-aboreto font-bold text-[4.5cqw] tracking-widest mb-[1cqw]">WEATHER</h4>
+                        <p class="text-[2.2cqw] font-medium px-[2cqw]">It will be mostly sunny with temperature reaching up to 28 degrees at the venue</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-[7cqw] h-[7cqw] mb-[3cqw] opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <h4 class="font-aboreto font-bold text-[4.5cqw] tracking-widest mb-[1cqw]">STAFF</h4>
+                        <p class="text-[2.2cqw] font-medium px-[2cqw]">We recommend the nearby hotel called Bhola Bhawan near the venue for the staff members</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <svg class="w-[7cqw] h-[7cqw] mb-[3cqw] opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10l-1.5-4A2 2 0 0 1 5.4 3.5h13.2a2 2 0 0 1 1.9 2.1L19 10"></path><path d="M3 10h18v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6z"></path><circle cx="7" cy="14" r="1"></circle><circle cx="17" cy="14" r="1"></circle></svg>
+                        <h4 class="font-aboreto font-bold text-[4.5cqw] tracking-widest mb-[1cqw]">PARKING</h4>
+                        <p class="text-[2.2cqw] font-medium px-[2cqw]">Valet parking for all our guests will be available at the venue</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WATERMARK 3.5 -->
+            <div class="luxury-watermark dark" style="top: 75%; right: -5%;">LUXURY INVITES</div>
+
+            <!-- Follow Parallax Section -->
+            <!-- Huge margin-bottom ensures text never hits the car below it -->
+            <div class="follow-parallax flex flex-col items-center mt-[10cqw] mb-[35cqw] w-full relative z-40 text-[#696b36]">
+                <h3 class="font-aboreto font-bold text-[9cqw] tracking-[0.1em] mb-[2cqw] leading-tight text-center">FOLLOW<br>THE ACTION</h3>
+                <p class="text-[2.6cqw] tracking-[0.15em] font-medium uppercase mb-[4cqw] opacity-80">Click to open our Instagram page</p>
+                <a href="https://instagram.com" target="_blank" class="pulse-icon text-[#696b36] w-[14cqw] h-[14cqw] pointer-events-auto">
+                    <div class="w-[3.5cqw] h-[3.5cqw] border border-current rounded-full bg-[#696b36]"></div>
+                </a>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- 3RD VINTAGE CAR (BLUE #2) -->
+            <!-- ========================================================================= -->
+            <!-- PERFECT GUARANTEED 70/30 OVERLAP FIX -->
+            <div class="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none z-50" style="transform: translateY(30%);">
+                <img src="http://mydrape.com/wp-content/uploads/2026/03/car2-1.png" alt="Third Vintage Car" class="w-[85%] sm:w-[60%] drop-shadow-2xl object-contain pointer-events-auto gs-car-reveal">
+            </div>
+
+        </div> <!-- End of Yellow Section -->
+
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 4: NIGHT SECTION (z-10) - Lowest layer in the flow -->
+        <!-- ========================================================================= -->
+        <!-- Sits beneath Yellow section. The 3rd car naturally overlays this background! -->
+        <!-- IMAGE LINK: Night Palace BG = ySQ0SbzHWfVo1ClVjS303cCa9E.png -->
+        <div class="relative w-full z-10 pt-[30cqw] pb-[50cqw] flex flex-col items-center overflow-hidden bg-[#0c1822]" style="background-image: url('https://framerusercontent.com/images/ySQ0SbzHWfVo1ClVjS303cCa9E.png?width=1536&height=1620'); background-size: cover; background-position: top center; background-repeat: no-repeat;">
+            
+            <!-- WATERMARK 4 -->
+            <div class="luxury-watermark" style="top: 15%; left: -5%;">LUXURY INVITES</div>
+
+            <!-- Padding top pushes content down safely below the overlapping car above it -->
+            <div class="gs-reveal flex flex-col items-center text-center px-[10cqw] pt-[15cqw] z-20">
+                <h2 class="text-[8cqw] font-cormorant text-[#dfa856] tracking-[0.1em] mb-[2cqw]">The countdown begins</h2>
+                
+                <!-- Dynamic Text-based Format Countdown -->
+                <div id="countdown-timer" class="font-cormorant text-[#dfa856] text-[5cqw] tracking-[0.15em] font-bold mb-[6cqw]">
+                    <!-- Injected by JS -->
+                </div>
+
+                <p class="text-[2.6cqw] font-medium text-[#dfa856] leading-relaxed opacity-70 mb-[10cqw]">
+                    Our families are excited that you are able to join us in celebrating what we hope will be one of the happiest days of our lives.
+                </p>
+
+                <!-- WATERMARK 4.5 -->
+                <div class="luxury-watermark" style="top: 68%; right: -5%;">LUXURY INVITES</div>
+
+                <!-- WE ARE GETTING MARRIED & Sparkles Area -->
+                <div class="relative w-full mt-[10cqw] flex justify-center items-center" id="sparkle-container">
+                    <h3 class="text-[7cqw] sm:text-[6cqw] font-cormorant text-white tracking-[0.3em] font-bold drop-shadow-lg z-20" style="text-shadow: 0 0 20px rgba(255,255,255,0.5);">
+                        WE ARE GETTING MARRIED
+                    </h3>
+                </div>
+            </div>
+            
+        </div>
+
+    </div> <!-- End of App Container -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('music-toggle');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            let isPlaying = false;
+
+            // Highly optimized function that enforces HTTPS on the source URL to prevent modern browser blocks
+            function playAudio() {
+                if (isPlaying) return;
+
+                // Dynamically upgrade HTTP source link to secure HTTPS if page is loaded on a secure site
+                if (audio.src.startsWith('http://') && window.location.protocol === 'https:') {
+                    audio.src = audio.src.replace('http://', 'https://');
+                }
+                
+                audio.play().then(() => {
+                    isPlaying = true;
+                    iconPlay.classList.add('hidden');
+                    iconPause.classList.remove('hidden');
+                    musicBtn.classList.remove('audio-pulse');
+                    // Once playing starts successfully, tear down temporary interaction events to save resources
+                    removeAllTriggers();
+                }).catch(e => {
+                    console.log("Autoplay waiting for guest micro-interaction...", e);
+                });
+            }
+
+            function toggleMusic() {
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    iconPlay.classList.remove('hidden');
+                    iconPause.classList.add('hidden');
+                    musicBtn.classList.add('audio-pulse');
+                } else {
+                    isPlaying = false; // Reset temporary local states
+                    playAudio();
+                }
+            }
+
+            musicBtn.addEventListener('click', toggleMusic);
+
+            // Establish micro-interaction triggers to force-start audio on literally any gesture
+            const triggerEvents = ['scroll', 'click', 'touchstart', 'mousemove', 'keydown', 'wheel', 'pointerdown'];
+            
+            function triggerPlay() {
+                playAudio();
+            }
+
+            triggerEvents.forEach(evt => {
+                window.addEventListener(evt, triggerPlay, { passive: true, once: false });
+            });
+
+            function removeAllTriggers() {
+                triggerEvents.forEach(evt => {
+                    window.removeEventListener(evt, triggerPlay);
+                });
+            }
+
+            // Attempt immediate, silent initialization of playback stream as early as document load permits
+            playAudio();
+            setTimeout(playAudio, 100);
+            setTimeout(playAudio, 300);
+            setTimeout(playAudio, 800);
+
+            initGSAP(); 
+            initCarousel();
+            initCountdown();
+            initSparkles();
+
+            // 2. Smooth Continuous Lanterns (Negative Delays to prevent clustering)
+            const lanternContainer = document.getElementById('lanterns-wrapper');
+            lanternContainer.innerHTML = ''; 
+            const lanternAssets = [
+                'https://framerusercontent.com/images/DdFrH1xuj9wKnCb1V2cCwhyUujQ.png?width=240&height=382',
+                'https://framerusercontent.com/images/RXBpca6GqTplpajDfA7doITJQA.png?width=323&height=506'
+            ];
+
+            for(let i=0; i<50; i++) {
+                let img = document.createElement('img');
+                img.src = lanternAssets[Math.floor(Math.random() * lanternAssets.length)];
+                img.className = 'lantern';
+                
+                // --- Updated Logic to significantly increase sizes ---
+                let baseSize = Math.random() * 8 + 6; // base 6 to 14 range
+                let scale = Math.random() > 0.5 ? 1.8 : 1.5; // Apply even larger multipliers
+                let size = baseSize * scale; 
+                
+                let left = Math.random() * 95;      
+                let duration = Math.random() * 18 + 10; 
+                let delay = -(Math.random() * 30); 
+                img.style.width = `${size}cqw`;
+                img.style.left = `${left}%`;
+                img.style.animation = `floatUp ${duration}s linear ${delay}s infinite`;
+                lanternContainer.appendChild(img);
+            }
+
+            // 3. Carousel Logic for Bride & Groom Images (Restored)
+            function initCarousel() {
+                const images = document.querySelectorAll('.carousel-img');
+                const dots = document.querySelectorAll('.carousel-dot');
+                let currentIndex = 0;
+
+                if(images.length > 0) {
+                    setInterval(() => {
+                        images[currentIndex].style.opacity = '0';
+                        dots[currentIndex].style.opacity = '0.5';
+                        
+                        currentIndex = (currentIndex + 1) % images.length;
+                        
+                        images[currentIndex].style.opacity = '1';
+                        dots[currentIndex].style.opacity = '1';
+                    }, 3000); 
+                }
+            }
+
+            // 4. Exact Text Format Countdown Logic targeting exactly May 14, 2027
+            function initCountdown() {
+                // Set the exact date for the countdown here (Engagement date)
+                const countDownDate = new Date("May 14, 2027 18:00:00").getTime();
+                
+                const timerElement = document.getElementById("countdown-timer");
+
+                const timerInterval = setInterval(function() {
+                    const now = new Date().getTime();
+                    const distance = countDownDate - now;
+
+                    if (distance < 0) {
+                        clearInterval(timerInterval);
+                        timerElement.innerHTML = "00 Days 00 Hours 00 Mins 00 Secs";
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Structured perfectly to match: 21 Days 04 Hours 15 Mins 12 Secs
+                    timerElement.innerHTML = `
+                        <span class="text-white">${String(days).padStart(2, '0')}</span> Days 
+                        <span class="text-white ml-[1cqw]">${String(hours).padStart(2, '0')}</span> Hours 
+                        <span class="text-white ml-[1cqw]">${String(minutes).padStart(2, '0')}</span> Mins 
+                        <span class="text-white ml-[1cqw]">${String(seconds).padStart(2, '0')}</span> Secs
+                    `;
+                }, 1000);
+            }
+
+            // 5. Wedding Sparkles/Firework Animation
+            function initSparkles() {
+                const container = document.getElementById('sparkle-container');
+                
+                // Spawn a sparkle every 150ms
+                setInterval(() => {
+                    let sparkle = document.createElement('div');
+                    sparkle.className = 'absolute rounded-full bg-white opacity-0 animate-sparkle z-10';
+                    
+                    let size = Math.random() * 6 + 2; // 2px to 8px
+                    let left = Math.random() * 100; // Spread horizontally 0-100%
+                    let top = Math.random() * 100; // Spread vertically 0-100% within container
+                    
+                    sparkle.style.width = `${size}px`;
+                    sparkle.style.height = `${size}px`;
+                    sparkle.style.left = `${left}%`;
+                    sparkle.style.top = `${top}%`;
+                    sparkle.style.boxShadow = '0 0 10px 3px rgba(255, 215, 0, 0.8)'; // Golden glow
+                    
+                    container.appendChild(sparkle);
+                    
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, 150);
+            }
+
+            // 6. GSAP Animations
+            function initGSAP() {
+                gsap.registerPlugin(ScrollTrigger);
+
+                gsap.to('.gs-parallax-hero', {
+                    y: "40cqw", 
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: '.app-container',
+                        start: "top top",
+                        end: "bottom top", 
+                        scrub: true
+                    }
+                });
+
+                gsap.utils.toArray('.gs-reveal').forEach(el => {
+                    gsap.fromTo(el, 
+                        { y: 40, opacity: 0 },
+                        { 
+                            y: 0, 
+                            opacity: 1, 
+                            duration: 1, 
+                            ease: "power2.out",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 85%", 
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                });
+
+                // Sections sink smoothly into the car backgrounds
+                ['.route-parallax', '.rsvp-parallax', '.follow-parallax'].forEach(selector => {
+                    gsap.to(selector, {
+                        y: "40cqw",
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: selector,
+                            start: "top 50%", 
+                            end: "bottom top",
+                            scrub: true
+                        }
+                    });
+                });
+
+                // Animate ONLY the image inside the wrapper to avoid overriding CSS transforms!
+                gsap.utils.toArray('.gs-car-reveal').forEach(el => {
+                    gsap.fromTo(el,
+                        { y: 60, opacity: 0 },
+                        {
+                            y: 0,
+                            opacity: 1,
+                            duration: 1.2,
+                            ease: "power3.out",
+                            scrollTrigger: {
+                                trigger: el,
+                                start: "top 95%"
+                            }
+                        }
+                    );
+                });
+            }
+        });
+    </script>
+
+    <style>
+      .template-sticky-bar {
+        position: fixed;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        background: rgba(15, 23, 30, 0.85); /* Dark premium background */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 14px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        z-index: 99999;
+        width: max-content;
+        max-width: 95%;
+      }
+
+      .template-sticky-bar a {
+        font-family: 'Cinzel', serif;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 12px 28px;
+        border-radius: 30px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        letter-spacing: 1.5px;
+        text-align: center;
+        display: inline-block;
+      }
+
+      /* Add to Cart - Hollow Gold */
+      .btn-gold-outline {
+        color: #D4AF37;
+        border: 1px solid #D4AF37;
+        background: transparent;
+      }
+
+      .btn-gold-outline:hover {
+        background: rgba(212, 175, 55, 0.1);
+        color: #F3E5AB;
+        transform: translateY(-2px);
+      }
+
+      /* Buy Now - Solid Gold Gradient */
+      .btn-gold-solid {
+        background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+        color: #FFFFFF;
+        border: 1px solid transparent;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+      }
+
+      .btn-gold-solid:hover {
+        background: linear-gradient(135deg, #E8C355 0%, #C29218 100%);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+        color: #FFFFFF;
+        transform: translateY(-2px);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 600px) {
+        .template-sticky-bar {
+          bottom: 15px;
+          width: calc(100% - 30px);
+          padding: 12px 16px;
+          gap: 10px;
+          justify-content: space-between;
+        }
+        
+        .template-sticky-bar a {
+          font-size: 12px;
+          padding: 12px 10px;
+          flex: 1;
+          letter-spacing: 1px;
+        }
+      }
+    </style>
+
+    <div class="template-sticky-bar">
+      <a href="https://theluxuryinvites.com/demo/lantern-demo/index.html?template=71" class="btn-gold-outline" target="_top">Create Demo</a>
+      
+      <a href="https://theluxuryinvites.com/checkout/?add-to-cart=71" class="btn-gold-solid" target="_top">Buy Now</a>
+    </div>
+    <script>
+      function openDemoForm(e) {
+        e.preventDefault();
+
+        // OPTION 1: If form is on same page
+        const formSection = document.getElementById("demo-form-section");
+        if (formSection) {
+          formSection.style.display = "block";
+          formSection.scrollIntoView({ behavior: "smooth" });
+        }
+
+        // OPTION 2 (if form is separate page)
+        // window.location.href = "/demo/index.html";
+      }
+    </script>
+    
+
+</body>
+</html>

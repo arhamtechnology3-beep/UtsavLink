@@ -12,7 +12,7 @@
     {
       "id": "celestial",
       "title": "Arjun & Sia Theme",
-      "subtitle": "The Luxury Invites · arjunsia",
+      "subtitle": "The Luxury Invites \u00b7 arjunsia",
       "credit": "theluxuryinvites.com",
       "file": "/media/music/celestial.mp3",
       "bytes": 1180662
@@ -28,7 +28,7 @@
     {
       "id": "bappa-song",
       "title": "The Bappa Song",
-      "subtitle": "Memory Card · Shankar Mahadevan",
+      "subtitle": "Memory Card \u00b7 Shankar Mahadevan",
       "credit": "Zee Music Marathi - licensed",
       "file": "/media/music/bappa-song.m4a",
       "bytes": 1235044
@@ -56,6 +56,102 @@
       "credit": "Suprabha KV - licensed",
       "file": "/media/music/ekadantaya.m4a",
       "bytes": 1215463
+    },
+    {
+      "id": "lanterns",
+      "title": "Luxury Royal Lantern",
+      "subtitle": "The Luxury Invites \u00b7 Royal Lanterns",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/lanterns.mp3",
+      "bytes": 1448344
+    },
+    {
+      "id": "grandreveal",
+      "title": "The Grand Reveal",
+      "subtitle": "The Luxury Invites \u00b7 Luxury Theatre Reveal",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/grandreveal.mp3",
+      "bytes": 3481388
+    },
+    {
+      "id": "bloom",
+      "title": "The Auspicious Bloom",
+      "subtitle": "The Luxury Invites \u00b7 Floral Reveal",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/bloom.mp3",
+      "bytes": 465605
+    },
+    {
+      "id": "sultanemerald",
+      "title": "The Golden Gateway",
+      "subtitle": "The Luxury Invites \u00b7 Sultan Emerald Suite",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/sultanemerald.mp3",
+      "bytes": 481115
+    },
+    {
+      "id": "jaipur",
+      "title": "The Royal Archway",
+      "subtitle": "The Luxury Invites \u00b7 Jaipur Royal Palace",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/default.mp3",
+      "bytes": 173706
+    },
+    {
+      "id": "royalmaharashtrian",
+      "title": "The Eternal Chronicle",
+      "subtitle": "The Luxury Invites \u00b7 Royal Maharashtrian Vivah",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/royalmaharashtrian.mp3",
+      "bytes": 481218
+    },
+    {
+      "id": "cathedral",
+      "title": "The Cathedral Crown",
+      "subtitle": "The Luxury Invites \u00b7 Heritage Cathedral",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/cathedral.mp3",
+      "bytes": 1448344
+    },
+    {
+      "id": "voyage",
+      "title": "The Classic Voyage",
+      "subtitle": "The Luxury Invites \u00b7 Vintage Luxury Journey",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/voyage.mp3",
+      "bytes": 465605
+    },
+    {
+      "id": "luminous",
+      "title": "The Luminous Horizon",
+      "subtitle": "The Luxury Invites \u00b7 Luminous Celebration",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/luminous.mp3",
+      "bytes": 4345965
+    },
+    {
+      "id": "heritage",
+      "title": "The Sterling Heritage",
+      "subtitle": "The Luxury Invites \u00b7 Aristocratic Wedding Suite",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/heritage.mp3",
+      "bytes": 2872335
+    },
+    {
+      "id": "seaside",
+      "title": "The Seaside Sacrament",
+      "subtitle": "The Luxury Invites \u00b7 Oceanfront Wedding Journey",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/seaside.mp3",
+      "bytes": 5238371
+    },
+    {
+      "id": "promise",
+      "title": "The Sterling Promise",
+      "subtitle": "The Luxury Invites \u00b7 Western Heirloom",
+      "credit": "theluxuryinvites.com",
+      "file": "/media/music/promise.mp3",
+      "bytes": 1180662
     }
   ]
 }

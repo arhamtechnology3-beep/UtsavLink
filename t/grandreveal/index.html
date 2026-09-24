@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubham & Vasundhara - Wedding Invitation</title>
+
+    <!-- Open Graph / WhatsApp Preview Tags -->
+    <meta property="og:title" content="Shubham & Vasundhara - Wedding Invitation">
+    <meta property="og:description"
+        content="We would like to invite you to celebrate with us the most special day of our lives.">
+    <meta property="og:image" content="https://theluxuryinvites.com/wedding/shubham-vasundhara/img.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:type" content="website">
+
+    <!-- Standard Favicon for Browser Tabs -->
+    <link rel="icon" href="https://theluxuryinvites.com/wedding/shubham-vasundhara/img.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://theluxuryinvites.com/wedding/shubham-vasundhara/img.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: 'rgb(92, 32, 24)',
+                        bgLight: '#FCFBF9',
+                    },
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                    },
+                    letterSpacing: {
+                        'widest-xl': '0.2em',
+                        'widest-2xl': '0.25em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FCFBF9;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes bounce-subtle {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(5px);
+            }
+        }
+
+        .animate-bounce-subtle {
+            animation: bounce-subtle 2s infinite ease-in-out;
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .glass-pill:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .scratch-container {
+            border: 6px solid #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        canvas.scratch-canvas {
+            touch-action: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .fade-transition {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* --- SCROLL ANIMATIONS --- */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 {
+            transition-delay: 100ms;
+        }
+
+        .delay-200 {
+            transition-delay: 200ms;
+        }
+
+        .delay-300 {
+            transition-delay: 300ms;
+        }
+
+        .delay-400 {
+            transition-delay: 400ms;
+        }
+
+        .delay-500 {
+            transition-delay: 500ms;
+        }
+
+        /* Scalloped edge effect for Thank You section */
+        .scallop-border {
+            background: white;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 0 0 12px white;
+            clip-path: polygon(100% 0%, 100% 5%, 98% 8%, 100% 11%, 98% 14%, 100% 17%, 98% 20%, 100% 23%, 98% 26%, 100% 29%, 98% 32%, 100% 35%, 98% 38%, 100% 41%, 98% 44%, 100% 47%, 98% 50%, 100% 53%, 98% 56%, 100% 59%, 98% 62%, 100% 65%, 98% 68%, 100% 71%, 98% 74%, 100% 77%, 98% 80%, 100% 83%, 98% 86%, 100% 89%, 98% 92%, 100% 95%, 100% 100%, 95% 100%, 92% 98%, 89% 100%, 86% 98%, 83% 100%, 80% 98%, 77% 100%, 74% 98%, 71% 100%, 68% 98%, 65% 100%, 62% 98%, 59% 100%, 56% 98%, 53% 100%, 50% 98%, 47% 100%, 44% 98%, 41% 100%, 38% 98%, 35% 100%, 32% 98%, 29% 100%, 26% 98%, 23% 100%, 20% 98%, 17% 100%, 14% 98%, 11% 100%, 8% 98%, 5% 100%, 0% 100%, 0% 95%, 2% 92%, 0% 89%, 2% 86%, 0% 83%, 2% 80%, 0% 77%, 2% 74%, 0% 71%, 2% 68%, 0% 65%, 2% 62%, 0% 59%, 2% 56%, 0% 53%, 2% 50%, 0% 47%, 2% 44%, 0% 41%, 2% 38%, 0% 35%, 2% 32%, 0% 29%, 2% 26%, 0% 23%, 2% 20%, 0% 17%, 2% 14%, 0% 11%, 2% 8%, 0% 5%, 0% 0%, 5% 0%, 8% 2%, 11% 0%, 14% 2%, 17% 0%, 20% 2%, 23% 0%, 26% 2%, 29% 0%, 32% 2%, 35% 0%, 38% 2%, 41% 0%, 44% 2%, 47% 0%, 50% 2%, 53% 0%, 56% 2%, 59% 0%, 62% 2%, 65% 0%, 68% 2%, 71% 0%, 74% 2%, 77% 0%, 80% 2%, 83% 0%, 86% 2%, 89% 0%, 92% 2%, 95% 0%);
+        }
+
+        .watermark-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            align-items: center;
+            justify-items: center;
+            opacity: 0.24;
+        }
+
+        .watermark-overlay span {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #c45b5b;
+            transform: rotate(-18deg);
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body id="main-body"
+    class="relative w-full flex flex-col font-serif text-brand selection:bg-brand selection:text-white overflow-hidden">
+    <div class="watermark-overlay" aria-hidden="true">
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+    </div>
+
+    <!-- INTRO VIDEO OVERLAY -->
+    <div id="intro-overlay"
+        class="fixed inset-0 z-[100] bg-black flex items-center justify-center transition-opacity duration-1000 cursor-pointer">
+        <!-- Closed curtain static image to hide black screen initially -->
+        <img id="intro-poster" src="https://theatre-demo.thedigitalyes.com/assets/curtain-closed-Bpkadld4.jpg"
+            class="w-full h-full object-cover absolute inset-0 pointer-events-none" alt="Curtain Closed">
+        <video id="intro-video" class="w-full h-full object-cover absolute inset-0 pointer-events-none hidden" muted
+            playsinline preload="auto">
+            <source src="/media/music/grandreveal.mp3" type="video/mp4">
+        </video>
+        <div id="tap-text"
+            class="absolute bottom-12 md:bottom-16 z-20 flex flex-col items-center pointer-events-none transition-opacity duration-500">
+            <span
+                class="text-white/80 font-sans text-[11px] md:text-[13px] tracking-[0.25em] uppercase animate-pulse drop-shadow-md">Tap
+                to open</span>
+        </div>
+    </div>
+
+    <!-- HERO SECTION WITH BACKGROUND IMAGE -->
+    <div class="relative w-full min-h-screen flex flex-col overflow-hidden bg-cover bg-center bg-no-repeat"
+        style="background-image: url('https://theatre-demo.thedigitalyes.com/assets/curtain-open-C9MqdT6G.jpg');">
+
+        <div class="absolute top-6 right-6 md:top-8 md:right-8 z-50">
+            <div id="lang-toggle"
+                class="glass-pill rounded-full px-4 py-2 flex items-center gap-3 text-xs tracking-widest font-semibold cursor-pointer select-none">
+                <span id="lang-en" class="transition-opacity duration-300">EN</span>
+                <span id="lang-it" class="opacity-40 transition-opacity duration-300">IT</span>
+            </div>
+        </div>
+
+        <!-- Audio Control (Bottom Left) -->
+        <div class="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-50">
+            <div id="audio-toggle"
+                class="glass-pill w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center">
+                <!-- Muted Icon -->
+                <svg id="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="md:w-5 md:h-5">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+                <!-- Playing Icon (Hidden initially) -->
+                <svg id="icon-playing" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="hidden md:w-5 md:h-5">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+            </div>
+        </div>
+
+        <section
+            class="relative z-30 flex flex-col items-center justify-center text-center px-4 md:px-8 w-full max-w-6xl mx-auto flex-1 pt-[35vh] sm:pt-[40vh] md:pt-[45vh] pb-4">
+            <h3
+                class="text-[9px] md:text-[12px] tracking-[0.2em] uppercase font-medium mb-3 md:mb-5 reveal-on-scroll leading-[1.8]">
+                You are cordially invited <br class="block md:hidden"> to celebrate <br class="block md:hidden"> the
+                wedding of
+            </h3>
+
+            <div class="flex flex-col items-center justify-center py-2 reveal-on-scroll delay-100">
+                <h1 class="font-script text-[3.5rem] sm:text-[4.5rem] md:text-[6rem] leading-[1.2]">Shubham</h1>
+                <span class="font-script text-[2rem] sm:text-[2.5rem] md:text-[3rem] leading-none my-1 md:my-2">&</span>
+                <h1 class="font-script text-[3.5rem] sm:text-[4.5rem] md:text-[6rem] leading-[1.2]">Vasundhara</h1>
+            </div>
+
+            <p
+                class="text-[9px] md:text-[11px] leading-[2.2] md:leading-[2.5] tracking-widest uppercase font-medium w-full max-w-[95%] md:max-w-[80%] mt-5 md:mt-8 reveal-on-scroll delay-200">
+                We would like to invite you to celebrate with us <br class="block md:hidden"> the most special day of
+                our lives. It would be an honor <br class="block md:hidden"> to have you present at this important
+                moment.
+            </p>
+            <div class="mt-6 md:mt-12 flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity reveal-on-scroll delay-300"
+                onclick="document.getElementById('family-section').scrollIntoView({behavior: 'smooth'})">
+                <span class="text-[8px] md:text-[10px] tracking-widest uppercase">Scroll</span>
+                <span class="text-lg md:text-xl font-light animate-bounce-subtle">↓</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- FAMILY DETAILS SECTION -->
+    <section id="family-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-8 md:py-16 w-full max-w-5xl mx-auto">
+        <h2
+            class="font-script text-[3rem] sm:text-[4rem] md:text-[5rem] leading-none mb-8 md:mb-12 reveal-on-scroll text-brand">
+            Our Families</h2>
+        <div
+            class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full reveal-on-scroll delay-100">
+
+            <!-- Groom Family -->
+            <div class="flex flex-col items-center w-full md:w-1/2">
+                <h2 class="font-script text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] leading-[1.2] text-brand">Shubham
+                    Gandhi</h2>
+                <p class="text-[9px] md:text-[11px] tracking-[0.2em] uppercase font-serif mt-2 opacity-80">Son of</p>
+                <p class="font-serif text-[14px] md:text-[18px] tracking-wide mt-1 font-medium">Shri Deepak Arya & Smt
+                    Urmila Arya</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="hidden md:block w-[1.5px] h-24 bg-brand/20"></div>
+            <div class="block md:hidden w-24 h-[1.5px] bg-brand/20 my-2"></div>
+
+            <!-- Bride Family -->
+            <div class="flex flex-col items-center w-full md:w-1/2">
+                <h2 class="font-script text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] leading-[1.2] text-brand">
+                    Vasundhara Daga</h2>
+                <p class="text-[9px] md:text-[11px] tracking-[0.2em] uppercase font-serif mt-2 opacity-80">Daughter of
+                </p>
+                <p class="font-serif text-[14px] md:text-[18px] tracking-wide mt-1 font-medium">Shri Ajay Kumar Daga &
+                    Smt Mridula Daga</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- REVEAL SECTION -->
+    <section id="reveal-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-8 md:py-20 w-full mx-auto md:min-h-screen overflow-hidden">
+        <canvas id="confettiCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
+        <div class="relative z-10 flex flex-col items-center w-full max-w-4xl">
+            <div id="instruction-header"
+                class="flex flex-col items-center mb-3 md:mb-6 fade-transition reveal-on-scroll">
+                <div
+                    class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-brand/20 bg-brand/5 flex items-center justify-center mb-2 md:mb-4">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" class="opacity-70 md:w-[22px] md:h-[22px]">
+                        <path d="M18 11V6a2 2 0 0 0-4 0v5"></path>
+                        <path d="M14 10V4a2 2 0 0 0-4 0v6"></path>
+                        <path d="M10 10.5V3a2 2 0 0 0-4 0v9"></path>
+                        <path d="M6 13.5V9a2 2 0 0 0-4 0v6c0 4.418 4.03 8 9 8h2c4.97 0 9-3.582 9-8v-3a2 2 0 0 0-4 0v3">
+                        </path>
+                    </svg>
+                </div>
+                <p class="text-[9px] md:text-[11.5px] font-medium opacity-60 tracking-wide">Scratch all three circles to
+                    continue</p>
+            </div>
+            <div class="flex flex-col items-center mb-4 md:mb-14 reveal-on-scroll delay-100">
+                <h2 class="font-script text-[3.5rem] sm:text-[4rem] md:text-[5rem] leading-none mb-2 md:mb-6">Reveal
+                </h2>
+                <h3 class="text-[8px] md:text-[11px] tracking-[0.3em] uppercase font-medium">SCRATCH TO DISCOVER THE
+                    DATE</h3>
+            </div>
+            <div class="flex flex-row justify-center items-center gap-3 sm:gap-6 md:gap-10 reveal-on-scroll delay-200">
+                <div
+                    class="relative w-[90px] h-[90px] sm:w-[130px] sm:h-[130px] md:w-[160px] md:h-[160px] rounded-full bg-white scratch-container flex items-center justify-center">
+                    <span class="font-script text-3xl sm:text-5xl md:text-6xl font-medium tracking-wide">26-27</span>
+                    <canvas class="scratch-canvas absolute inset-0 w-full h-full rounded-full cursor-pointer z-10"
+                        id="scratch1"></canvas>
+                </div>
+                <div
+                    class="relative w-[90px] h-[90px] sm:w-[130px] sm:h-[130px] md:w-[160px] md:h-[160px] rounded-full bg-white scratch-container flex items-center justify-center">
+                    <span class="font-script text-3xl sm:text-5xl md:text-6xl font-medium tracking-wide">June</span>
+                    <canvas class="scratch-canvas absolute inset-0 w-full h-full rounded-full cursor-pointer z-10"
+                        id="scratch2"></canvas>
+                </div>
+                <div
+                    class="relative w-[90px] h-[90px] sm:w-[130px] sm:h-[130px] md:w-[160px] md:h-[160px] rounded-full bg-white scratch-container flex items-center justify-center">
+                    <span class="font-script text-3xl sm:text-5xl md:text-6xl font-medium tracking-wide">2026</span>
+                    <canvas class="scratch-canvas absolute inset-0 w-full h-full rounded-full cursor-pointer z-10"
+                        id="scratch3"></canvas>
+                </div>
+            </div>
+            <div id="success-text" class="mt-6 md:mt-16 fade-in-up flex flex-col items-center gap-4 md:gap-8">
+                <h2 class="font-script text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] leading-none">We're getting
+                    married!</h2>
+                <div class="flex flex-col items-center gap-2 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
+                    onclick="document.getElementById('venue-section').scrollIntoView({behavior: 'smooth'})">
+                    <span class="text-lg md:text-xl font-light animate-bounce-subtle">↓</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENUE SECTION -->
+    <section id="venue-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 pt-8 pb-2 md:pt-20 md:pb-6 w-full max-w-5xl mx-auto">
+        <h3 class="text-[9px] md:text-[12px] tracking-[0.25em] uppercase font-medium mb-4 md:mb-16 reveal-on-scroll">The
+            celebration will take place at</h3>
+        <div class="relative w-full max-w-2xl mx-auto mb-4 md:mb-12 reveal-on-scroll delay-100">
+            <img src="https://r1imghtlak.mmtcdn.com/6db37047-de67-4c65-9567-e05f68060d84.jpeg" alt="Venue Illustration"
+                class="w-full h-auto mix-blend-multiply opacity-90" />
+        </div>
+
+        <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 reveal-on-scroll delay-200">
+            <a href="https://www.google.com/maps/search/?api=1&query=Fairway+lake+and+golf+resort,+Raipur"
+                target="_blank" class="hover:text-brand/70 transition-colors underline decoration-1 underline-offset-4"
+                style="text-decoration-color: rgba(92,32,24,0.4);">
+                Fairway lake and golf resort
+            </a>
+        </h1>
+
+        <a href="https://www.google.com/maps/search/?api=1&query=Fairway+lake+and+golf+resort,+Raipur" target="_blank"
+            class="text-[9px] md:text-[11px] tracking-[0.15em] md:tracking-[0.2em] uppercase leading-[2.5] flex items-center justify-center gap-1.5 reveal-on-scroll delay-300 hover:text-brand/70 transition-colors underline underline-offset-4 mb-2 md:mb-6">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" class="mb-0.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            Get the direction
+        </a>
+
+        <h2 class="font-serif text-xl sm:text-2xl md:text-3xl mt-4 md:mt-12 mb-2 md:mb-8 reveal-on-scroll delay-400">
+            June 26-27, 2026</h2>
+    </section>
+
+    <!-- EVENT DETAILS SECTION - DAY 1 -->
+    <section id="events-day1"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-2 md:py-6 w-full">
+        <div class="relative w-full max-w-[650px] mx-auto flex items-center justify-center reveal-on-scroll">
+            <img src="https://theatre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png" alt="Menu Frame"
+                class="w-full h-auto mix-blend-multiply opacity-90" />
+            <div
+                class="absolute inset-0 flex flex-col items-center justify-center w-full h-full pt-[12%] pb-[18%] md:pt-[16%] md:pb-[22%] px-6 sm:px-16">
+
+                <h3
+                    class="text-[16px] sm:text-[20px] md:text-[26px] tracking-[0.2em] uppercase font-serif text-brand font-bold border-b border-brand/30 pb-1 mb-6 md:mb-10">
+                    26 June 2026</h3>
+
+                <div class="flex flex-col items-center leading-relaxed mb-8 md:mb-12">
+                    <h4 class="font-script text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] leading-none text-brand mb-2">
+                        Haldi & Mehendi</h4>
+                    <p class="font-serif text-[15px] sm:text-[19px] md:text-[22px] mb-2"><span class="italic">11:30 AM
+                            onwards</span></p>
+                    <p
+                        class="font-serif text-[11px] sm:text-[13px] md:text-[15px] uppercase tracking-widest opacity-90 text-brand/80 mt-2">
+                        Outfit: Punjabi Attire - Shades of violet & orange</p>
+                </div>
+
+                <div class="flex flex-col items-center leading-relaxed">
+                    <h4 class="font-script text-[2rem] sm:text-[2.8rem] md:text-[3.5rem] leading-none text-brand mb-2">
+                        Sangeet</h4>
+                    <p class="font-serif text-[15px] sm:text-[19px] md:text-[22px] mb-2"><span class="italic">6:30
+                            PM</span></p>
+                    <p
+                        class="font-serif text-[11px] sm:text-[13px] md:text-[15px] uppercase tracking-widest opacity-90 text-brand/80 mt-2">
+                        Outfit: All things glitter</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENT DETAILS SECTION - DAY 2 -->
+    <section id="events-day2"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-2 md:py-6 w-full">
+        <div class="relative w-full max-w-[650px] mx-auto flex items-center justify-center reveal-on-scroll">
+            <img src="https://theatre-demo.thedigitalyes.com/assets/menu-frame-BFE5kCs7.png" alt="Menu Frame"
+                class="w-full h-auto mix-blend-multiply opacity-90" />
+            <div
+                class="absolute inset-0 flex flex-col items-center justify-center w-full h-full pt-[10%] pb-[15%] md:pt-[12%] md:pb-[18%] px-6 sm:px-16">
+
+                <h3
+                    class="text-[14px] sm:text-[18px] md:text-[22px] tracking-[0.2em] uppercase font-serif text-brand font-bold border-b border-brand/30 pb-0.5 mb-5 md:mb-8">
+                    27 June 2026</h3>
+
+                <div class="flex flex-col items-center leading-relaxed mb-2 w-full">
+                    <p class="font-serif text-[14px] sm:text-[18px] md:text-[21px] mb-2"><b>Myraa <span
+                                class="lowercase text-[11px] md:text-[14px] font-normal">(bride side)</span>:</b> <span
+                            class="italic">10:30 AM</span></p>
+                    <p
+                        class="font-serif text-[10px] sm:text-[12px] md:text-[14px] uppercase tracking-widest opacity-90 text-brand/80 mt-1">
+                        Outfit: Traditional prints (Bandhani, Leheriya)</p>
+                </div>
+
+                <div class="flex flex-col items-center leading-relaxed mb-1 w-full">
+                    <p class="font-serif text-[14px] sm:text-[18px] md:text-[21px] mb-2"><b>Ghada Ghadoli:</b> <span
+                            class="italic">12 noon </span></p>
+                    <p class="font-serif text-[14px] sm:text-[18px] md:text-[21px] mb-2"><b>Sehera Bandi & Baarat:</b> <span
+                            class="italic">2 pm </span></p>
+                    <p class="font-serif text-[14px] sm:text-[18px] md:text-[21px] mb-2"><b>Varmala:</b> <span
+                            class="italic">5:00 PM</span></p>
+                    <p class="font-serif text-[14px] sm:text-[18px] md:text-[21px] mb-3"><b>Pheres:</b> <span
+                            class="italic">6:00 PM</span></p>
+                    <p
+                        class="font-serif text-[10px] sm:text-[12px] md:text-[14px] uppercase tracking-widest opacity-90 text-brand/80 mt-2">
+                        Outfit: Regal Indian<br><span class="text-[8px] sm:text-[10px]">(Needs to be Ivory, Shades of White,Pastels)</span></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSPORT SECTION -->
+    <section id="transport-section"
+        class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-8 md:py-20 w-full max-w-4xl mx-auto md:min-h-screen">
+        <h3 class="text-[8px] md:text-[11px] tracking-[0.25em] uppercase font-medium mb-3 md:mb-6 reveal-on-scroll">How
+            to get there</h3>
+        <h2
+            class="font-serif text-[3.5rem] sm:text-[5rem] md:text-[6rem] leading-none mb-4 md:mb-12 reveal-on-scroll delay-100">
+            Transport</h2>
+        <p
+            class="font-serif text-[12px] sm:text-[15px] md:text-[17px] leading-relaxed max-w-2xl mx-auto mb-6 md:mb-16 reveal-on-scroll delay-200">
+            Pickup arrangements have been made from Airport & Railway station to the venue.<br><br>
+            Please reach by 8:30/9am so that you’ll are not late for the first function
+        </p>
+        <h2
+            class="font-script text-[1.8rem] sm:text-[2.5rem] md:text-[3rem] leading-none mt-2 md:mt-4 reveal-on-scroll delay-500">
+            We can't wait to see you there!</h2>
+    </section>
+
+    <!-- SECTION: THANK YOU & FOOTER -->
+    <section id="thankyou-section"
+        class="relative z-10 flex flex-col items-center justify-center px-4 pt-2 pb-12 md:pt-6 md:pb-20 w-full max-w-4xl mx-auto">
+        <div
+            class="relative w-full max-w-[550px] aspect-[5/4] sm:aspect-[4/3] bg-brand p-4 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl flex items-center justify-center overflow-hidden reveal-on-scroll">
+            <div
+                class="relative bg-white w-full h-full flex flex-col items-center justify-center text-center p-4 md:p-10 scallop-border">
+                <h2 class="font-script text-[2.5rem] md:text-[4rem] leading-none mb-2 md:mb-6 text-brand">Thank You</h2>
+                <p
+                    class="font-serif text-[12px] md:text-[16px] leading-relaxed mb-3 md:mb-8 text-brand opacity-90 max-w-[320px]">
+                    For joining us on this special day. Your presence is the best gift we could receive.
+                </p>
+                <h3 class="font-script text-[2rem] md:text-[3.2rem] leading-none text-brand">Shubham & Vasundhara</h3>
+            </div>
+        </div>
+
+        <!-- WARM REGARDS SECTION -->
+        <div class="mt-12 md:mt-20 flex flex-col items-center text-center reveal-on-scroll delay-100">
+            <h2 class="font-script text-[3rem] sm:text-[4rem] md:text-[5rem] leading-none mb-6 md:mb-10 text-brand">Warm
+                Regards</h2>
+            <p class="font-serif text-[14px] md:text-[18px] mb-6 text-brand/70 italic">With the Blessings of </p>
+            <div
+                class="font-serif text-[13px] sm:text-[15px] md:text-[17px] leading-relaxed text-brand/90 flex flex-col gap-5 md:gap-8 max-w-2xl mx-auto">
+                <div>
+                    Late. Shri Ratandev and Rajkumari Arya<br>
+                    Late. Narayan Das and Ratan Devi Daga
+                </div>
+                <div>
+                    Deepak Urmila Arya<br>
+                    Vishesh Pracheta and Neha Gandhi
+                </div>
+                <div>
+                    Shyam Sunder Seema Daga<br>
+                    Sanjay Manju Daga<br>
+                    Ajay Mridula Daga
+                </div>
+                <div>
+                    Aditya Varsha Daga<br>
+                    Himanshu Sneha Daga<br>
+                    Nikunj Neha Daga<br>
+                    Shivani Bhaskar Thakkar
+                </div>
+                <div>
+                    Rekha Mall<br>
+                    Rahul Jaysree Mall<br>
+                    Neha Niteshji Mohata
+                </div>
+                <div>
+                    Gopal Dasji Rama Devi Bagri<br>
+                    Indar Sarla Bagri<br>
+                    Anil Vandana Bagri
+                </div>
+                <div>
+                    Tripti, Shailja, Aadhya, Palak, Trisha, Brij
+                </div>
+                <div>
+                    Jhalak, Priya, Swasti, Sarthak, Priyanshu, Aryan, Shreyash, Dhyansh
+                </div>
+            </div>
+        </div>
+
+        <!-- RSVP SECTION -->
+        <div class="mt-12 md:mt-20 flex flex-col items-center justify-center px-4 w-full reveal-on-scroll delay-100">
+            <div
+                class="relative w-full max-w-[550px] aspect-[5/4] sm:aspect-[4/3] bg-brand p-4 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl flex items-center justify-center overflow-hidden">
+                <div
+                    class="relative bg-white w-full h-full flex flex-col items-center justify-center text-center p-4 md:p-10 scallop-border">
+                    <h2 class="font-script text-[2.5rem] md:text-[4rem] leading-none mb-4 md:mb-6 text-brand">RSVP</h2>
+                    <p
+                        class="font-serif text-[12px] md:text-[16px] leading-relaxed mb-4 md:mb-6 text-brand opacity-90 max-w-[320px]">
+                        Please feel free to contact us for any assistance or to confirm your arrival.
+                    </p>
+                    <div
+                        class="font-serif text-[13px] sm:text-[15px] md:text-[18px] leading-relaxed text-brand flex flex-col gap-4">
+                        <a href="https://wa.me/919015517626" target="_blank"
+                            class="hover:text-brand/70 hover:underline transition-all">
+                            Mr. Bhaskar Thakkar (9015517626)
+                        </a>
+                        <a href="https://wa.me/917304042493" target="_blank"
+                            class="hover:text-brand/70 hover:underline transition-all">
+                            Ms. Neha Gandhi (7304042493)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER ADDED AS REQUESTED -->
+        <div class="mt-16 text-center reveal-on-scroll delay-200">
+            <p class="text-[10px] md:text-[12px] font-sans tracking-widest uppercase opacity-70">
+                Made With Love ❤️ by <a href="https://theluxuryinvites.com/" target="_blank"
+                    class="text-brand hover:text-brand/70 hover:underline font-bold transition-colors">The Luxury
+                    Invites</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Hidden Background Audio -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="/media/music/grandreveal.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* --- INTRO VIDEO LOGIC --- */
+            const introOverlay = document.getElementById('intro-overlay');
+            const introVideo = document.getElementById('intro-video');
+            const mainBody = document.getElementById('main-body');
+            const tapText = document.getElementById('tap-text');
+            const introPoster = document.getElementById('intro-poster');
+            let introStarted = false;
+
+            function closeIntro() {
+                if (!introOverlay) return;
+                introOverlay.style.opacity = '0';
+                mainBody.classList.remove('overflow-hidden');
+                setTimeout(() => {
+                    if (introOverlay.parentNode) {
+                        introOverlay.parentNode.removeChild(introOverlay);
+                    }
+                }, 1000);
+            }
+
+            function startIntro() {
+                if (introStarted) return;
+                introStarted = true;
+
+                if (tapText) {
+                    tapText.style.opacity = '0';
+                }
+
+                if (introPoster) {
+                    introPoster.classList.add('hidden');
+                }
+
+                if (introVideo) {
+                    introVideo.classList.remove('hidden');
+                    const videoPromise = introVideo.play();
+                    if (videoPromise !== undefined) {
+                        videoPromise.catch(e => {
+                            console.log("Play blocked:", e);
+                            closeIntro(); // Skip if playback fails completely
+                        });
+                    }
+                } else {
+                    closeIntro();
+                }
+
+                // Allow a second tap to skip the video while it's playing
+                introOverlay.removeEventListener('click', startIntro);
+                introOverlay.addEventListener('click', closeIntro);
+            }
+
+            if (introVideo) {
+                // When video finishes, fade it out
+                introVideo.addEventListener('ended', closeIntro);
+            }
+
+            // Wait for user interaction to play the video
+            if (introOverlay) {
+                introOverlay.addEventListener('click', startIntro);
+            }
+
+            /* --- SCROLL ANIMATIONS LOGIC --- */
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+
+            /* --- LANGUAGE TOGGLE LOGIC --- */
+            const langToggle = document.getElementById('lang-toggle');
+            const langEn = document.getElementById('lang-en');
+            const langIt = document.getElementById('lang-it');
+            let currentLang = 'EN';
+
+            langToggle.addEventListener('click', () => {
+                if (currentLang === 'EN') {
+                    currentLang = 'IT';
+                    langEn.classList.add('opacity-40');
+                    langIt.classList.remove('opacity-40');
+                } else {
+                    currentLang = 'EN';
+                    langEn.classList.remove('opacity-40');
+                    langIt.classList.add('opacity-40');
+                }
+            });
+
+            /* --- AUDIO LOGIC --- */
+            const audio = document.getElementById('bg-music');
+            const audioToggle = document.getElementById('audio-toggle');
+            const iconMuted = document.getElementById('icon-muted');
+            const iconPlaying = document.getElementById('icon-playing');
+            let isPlaying = false;
+            let playPromise;
+
+            function toggleAudio(e) {
+                if (e) e.stopPropagation();
+                if (isPlaying) {
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            audio.pause();
+                            isPlaying = false;
+                            iconPlaying.classList.add('hidden');
+                            iconMuted.classList.remove('hidden');
+                        }).catch(e => console.log("Pause handled:", e));
+                    } else {
+                        audio.pause();
+                        isPlaying = false;
+                        iconPlaying.classList.add('hidden');
+                        iconMuted.classList.remove('hidden');
+                    }
+                } else {
+                    if (audio.currentTime === 0) {
+                        audio.currentTime = 0.8;
+                    }
+                    playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            isPlaying = true;
+                            iconMuted.classList.add('hidden');
+                            iconPlaying.classList.remove('hidden');
+                        }).catch(console.error);
+                    }
+                }
+            }
+
+            audioToggle.addEventListener('click', toggleAudio);
+
+            const startAudioOnInteraction = (e) => {
+                // Prevent duplicate trigger if tapping directly on the toggle or intro
+                if (e && e.target && e.target.closest && e.target.closest('#audio-toggle')) return;
+
+                if (!isPlaying) {
+                    if (audio.currentTime === 0) {
+                        audio.currentTime = 0.8;
+                    }
+                    playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            isPlaying = true;
+                            iconMuted.classList.add('hidden');
+                            iconPlaying.classList.remove('hidden');
+                        }).catch(e => {
+                            console.log("Audio play prevented by browser:", e);
+                        });
+                    }
+                }
+                document.removeEventListener('click', startAudioOnInteraction);
+                document.removeEventListener('touchstart', startAudioOnInteraction);
+                document.removeEventListener('scroll', startAudioOnInteraction);
+            };
+
+            document.addEventListener('click', startAudioOnInteraction);
+            document.addEventListener('touchstart', startAudioOnInteraction, { passive: true });
+            document.addEventListener('scroll', startAudioOnInteraction, { passive: true });
+
+            /* --- SCRATCH LOGIC --- */
+            let completedCards = 0;
+            const totalCards = 3;
+            let isGlobalComplete = false;
+
+            function initScratchCard(canvasId) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d', { willReadFrequently: true });
+                const dpr = window.devicePixelRatio || 1;
+                const rect = canvas.getBoundingClientRect();
+                // Ensure size adapts better to very narrow screens without overlapping
+                const size = rect.width > 0 ? rect.width : (window.innerWidth < 400 ? 90 : (window.innerWidth < 640 ? 100 : (window.innerWidth < 768 ? 130 : 160)));
+                canvas.width = size * dpr;
+                canvas.height = size * dpr;
+                ctx.scale(dpr, dpr);
+                const cx = size / 2;
+                const cy = size / 2;
+                const gradient = ctx.createConicGradient(Math.PI / 4, cx, cy);
+                gradient.addColorStop(0, '#e5c07b');
+                gradient.addColorStop(0.2, '#fef4cc');
+                gradient.addColorStop(0.4, '#c2944b');
+                gradient.addColorStop(0.6, '#e5c07b');
+                gradient.addColorStop(0.8, '#fef4cc');
+                gradient.addColorStop(1, '#e5c07b');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, size, size);
+                let isDrawing = false;
+                let isCardComplete = false;
+                function getMousePos(e) {
+                    const rect = canvas.getBoundingClientRect();
+                    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                    return { x: clientX - rect.left, y: clientY - rect.top };
+                }
+                function scratch(e) {
+                    if (!isDrawing || isCardComplete) return;
+                    e.preventDefault();
+                    const pos = getMousePos(e);
+                    ctx.globalCompositeOperation = 'destination-out';
+                    ctx.lineJoin = 'round';
+                    ctx.lineCap = 'round';
+                    const brushSize = size * 0.15;
+                    ctx.beginPath();
+                    ctx.arc(pos.x, pos.y, brushSize, 0, Math.PI * 2);
+                    ctx.fill();
+                    checkCompletion();
+                }
+                function startScratch(e) { isDrawing = true; scratch(e); }
+                function endScratch() { isDrawing = false; }
+                canvas.addEventListener('mousedown', startScratch);
+                canvas.addEventListener('mousemove', scratch);
+                canvas.addEventListener('mouseup', endScratch);
+                canvas.addEventListener('mouseleave', endScratch);
+                canvas.addEventListener('touchstart', startScratch, { passive: false });
+                canvas.addEventListener('touchmove', scratch, { passive: false });
+                canvas.addEventListener('touchend', endScratch);
+                function checkCompletion() {
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const pixels = imageData.data;
+                    let transparentCount = 0;
+                    let totalChecked = 0;
+                    for (let i = 3; i < pixels.length; i += 40) {
+                        if (pixels[i] < 128) transparentCount++;
+                        totalChecked++;
+                    }
+                    const percentScratched = (transparentCount / totalChecked) * 100;
+                    if (percentScratched > 45 && !isCardComplete) {
+                        isCardComplete = true;
+                        canvas.style.opacity = '0';
+                        setTimeout(() => { canvas.style.display = 'none'; }, 500);
+                        completedCards++;
+                        if (completedCards === totalCards && !isGlobalComplete) {
+                            isGlobalComplete = true;
+                            onAllScratched();
+                        }
+                    }
+                }
+            }
+            setTimeout(() => {
+                initScratchCard('scratch1');
+                initScratchCard('scratch2');
+                initScratchCard('scratch3');
+            }, 100);
+
+            function onAllScratched() {
+                document.getElementById('instruction-header').classList.add('fade-out');
+                document.getElementById('success-text').classList.add('visible');
+                startConfetti();
+            }
+
+            const confettiCanvas = document.getElementById('confettiCanvas');
+            const revealSection = document.getElementById('reveal-section');
+            const cCtx = confettiCanvas.getContext('2d');
+            let particles = [];
+            function startConfetti() {
+                resizeConfettiCanvas();
+                window.addEventListener('resize', resizeConfettiCanvas);
+                for (let i = 0; i < 150; i++) {
+                    particles.push({
+                        x: Math.random() * confettiCanvas.width,
+                        y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+                        r: Math.random() * 4 + 2,
+                        w: Math.random() * 12 + 6,
+                        h: Math.random() * 6 + 3,
+                        dx: Math.random() * 2 - 1,
+                        dy: Math.random() * 2 + 2,
+                        tiltAngle: 0,
+                        tiltAngleIncrement: (Math.random() * 0.07) + 0.05,
+                        type: Math.random() > 0.5 ? 'circle' : 'rect',
+                        color: 'rgb(92, 32, 24)'
+                    });
+                }
+                animateConfetti();
+            }
+            function resizeConfettiCanvas() {
+                confettiCanvas.width = revealSection.offsetWidth;
+                confettiCanvas.height = revealSection.offsetHeight;
+            }
+            function animateConfetti() {
+                requestAnimationFrame(animateConfetti);
+                cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.tiltAngle += p.tiltAngleIncrement;
+                    p.y += p.dy;
+                    p.x += p.dx + Math.sin(p.tiltAngle) * 0.5;
+                    cCtx.fillStyle = p.color;
+                    if (p.type === 'circle') {
+                        cCtx.beginPath();
+                        cCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        cCtx.fill();
+                    } else {
+                        cCtx.save();
+                        cCtx.translate(p.x, p.y);
+                        cCtx.rotate(p.tiltAngle);
+                        cCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                        cCtx.restore();
+                    }
+                    if (p.y > confettiCanvas.height) {
+                        p.x = Math.random() * confettiCanvas.width;
+                        p.y = -20;
+                    }
+                }
+            }
+        });
+    </script>
+
+    <style>
+      .template-sticky-bar {
+        position: fixed;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        background: rgba(15, 23, 30, 0.85); /* Dark premium background */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 14px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        z-index: 99999;
+        width: max-content;
+        max-width: 95%;
+      }
+
+      .template-sticky-bar a {
+        font-family: 'Cinzel', serif;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 12px 28px;
+        border-radius: 30px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        letter-spacing: 1.5px;
+        text-align: center;
+        display: inline-block;
+      }
+
+      /* Add to Cart - Hollow Gold */
+      .btn-gold-outline {
+        color: #D4AF37;
+        border: 1px solid #D4AF37;
+        background: transparent;
+      }
+
+      .btn-gold-outline:hover {
+        background: rgba(212, 175, 55, 0.1);
+        color: #F3E5AB;
+        transform: translateY(-2px);
+      }
+
+      /* Buy Now - Solid Gold Gradient */
+      .btn-gold-solid {
+        background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+        color: #FFFFFF;
+        border: 1px solid transparent;
+        box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+      }
+
+      .btn-gold-solid:hover {
+        background: linear-gradient(135deg, #E8C355 0%, #C29218 100%);
+        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+        color: #FFFFFF;
+        transform: translateY(-2px);
+      }
+
+      /* Mobile Responsiveness */
+      @media (max-width: 600px) {
+        .template-sticky-bar {
+          bottom: 15px;
+          width: calc(100% - 30px);
+          padding: 12px 16px;
+          gap: 10px;
+          justify-content: space-between;
+        }
+        
+        .template-sticky-bar a {
+          font-size: 12px;
+          padding: 12px 10px;
+          flex: 1;
+          letter-spacing: 1px;
+        }
+      }
+    </style>
+
+    <div class="template-sticky-bar">
+      <a href="https://theluxuryinvites.com/demo/shubham-rosewood-demo/index.html?template=256" class="btn-gold-outline" target="_top">Create Demo</a>
+      
+      <a href="https://theluxuryinvites.com/checkout/?add-to-cart=256" class="btn-gold-solid" target="_top">Buy Now</a>
+    </div>
+    
+
+</body>
+</html>

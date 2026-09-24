@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="display-title">Vishu Weds Kavya - Wedding Invitation</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Imported Playfair Display, Pixelify Sans, and Great Vibes (Calligraphy) -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pixelify+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fcf9f2; 
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
+        }
+
+        .watermark-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: center;
+            justify-items: center;
+            gap: 3.5rem;
+            opacity: 0.24;
+            user-select: none;
+            padding: 3rem 1rem;
+        }
+
+        .watermark-overlay span {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(2.25rem, 5vw, 4.5rem);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.92);
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+            transform: rotate(-30deg);
+            white-space: nowrap;
+            mix-blend-mode: normal;
+        }
+
+        .font-pixel {
+            font-family: 'Pixelify Sans', sans-serif;
+        }
+
+        .font-calligraphy {
+            font-family: 'Great Vibes', cursive;
+            text-transform: none !important;
+        }
+
+        .title-text {
+            color: #4a5155; 
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+        
+        .weds-text {
+            color: #5c6368;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+        }
+
+        .reveal-item {
+            opacity: 0;
+            transform: scale(0.3);
+            transition-property: opacity, transform;
+            transition-duration: 0.8s;
+            transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: opacity, transform;
+        }
+        
+        .reveal-item.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes flameFlicker {
+            0%   { filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.5)) brightness(0.95); }
+            25%  { filter: drop-shadow(0 0 30px rgba(255, 220, 0, 1)) brightness(1.2); }
+            50%  { filter: drop-shadow(0 0 15px rgba(255, 180, 0, 0.6)) brightness(1.05); }
+            75%  { filter: drop-shadow(0 0 35px rgba(255, 210, 0, 1.1)) brightness(1.25); }
+            100% { filter: drop-shadow(0 0 10px rgba(255, 165, 0, 0.5)) brightness(0.95); }
+        }
+
+        .animate-lamp-glow {
+            animation: flameFlicker 4s infinite ease-in-out;
+        }
+
+        @keyframes windSway {
+            0%, 100% { transform: rotate(-1deg) translateY(0); }
+            50%      { transform: rotate(1deg) translateY(2px); }
+        }
+
+        .animate-garland-sway {
+            transform-origin: top center;
+            animation: windSway 5s ease-in-out infinite;
+            will-change: transform;
+        }
+        
+        /* Customizer Modal Animations */
+        @keyframes modalFadeIn {
+            from { opacity: 0; backdrop-filter: blur(0px); }
+            to { opacity: 1; backdrop-filter: blur(6px); }
+        }
+        @keyframes modalScaleIn {
+            from { transform: scale(0.92) translateY(15px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .modal-active {
+            animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .modal-content-active {
+            animation: modalScaleIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Sticky Bar Styling */
+        .template-sticky-bar {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: rgba(15, 23, 30, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 14px 24px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            z-index: 99999;
+            width: max-content;
+            max-width: 95%;
+        }
+
+        .template-sticky-bar a {
+            font-family: 'Playfair Display', serif;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 1.5px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-gold-outline {
+            color: #D4AF37;
+            border: 1px solid #D4AF37;
+            background: transparent;
+        }
+
+        .btn-gold-outline:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: #F3E5AB;
+            transform: translateY(-2px);
+        }
+
+        .btn-gold-solid {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+            color: #FFFFFF;
+            border: 1px solid transparent;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-gold-solid:hover {
+            background: linear-gradient(135deg, #E8C355 0%, #C29218 100%);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .template-sticky-bar {
+                bottom: 15px;
+                width: calc(100% - 30px);
+                padding: 12px 16px;
+                gap: 10px;
+                justify-content: space-between;
+            }
+            .template-sticky-bar a {
+                font-size: 12px;
+                padding: 12px 10px;
+                flex: 1;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="watermark-overlay" aria-hidden="true">
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+        <span>Luxury Invites</span>
+    </div>
+
+    <!-- Section 1: Hero -->
+    <section class="relative w-full h-[100svh] overflow-hidden bg-[#91c6ea]">
+        <div id="parallax-bg" class="absolute inset-0 w-full h-[120%] bg-cover bg-top md:bg-center z-0" 
+             style="background-image: url('https://framerusercontent.com/images/VKwTAxJTadPFJjcSoijjd7dAH0.png?scale-down-to=1024&width=1920&height=1920'); top: -10%;">
+        </div>
+        <div id="parallax-text" class="absolute inset-0 flex flex-col items-center justify-start pt-[4vh] sm:pt-[6vh] z-10 px-4 text-center">
+            <h1 id="display-groom-hero" class="title-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold drop-shadow-sm">Vishu</h1>
+            <p class="weds-text text-base sm:text-lg md:text-xl font-medium my-4 md:my-6">weds</p>
+            <h1 id="display-bride-hero" class="title-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold drop-shadow-sm">Kavya</h1>
+            <p id="display-hashtag" class="text-[#fcf0cc] text-base sm:text-lg font-medium mt-4 tracking-widest bg-black/35 px-5 py-2 rounded-full backdrop-blur-md hidden font-sans select-none animate-lamp-glow"></p>
+        </div>
+        <div id="parallax-temple" class="absolute bottom-0 left-0 w-full flex justify-center z-20 will-change-transform">
+            <img src="https://framerusercontent.com/images/1deqTu3xOXWaU9hMeZsUz2IvL0.png?width=1536&height=1536" alt="Temple" class="w-[95%] sm:w-[85%] md:w-[75%] lg:w-[65%] max-w-[1200px] h-auto object-contain object-bottom translate-y-2 sm:translate-y-4">
+        </div>
+    </section>
+
+    <!-- Section 2: Invitation -->
+    <section class="relative w-full min-h-[100svh] bg-[#cb2c51] z-30 pb-16" 
+             style="background-image: url('https://framerusercontent.com/images/ZrKMdp6WI7ax9IR0VJA7Ffcse4.webp?scale-down-to=1024&width=1920&height=1920'); background-size: cover; background-position: top center; background-repeat: no-repeat;">
+        <div class="w-full flex flex-col items-center justify-start pt-[15vh] sm:pt-[20vh] text-center px-4 sm:px-8 relative z-10">
+            <img src="https://framerusercontent.com/images/uvb64QVa5gS1weQWcsq8K2041s.png?width=1328&height=1856" alt="Ganesha" class="w-24 sm:w-28 md:w-36 lg:w-40 h-auto mb-8 object-contain drop-shadow-md">
+            <p class="text-[#eed578] text-lg sm:text-xl md:text-2xl mb-4 tracking-wide">With the divine blessings of</p>
+            <p class="text-[#eed578] text-xl sm:text-2xl md:text-3xl mb-8 sm:mb-12 font-medium tracking-wide">Smt. Parvathi Amma &amp; Shri Sivan,</p>
+            <h2 class="font-calligraphy text-[#eed578] text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] mb-12 sm:mb-16 drop-shadow-sm">Inviting</h2>
+            <p class="text-[#eed578] text-lg sm:text-xl md:text-2xl tracking-wide max-w-2xl">We warmly invite you to join us in our wedding celebration</p>
+        </div>
+    </section>
+
+    <!-- Section 3: Couple Details -->
+    <section class="relative w-full min-h-[100svh] z-30 pb-32 flex flex-col items-center justify-center overflow-hidden" 
+             style="background-image: url('https://framerusercontent.com/images/vW7TzQKDGECKvSTfLWxktyWBGcA.jpg?scale-down-to=512&width=3900&height=3900'); background-size: cover; background-position: center center; background-repeat: no-repeat;">
+        <div class="absolute top-0 inset-x-0 w-full z-20 pointer-events-none flex items-start -translate-y-[15%] md:-translate-y-[20%]">
+            <img src="https://framerusercontent.com/images/NpoaMQsRueVleyBsPsOyW3HDNgg.png?width=1920&height=1920" alt="Garland" class="w-full h-auto object-cover object-top opacity-95">
+        </div>
+        <div class="w-full flex flex-col items-center justify-center pt-48 sm:pt-64 md:pt-80 text-center px-4 sm:px-8 relative z-10">
+            <p class="text-[#8b2d35] text-lg sm:text-xl md:text-2xl mb-2 tracking-wide">Son of</p>
+            <p class="text-[#a51a24] text-xl sm:text-2xl md:text-3xl mb-12 sm:mb-16 font-semibold tracking-wide">Smt. Janani &amp; Shri. Vijay</p>
+            <h2 id="display-groom-details" class="text-[#c11c2e] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-8 font-bold uppercase tracking-[0.15em] drop-shadow-sm">Vishu</h2>
+            <p class="text-[#c11c2e] text-3xl sm:text-4xl md:text-5xl mb-8 font-semibold uppercase tracking-[0.25em]">Weds</p>
+            <h2 id="display-bride-details" class="text-[#c11c2e] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-12 sm:mb-16 font-bold uppercase tracking-[0.15em] drop-shadow-sm">Kavya</h2>
+            <p class="text-[#8b2d35] text-lg sm:text-xl md:text-2xl mb-2 tracking-wide">Daughter of</p>
+            <p class="text-[#a51a24] text-xl sm:text-2xl md:text-3xl font-semibold tracking-wide">Smt. Shalini &amp; Shri. Ajith Kumar</p>
+        </div>
+    </section>
+
+    <!-- Section 4: Introducing -->
+    <section class="relative w-full min-h-[100svh] flex flex-col items-center justify-center overflow-hidden z-30 pt-20"
+             style="background-image: url('https://framerusercontent.com/images/ZrKMdp6WI7ax9IR0VJA7Ffcse4.webp?scale-down-to=512&width=1920&height=1920'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <img src="https://framerusercontent.com/images/WjFzTPZSKhcPu35iI1yXwup1p8.png?width=1244&height=2208" alt="Lamps Left" class="absolute top-0 left-0 w-1/3 sm:w-1/4 md:w-auto md:h-[80%] max-w-[300px] object-contain object-left-top pointer-events-none animate-lamp-glow">
+        <img src="https://framerusercontent.com/images/WjFzTPZSKhcPu35iI1yXwup1p8.png?width=1244&height=2208" alt="Lamps Right" class="absolute top-0 right-0 w-1/3 sm:w-1/4 md:w-auto md:h-[80%] max-w-[300px] object-contain object-left-top pointer-events-none animate-lamp-glow scale-x-[-1]">
+
+        <div class="w-full flex flex-col items-center justify-center text-center px-4 sm:px-8 relative z-10">
+            <p class="text-[#eed578] text-lg sm:text-2xl md:text-3xl font-medium tracking-[0.2em] uppercase mb-6 sm:mb-10 drop-shadow-md">
+                Introducing the
+            </p>
+            <div class="font-calligraphy text-[#fcf0cc] text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] leading-tight drop-shadow-lg flex flex-col items-center">
+                <span>Groom</span>
+                <span class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl -my-4">&amp;</span>
+                <span>Bride</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Gallery -->
+    <section class="relative w-full flex flex-col items-center justify-start pb-24 pt-12 sm:pt-20 z-30"
+             style="background-image: url('https://framerusercontent.com/images/vW7TzQKDGECKvSTfLWxktyWBGcA.jpg?width=3900&height=3900'); background-size: cover; background-position: top center; background-repeat: repeat-y;">
+        
+        <h2 class="reveal-item font-pixel text-[#e33f6b] text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center uppercase tracking-widest mb-12 sm:mb-20 px-4 drop-shadow-sm">
+            Where Our Story Begins
+        </h2>
+
+        <!-- Pyramid Photo Masonry Grid Container -->
+        <div class="w-full max-w-6xl mx-auto px-2 sm:px-4 flex flex-col items-center gap-1 sm:gap-2">
+            <!-- Row 1: 1 Image -->
+            <div class="w-1/3 md:w-1/4 h-32 sm:h-56 md:h-72 flex justify-center overflow-hidden">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/1.jpg" alt="Kalash" class="reveal-item w-full h-full object-cover shadow-md" style="transition-delay: 0ms;">
+            </div>
+            
+            <!-- Row 2: 3 Images -->
+            <div class="flex w-full md:w-3/4 gap-1 sm:gap-2 h-32 sm:h-56 md:h-72 justify-center overflow-hidden">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/2.jpg" alt="Couple" class="reveal-item w-1/3 h-full object-cover shadow-md" style="transition-delay: 150ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/3.jpg" alt="Hands" class="reveal-item w-1/3 h-full object-cover shadow-md" style="transition-delay: 0ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/4.jpg" alt="Knot" class="reveal-item w-1/3 h-full object-cover shadow-md" style="transition-delay: 150ms;">
+            </div>
+            
+            <!-- Row 3: 5 Images -->
+            <div class="flex w-full gap-1 sm:gap-2 h-24 sm:h-48 md:h-64 justify-center overflow-hidden">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/5.jpg" alt="Leaves" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 300ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/6.jpg" alt="Rings" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 150ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/7.jpg" alt="Eye Contact" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 0ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/8.jpg" alt="Hands Holding" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 150ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/9.jpg" alt="Hands Leaves" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 300ms;">
+            </div>
+            
+            <!-- Row 4: 5 Images -->
+            <div class="flex w-full gap-1 sm:gap-2 h-24 sm:h-48 md:h-64 justify-center overflow-hidden">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/10.jpg" alt="Hands" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 300ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/11.jpg" alt="Hands Leaves" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 150ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/12.jpg" alt="Couple" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 0ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/13.jpg" alt="Rings" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 150ms;">
+                <img src="https://theluxuryinvites.com/wp-content/uploads/2026/04/14.jpg" alt="Leaves" class="reveal-item w-1/5 h-full object-cover shadow-md" style="transition-delay: 300ms;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Save the Date -->
+    <section class="relative w-full min-h-[50svh] bg-[#e48397] flex flex-col items-center justify-start z-40 pb-32"
+             style="background-image: url('https://framerusercontent.com/images/ZrKMdp6WI7ax9IR0VJA7Ffcse4.webp?scale-down-to=1024&width=1920&height=1920'); background-size: cover; background-position: center top; background-repeat: no-repeat; background-blend-mode: soft-light;">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[35%] w-full flex justify-center z-50 pointer-events-none px-4">
+            <img src="https://framerusercontent.com/images/eSCu9LZTy5Jnp77W6mCvg0F9Io.png?width=3000&height=3000" alt="Feast" class="w-[65%] sm:w-[45%] md:w-[30%] lg:w-[25%] max-w-lg h-auto drop-shadow-2xl">
+        </div>
+        <div class="w-full pt-40 sm:pt-48 md:pt-64"></div>
+        <h2 class="text-[#eed578] text-5xl sm:text-6xl md:text-7xl font-semibold uppercase tracking-[0.2em] mb-12 sm:mb-20 text-center drop-shadow-sm">Save the Date</h2>
+        <div class="w-full max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-4 text-center items-start relative z-10">
+            <div class="flex flex-col items-center space-y-3 md:pt-16">
+                <h3 class="text-[#eed578] text-3xl sm:text-4xl font-medium mb-2">Subamuhurtham</h3>
+                <p id="display-date-1" class="text-[#fcf0cc] text-lg sm:text-xl">Thursday, 14th Oct 2026</p>
+                <p class="text-[#fcf0cc] text-lg sm:text-xl">09:30am</p>
+                <p class="text-[#eed578] text-lg sm:text-xl font-medium">Palani</p>
+            </div>
+            <div class="flex flex-col items-center justify-start relative">
+                <div class="h-[180px] sm:h-[220px] flex items-end justify-center w-full mb-16 relative overflow-visible">
+                    <img id="parallax-car" src="http://mydrape.com/wp-content/uploads/2026/03/car2.png" alt="Car" class="w-[90%] max-w-[320px] h-auto translate-y-48">
+                </div>
+                <h3 class="text-[#eed578] text-3xl sm:text-4xl font-medium mb-3">Venue</h3>
+                <p id="display-venue-1" class="text-[#fcf0cc] text-lg sm:text-xl">Padmavathi parinayam</p>
+                <p id="display-venue-2" class="text-[#fcf0cc] text-lg sm:text-xl">Poranki, Vijayawada</p>
+            </div>
+            <div class="flex flex-col items-center space-y-3 md:pt-16">
+                <h3 class="text-[#eed578] text-3xl sm:text-4xl font-medium mb-2">Reception</h3>
+                <p id="display-date-2" class="text-[#fcf0cc] text-lg sm:text-xl">Friday, 15th Oct 2026</p>
+                <p class="text-[#fcf0cc] text-lg sm:text-xl">07:30pm</p>
+                <p class="text-[#eed578] text-lg sm:text-xl font-medium">Palani</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 7: Final & Countdown -->
+    <section class="relative w-full min-h-[100svh] bg-[#e1969a] flex flex-col items-center justify-between overflow-hidden z-40 pb-16 sm:pb-24"
+             style="background-image: url('https://framerusercontent.com/images/ZJuwYsHXk0HnRjJnd4JPA93gI60.png?width=6172&height=6172'); background-size: cover; background-position: center top; background-repeat: no-repeat;">
+        
+        <!-- Garland -->
+        <div class="absolute top-0 inset-x-0 w-full z-10 animate-garland-sway">
+            <img src="https://framerusercontent.com/images/rRjOvPjTz2tlTxNt0USBngTEY.png?width=9936&height=3784" alt="Garlands" class="w-full h-auto object-cover opacity-95">
+        </div>
+
+        <!-- Live Countdown UI -->
+        <div class="relative z-30 flex flex-col items-center pt-32 sm:pt-48 mb-auto w-full px-4">
+            <h3 class="font-calligraphy text-[#fff] text-5xl sm:text-6xl md:text-7xl mb-8 drop-shadow-md text-center">The Countdown Begins</h3>
+            <div class="flex gap-3 sm:gap-6 text-center select-none">
+                <div class="flex flex-col items-center bg-[#cb2c51]/30 backdrop-blur-md rounded-2xl p-3 sm:p-6 min-w-[70px] sm:min-w-[100px] border border-[#eed578]/40 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+                    <span id="cd-days" class="text-3xl sm:text-5xl font-bold text-[#fcf0cc] drop-shadow-sm font-sans">00</span>
+                    <span class="text-[10px] sm:text-xs text-[#eed578] font-bold uppercase tracking-widest mt-2 opacity-90">Days</span>
+                </div>
+                <div class="flex flex-col items-center bg-[#cb2c51]/30 backdrop-blur-md rounded-2xl p-3 sm:p-6 min-w-[70px] sm:min-w-[100px] border border-[#eed578]/40 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+                    <span id="cd-hours" class="text-3xl sm:text-5xl font-bold text-[#fcf0cc] drop-shadow-sm font-sans">00</span>
+                    <span class="text-[10px] sm:text-xs text-[#eed578] font-bold uppercase tracking-widest mt-2 opacity-90">Hours</span>
+                </div>
+                <div class="flex flex-col items-center bg-[#cb2c51]/30 backdrop-blur-md rounded-2xl p-3 sm:p-6 min-w-[70px] sm:min-w-[100px] border border-[#eed578]/40 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+                    <span id="cd-minutes" class="text-3xl sm:text-5xl font-bold text-[#fcf0cc] drop-shadow-sm font-sans">00</span>
+                    <span class="text-[10px] sm:text-xs text-[#eed578] font-bold uppercase tracking-widest mt-2 opacity-90">Mins</span>
+                </div>
+                <div class="flex flex-col items-center bg-[#cb2c51]/30 backdrop-blur-md rounded-2xl p-3 sm:p-6 min-w-[70px] sm:min-w-[100px] border border-[#eed578]/40 shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+                    <span id="cd-seconds" class="text-3xl sm:text-5xl font-bold text-[#fcf0cc] drop-shadow-sm font-sans">00</span>
+                    <span class="text-[10px] sm:text-xs text-[#eed578] font-bold uppercase tracking-widest mt-2 opacity-90">Secs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portrait Overlay -->
+        <div class="relative w-full flex justify-center z-20 mt-10">
+            <img src="https://framerusercontent.com/images/HkGtJk9wSnZmN9N451qy8p9vpeI.png?width=1451&height=1451?width=1451&height=1451" alt="Portrait" class="w-[95%] sm:w-[85%] md:w-[70%] lg:w-[60%] max-w-5xl h-auto drop-shadow-2xl">
+        </div>
+    </section>
+
+    <!-- Audio & UI -->
+    <audio id="bg-music" loop autoplay>
+        <source src="/media/music/voyage.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" class="fixed bottom-6 right-6 z-50 bg-[#cb2c51] text-[#eed578] w-14 h-14 rounded-full shadow-2xl flex items-center justify-center hover:bg-[#a82241] ring-4 ring-[#cb2c51]/30 transition-transform hover:scale-105">
+        <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="block ml-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="hidden"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+    </button>
+
+    <div class="template-sticky-bar">
+      <a href="#" id="btn-create-demo" class="btn-gold-outline">Create Demo</a>
+      <a href="https://theluxuryinvites.com/checkout/?add-to-cart=546" class="btn-gold-solid" target="_top">Buy Now</a>
+    </div>
+
+    <!-- Live Customizer Modal -->
+    <div id="customizer-modal" style="display: none;" class="fixed inset-0 z-[999999] items-center justify-center p-4 bg-black/65 backdrop-blur-sm select-none">
+        <div id="customizer-content" class="relative w-full max-w-[440px] bg-[#132219] border border-[#ecd189]/25 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(0,0,0,0.5)] text-center flex flex-col space-y-6">
+            <button id="close-customizer" class="absolute top-4 right-4 text-[#ecd189]/60 hover:text-[#ecd189] text-3xl font-light transition focus:outline-none leading-none">
+                &times;
+            </button>
+
+            <div class="space-y-1.5 mt-2">
+                <h2 class="text-3xl font-normal text-[#ecd189] tracking-wide" style="font-family: 'Playfair Display', serif;">Live Demo Customizer</h2>
+                <p class="text-[10px] text-[#ecd189]/85 tracking-[0.2em] font-sans font-bold uppercase">This is a sample demo for preview purposes. All details entered here are temporary—our team will finalize and customize everything for you after confirmation.</p>
+            </div>
+
+            <div class="flex flex-col space-y-4 text-left font-sans">
+                <div>
+                    <label class="block text-[11px] font-bold text-[#ecd189]/90 tracking-wider uppercase mb-1.5">Bride's Name</label>
+                    <input id="input-bride" type="text" placeholder="e.g. Dr. Shambavi" class="w-full bg-[#192c20] border border-[#ecd189]/20 rounded-2xl px-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-[#ecd189]/50 transition text-sm">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-[#ecd189]/90 tracking-wider uppercase mb-1.5">Groom's Name</label>
+                    <input id="input-groom" type="text" placeholder="e.g. Dr. Lakshman" class="w-full bg-[#192c20] border border-[#ecd189]/20 rounded-2xl px-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-[#ecd189]/50 transition text-sm">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-[#ecd189]/90 tracking-wider uppercase mb-1.5">Wedding Date</label>
+                    <input id="input-date" type="text" placeholder="e.g. May 14th 2026" class="w-full bg-[#192c20] border border-[#ecd189]/20 rounded-2xl px-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-[#ecd189]/50 transition text-sm">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-[#ecd189]/90 tracking-wider uppercase mb-1.5">Venue Name</label>
+                    <input id="input-venue" type="text" placeholder="e.g. Rambagh, Jaipur" class="w-full bg-[#192c20] border border-[#ecd189]/20 rounded-2xl px-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-[#ecd189]/50 transition text-sm">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-[#ecd189]/90 tracking-wider uppercase mb-1.5">Wedding Hashtag</label>
+                    <input id="input-hashtag" type="text" placeholder="e.g. #ShambaviWedsLakshman" class="w-full bg-[#192c20] border border-[#ecd189]/20 rounded-2xl px-4 py-3 text-white placeholder-white/25 focus:outline-none focus:border-[#ecd189]/50 transition text-sm">
+                </div>
+            </div>
+
+            <button id="btn-generate-invite" class="w-full bg-gradient-to-r from-[#d4af37] to-[#aa7c11] text-white font-bold uppercase text-xs tracking-widest py-4 rounded-xl shadow-lg hover:from-[#ecd189] hover:to-[#c29218] transition-all transform hover:-translate-y-0.5 font-sans">
+                Generate My Demo Invite
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const temple = document.getElementById('parallax-temple');
+            const car = document.getElementById('parallax-car');
+            
+            // Intersection and Parallax logic
+            window.addEventListener('scroll', () => {
+                let scrollY = window.scrollY;
+                if (temple) temple.style.transform = `translateY(${-scrollY * 0.35}px)`;
+                if (car) {
+                    const rect = car.getBoundingClientRect();
+                    if (rect.top < window.innerHeight && rect.bottom > -100) {
+                        const viewportOffset = window.innerHeight - rect.top;
+                        car.style.transform = `translateY(${120 - (viewportOffset * 0.12)}px)`;
+                    }
+                }
+            });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) entry.target.classList.add('is-visible');
+                    else entry.target.classList.remove('is-visible');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal-item').forEach(item => revealObserver.observe(item));
+
+            // Music Logic
+            const bgMusic = document.getElementById('bg-music');
+            const musicToggleBtn = document.getElementById('music-toggle');
+            const iconPlay = document.getElementById('icon-play');
+            const iconPause = document.getElementById('icon-pause');
+            let isPlaying = false;
+
+            const startAudioOnInteraction = () => {
+                if (isPlaying) return;
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    iconPlay.classList.replace('block', 'hidden');
+                    iconPause.classList.replace('hidden', 'block');
+                }).catch(() => {});
+            };
+
+            const playPromise = bgMusic.play();
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    isPlaying = true;
+                    iconPlay.classList.replace('block', 'hidden');
+                    iconPause.classList.replace('hidden', 'block');
+                }).catch(error => {
+                    isPlaying = false;
+                    document.addEventListener('click', startAudioOnInteraction, { once: true });
+                    document.addEventListener('touchstart', startAudioOnInteraction, { once: true });
+                    document.addEventListener('scroll', startAudioOnInteraction, { once: true });
+                });
+            }
+
+            musicToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                if (isPlaying) {
+                    bgMusic.pause();
+                    iconPlay.classList.replace('hidden', 'block');
+                    iconPause.classList.replace('block', 'hidden');
+                } else {
+                    bgMusic.play().catch(() => {});
+                    iconPlay.classList.replace('block', 'hidden');
+                    iconPause.classList.replace('hidden', 'block');
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // Countdown Logic
+            let countdownTargetDate = new Date("October 14, 2026 09:30:00").getTime();
+            const cdDays = document.getElementById('cd-days');
+            const cdHours = document.getElementById('cd-hours');
+            const cdMinutes = document.getElementById('cd-minutes');
+            const cdSeconds = document.getElementById('cd-seconds');
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = countdownTargetDate - now;
+
+                if (distance < 0) {
+                    cdDays.textContent = "00";
+                    cdHours.textContent = "00";
+                    cdMinutes.textContent = "00";
+                    cdSeconds.textContent = "00";
+                    return;
+                }
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                cdDays.textContent = days.toString().padStart(2, '0');
+                cdHours.textContent = hours.toString().padStart(2, '0');
+                cdMinutes.textContent = minutes.toString().padStart(2, '0');
+                cdSeconds.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            // Start the interval
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // Customizer Logic
+            const customizerModal = document.getElementById('customizer-modal');
+            const customizerContent = document.getElementById('customizer-content');
+            const btnCreateDemo = document.getElementById('btn-create-demo');
+            const btnCloseCustomizer = document.getElementById('close-customizer');
+            const btnGenerateInvite = document.getElementById('btn-generate-invite');
+
+            const inputBride = document.getElementById('input-bride');
+            const inputGroom = document.getElementById('input-groom');
+            const inputDate = document.getElementById('input-date');
+            const inputVenue = document.getElementById('input-venue');
+            const inputHashtag = document.getElementById('input-hashtag');
+
+            const displayTitle = document.getElementById('display-title');
+            const displayGroomHero = document.getElementById('display-groom-hero');
+            const displayBrideHero = document.getElementById('display-bride-hero');
+            const displayGroomDetails = document.getElementById('display-groom-details');
+            const displayBrideDetails = document.getElementById('display-bride-details');
+            const displayDate1 = document.getElementById('display-date-1');
+            const displayDate2 = document.getElementById('display-date-2');
+            const displayVenue1 = document.getElementById('display-venue-1');
+            const displayVenue2 = document.getElementById('display-venue-2');
+            const displayHashtag = document.getElementById('display-hashtag');
+
+            const originalTitle = displayTitle ? displayTitle.textContent : "Vishu Weds Kavya - Wedding Invitation";
+            const originalGroomHero = displayGroomHero ? displayGroomHero.textContent : "Vishu";
+            const originalBrideHero = displayBrideHero ? displayBrideHero.textContent : "Kavya";
+            const originalGroomDetails = displayGroomDetails ? displayGroomDetails.textContent : "Vishu";
+            const originalBrideDetails = displayBrideDetails ? displayBrideDetails.textContent : "Kavya";
+            const originalDate1 = displayDate1 ? displayDate1.textContent : "Thursday, 14th Oct 2026";
+            const originalDate2 = displayDate2 ? displayDate2.textContent : "Friday, 15th Oct 2026";
+            const originalVenue1 = displayVenue1 ? displayVenue1.textContent : "Padmavathi parinayam";
+            const originalVenue2 = displayVenue2 ? displayVenue2.textContent : "Poranki, Vijayawada";
+
+            btnCreateDemo.addEventListener('click', (e) => {
+                e.preventDefault();
+                customizerModal.style.display = 'flex';
+                customizerModal.classList.add('modal-active');
+                customizerContent.classList.add('modal-content-active');
+            });
+
+            const closeModal = () => {
+                customizerModal.classList.remove('modal-active');
+                customizerContent.classList.remove('modal-content-active');
+                setTimeout(() => {
+                    customizerModal.style.display = 'none';
+                }, 200);
+            };
+
+            btnCloseCustomizer.addEventListener('click', closeModal);
+            
+            customizerModal.addEventListener('click', (e) => {
+                if (e.target === customizerModal) {
+                    closeModal();
+                }
+            });
+
+            function formatCustomDate(dateStr, offsetDays = 0) {
+                if (!dateStr) return '';
+                const cleanStr = dateStr.replace(/(\d+)(st|nd|rd|th)/i, '$1');
+                const parsed = Date.parse(cleanStr);
+                if (!isNaN(parsed)) {
+                    const d = new Date(parsed);
+                    d.setDate(d.getDate() + offsetDays);
+                    
+                    const weekday = d.toLocaleDateString('en-US', { weekday: 'long' });
+                    const month = d.toLocaleDateString('en-US', { month: 'short' });
+                    const day = d.getDate();
+                    const year = d.getFullYear();
+                    
+                    let suffix = 'th';
+                    if (day % 10 === 1 && day !== 11) suffix = 'st';
+                    else if (day % 10 === 2 && day !== 12) suffix = 'nd';
+                    else if (day % 10 === 3 && day !== 13) suffix = 'rd';
+                    
+                    return `${weekday}, ${day}${suffix} ${month} ${year}`;
+                }
+                if (offsetDays > 0) {
+                    const match = dateStr.match(/(\d+)/);
+                    if (match) {
+                        const num = parseInt(match[1], 10);
+                        return dateStr.replace(match[1], num + 1);
+                    }
+                    return dateStr + " (+1 Day)";
+                }
+                return dateStr;
+            }
+
+            // Generate/Apply changes
+            btnGenerateInvite.addEventListener('click', () => {
+                const brideVal = inputBride.value.trim();
+                const groomVal = inputGroom.value.trim();
+                const dateVal = inputDate.value.trim();
+                const venueVal = inputVenue.value.trim();
+                const hashtagVal = inputHashtag.value.trim();
+
+                if (displayBrideHero) displayBrideHero.textContent = brideVal || originalBrideHero;
+                if (displayBrideDetails) displayBrideDetails.textContent = brideVal || originalBrideDetails;
+                if (displayGroomHero) displayGroomHero.textContent = groomVal || originalGroomHero;
+                if (displayGroomDetails) displayGroomDetails.textContent = groomVal || originalGroomDetails;
+
+                if (displayTitle) {
+                    const g = groomVal || originalGroomHero;
+                    const b = brideVal || originalBrideHero;
+                    displayTitle.textContent = `${g} Weds ${b} - Wedding Invitation`;
+                }
+
+                if (displayDate1) displayDate1.textContent = dateVal ? formatCustomDate(dateVal, 0) : originalDate1;
+                if (displayDate2) displayDate2.textContent = dateVal ? formatCustomDate(dateVal, 1) : originalDate2;
+
+                // Sync Countdown with new customized date
+                if (dateVal) {
+                    const cleanStr = dateVal.replace(/(\d+)(st|nd|rd|th)/i, '$1');
+                    const parsed = Date.parse(cleanStr);
+                    if (!isNaN(parsed)) {
+                        const newDate = new Date(parsed);
+                        newDate.setHours(9, 30, 0, 0); // Defaulting event to 09:30 AM
+                        countdownTargetDate = newDate.getTime();
+                        updateCountdown();
+                    }
+                } else {
+                    countdownTargetDate = new Date("October 14, 2026 09:30:00").getTime();
+                    updateCountdown();
+                }
+
+                if (venueVal) {
+                    const venueParts = venueVal.split(',').map(s => s.trim());
+                    if (venueParts.length > 1) {
+                        if (displayVenue1) displayVenue1.textContent = venueParts[0];
+                        if (displayVenue2) displayVenue2.textContent = venueParts.slice(1).join(', ');
+                    } else {
+                        if (displayVenue1) displayVenue1.textContent = venueVal;
+                        if (displayVenue2) displayVenue2.textContent = '';
+                    }
+                } else {
+                    if (displayVenue1) displayVenue1.textContent = originalVenue1;
+                    if (displayVenue2) displayVenue2.textContent = originalVenue2;
+                }
+
+                if (displayHashtag) {
+                    if (hashtagVal) {
+                        displayHashtag.textContent = hashtagVal.startsWith('#') ? hashtagVal : '#' + hashtagVal;
+                        displayHashtag.classList.remove('hidden');
+                    } else {
+                        displayHashtag.classList.add('hidden');
+                        displayHashtag.textContent = '';
+                    }
+                }
+
+                closeModal();
+            });
+        });
+    </script>
+
+
+</body>
+</html>

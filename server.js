@@ -44,7 +44,12 @@ const OWNER_EMAIL = (process.env.OWNER_EMAIL || "jesalp85@gmail.com").trim();
 const OWNER_WHATSAPP = (process.env.OWNER_WHATSAPP || "919769104020").replace(/\D/g, "");
 const PUBLIC_BASE = (process.env.PUBLIC_BASE || "http://localhost:3000").replace(/\/$/, "");
 
-const SITE_THEMES = ["rajutsav", "fort", "kailash", "deep", "patrika", "darbar", "nilambari"];
+const SITE_THEMES = [
+  "rajutsav", "fort", "kailash", "deep", "patrika", "darbar", "nilambari",
+  "celestial", "lanterns", "grandreveal", "bloom", "sultanemerald",
+  "jaipur", "royalmaharashtrian", "cathedral", "voyage", "luminous",
+  "heritage", "seaside", "promise"
+];
 const VIDEO_THEMES = [];
 const THEMES = SITE_THEMES;
 const VIDEO_CATALOG_FILE = path.join(ROOT_DIR, "v", "templates.json");
