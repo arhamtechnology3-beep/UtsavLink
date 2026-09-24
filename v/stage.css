@@ -1,0 +1,171 @@
+:root {
+  --reel-w: 390px;
+  --reel-h: 844px;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #1a1214;
+  overflow: hidden;
+  font-synthesis: none;
+}
+.reel {
+  width: 100%;
+  height: 100%;
+  max-width: var(--reel-w);
+  max-height: var(--reel-h);
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 390 / 844;
+}
+.skin {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 42px 28px 36px;
+  text-align: center;
+  color: #fff;
+}
+.skin[hidden] { display: none !important; }
+
+.scene-cover, .scene-card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 30px;
+}
+.scene-cover { opacity: 1; }
+.scene-card { opacity: 0; }
+.reel.is-playing .scene-cover {
+  animation: coverIn 12s ease-in-out infinite;
+}
+.reel.is-playing .scene-card {
+  animation: cardIn 12s ease-in-out infinite;
+}
+@keyframes coverIn {
+  0%, 32% { opacity: 1; transform: scale(1); }
+  40% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes cardIn {
+  0%, 36% { opacity: 0; transform: translateY(18px); }
+  44% { opacity: 1; transform: none; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.kicker {
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  opacity: .82;
+  margin: 0 0 14px;
+}
+.title {
+  font-size: 42px;
+  line-height: 1.1;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+.sub {
+  font-size: 15px;
+  line-height: 1.45;
+  opacity: .88;
+  max-width: 280px;
+}
+.names { font-size: 28px; line-height: 1.25; margin: 0 0 12px; }
+.amp { display: block; font-size: 18px; opacity: .7; margin: 4px 0; font-style: italic; }
+.quote {
+  font-size: 14px;
+  line-height: 1.55;
+  opacity: .86;
+  margin: 0 0 14px;
+  max-width: 300px;
+  white-space: pre-wrap;
+}
+.event {
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+.when, .where {
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  margin: 0 0 10px;
+}
+.idol, .deco {
+  width: min(220px, 58%);
+  height: auto;
+  margin: 0 0 16px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,.28));
+}
+.photo-wrap {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  border: 3px solid rgba(255,255,255,.7);
+  background: rgba(255,255,255,.12);
+}
+.photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.watermark {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 14px;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+  font-family: Sora, system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+}
+.watermark b {
+  background: rgba(159,18,57,.88);
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  letter-spacing: .14em;
+}
+
+/* ---- skins ---- */
+.skin-aagman {
+  background:
+    radial-gradient(80% 50% at 50% 0%, rgba(245,158,11,.28), transparent 55%),
+    linear-gradient(180deg, #4a0d1c 0%, #9F1239 42%, #1c0a10 100%);
+  font-family: "Fraunces", "Tiro Devanagari Marathi", Georgia, serif;
+  color: #FEF3C7;
+}
+.skin-aagman .kicker { color: #F59E0B; }
+.skin-aagman .title { color: #FDE68A; }
+
+.line {
+  width: 72px;
+  height: 2px;
+  background: currentColor;
+  opacity: .45;
+  margin: 12px auto 16px;
+}

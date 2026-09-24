@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex" />
+  <title>Customize video invite · UtsavLink</title>
+  <link rel="icon" href="/assets/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/video.css?v=7" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-wordmark" href="/video-invite"><span class="brand-utsav">Utsav</span><span class="brand-link">Link</span></a>
+      <nav class="nav">
+        <a href="/video-invite">Video invite</a>
+      </nav>
+    </div>
+  </header>
+
+  <p class="hint" id="bootErr" hidden></p>
+
+  <div class="editor" id="app">
+    <aside class="phone-pane">
+      <div class="phone">
+        <iframe id="player" src="/v/aagman?preview=1" title="Live video preview" allow="autoplay"></iframe>
+      </div>
+      <p class="hint" id="previewHint">Preview with your details. PREVIEW mark lifts after payment.</p>
+    </aside>
+    <section class="form-pane">
+      <p class="meta" id="crumb"></p>
+      <h1 id="pageTitle">Customize</h1>
+      <p class="lede">Watch the video update as you type. Pay ₹299 to remove the preview mark and share.</p>
+
+      <div class="livebox" id="livebox">
+        <strong>Your invite is live</strong>
+        <code id="liveUrl"></code>
+        <button class="btn btn-primary" type="button" id="shareBtn">Share on WhatsApp</button>
+        <button class="btn btn-ghost" type="button" id="copyBtn">Copy link</button>
+      </div>
+
+      <div class="field">
+        <label for="name1">Name 1</label>
+        <input id="name1" type="text" autocomplete="name" />
+      </div>
+      <div class="field">
+        <label for="name2">Name 2 <span>- partner, spouse, or co-host</span></label>
+        <input id="name2" type="text" />
+      </div>
+      <div class="field">
+        <label for="quote">Invitation line</label>
+        <textarea id="quote"></textarea>
+      </div>
+      <div class="field">
+        <label for="event">Event name</label>
+        <input id="event" type="text" />
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="date">Date</label>
+          <input id="date" type="date" />
+        </div>
+        <div class="field">
+          <label for="timing">Timings</label>
+          <textarea id="timing"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <label for="venue">Venue</label>
+        <textarea id="venue"></textarea>
+      </div>
+      <div class="field" id="photoField" hidden>
+        <label>Photo <span>- optional</span></label>
+        <input id="photoFile" type="file" accept="image/*" />
+        <p class="hint">JPG or PNG, under 5 MB. Unlocks after payment.</p>
+      </div>
+      <div class="field">
+        <label>Music</label>
+        <p class="hint" id="musicHint">Default track plays on the preview. Upload your own MP3 after payment.</p>
+        <input id="musicFile" type="file" accept="audio/mpeg,audio/mp3,audio/wav,audio/x-m4a,audio/mp4" hidden />
+        <button class="btn btn-ghost" type="button" id="musicBtn" hidden>Upload MP3</button>
+      </div>
+      <div class="field" id="slugField" hidden>
+        <label for="slug">Share link</label>
+        <input id="slug" type="text" placeholder="patil-aagman" />
+        <p class="hint" id="slugMsg"></p>
+      </div>
+    </section>
+  </div>
+
+  <div class="paybar">
+    <div class="grow" id="payNote"><b>₹299</b> · GST included · watermark-free after payment</div>
+    <button class="btn btn-ghost" type="button" id="replayBtn">Replay</button>
+    <button class="btn btn-primary" type="button" id="payBtn">Unlock HD · ₹299</button>
+    <button class="btn btn-primary" type="button" id="publishBtn" hidden>Publish &amp; share</button>
+  </div>
+
+  <div class="co-backdrop" id="checkout" hidden>
+    <div class="co-card" role="dialog" aria-modal="true">
+      <button class="co-close" id="coClose" type="button" aria-label="Close">&times;</button>
+      <div id="coStep1">
+        <h2>Unlock this video</h2>
+        <p class="co-sub">₹299 including GST. Pay by UPI, then the PREVIEW mark comes off and you get a WhatsApp link.</p>
+        <div class="field">
+          <label for="coName">Your name</label>
+          <input id="coName" type="text" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="coPhone">WhatsApp number</label>
+          <input id="coPhone" type="tel" inputmode="tel" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="coEmail">Email</label>
+          <input id="coEmail" type="email" autocomplete="email" />
+        </div>
+        <p class="co-error" id="coError" hidden></p>
+        <button class="btn btn-primary btn-block" type="button" id="coProceedBtn">Proceed to UPI · ₹299</button>
+      </div>
+      <div id="coStep2" hidden>
+        <p class="meta">Pay with any UPI app</p>
+        <div class="pay-amount" id="coPayAmount">₹299</div>
+        <img id="coQrImg" class="pay-qr" alt="UPI QR" />
+        <div class="pay-upi-row">
+          <code id="coUpiIdText"></code>
+          <button class="btn btn-ghost" type="button" id="coCopyUpiBtn">Copy</button>
+        </div>
+        <p><a id="coUpiDeepLink" href="#" target="_blank" rel="noopener">Open in UPI app →</a></p>
+        <div class="field">
+          <label for="coUtr">12-character UTR / UPI Ref</label>
+          <input id="coUtr" type="text" maxlength="18" autocomplete="off" placeholder="e.g. 423981029384" />
+        </div>
+        <p class="co-error" id="coUpiError" hidden></p>
+        <div class="pay-success" id="coSuccessMsg" hidden>Submitted — waiting for confirmation…</div>
+        <button class="btn btn-primary btn-block" type="button" id="coConfirmBtn">I’ve paid — Confirm</button>
+        <button class="btn btn-ghost btn-block" type="button" id="coBackBtn">← Back</button>
+        <p class="hint" id="coRefBadge"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/video-edit.js?v=7"></script>
+</body>
+</html>

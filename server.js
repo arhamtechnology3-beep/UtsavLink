@@ -28,6 +28,9 @@ const BASE_PRICE = Number(process.env.BASE_PRICE || 99);
 const GST_RATE = 0.18;
 const TOTAL_AMOUNT = Math.round(BASE_PRICE * (1 + GST_RATE));
 const GST_AMOUNT = TOTAL_AMOUNT - BASE_PRICE;
+const VIDEO_TOTAL = Number(process.env.VIDEO_PRICE || 299);
+const VIDEO_BASE = Math.round(VIDEO_TOTAL / (1 + GST_RATE));
+const VIDEO_GST = VIDEO_TOTAL - VIDEO_BASE;
 
 // free = no payment (unlock immediately)
 // auto = unlock after valid UTR (honour-based, no bank check)
@@ -41,7 +44,10 @@ const OWNER_EMAIL = (process.env.OWNER_EMAIL || "jesalp85@gmail.com").trim();
 const OWNER_WHATSAPP = (process.env.OWNER_WHATSAPP || "919769104020").replace(/\D/g, "");
 const PUBLIC_BASE = (process.env.PUBLIC_BASE || "http://localhost:3000").replace(/\/$/, "");
 
-const THEMES = ["rajutsav", "fort", "kailash", "deep", "patrika", "darbar", "nilambari"];
+const SITE_THEMES = ["rajutsav", "fort", "kailash", "deep", "patrika", "darbar", "nilambari"];
+const VIDEO_THEMES = [];
+const THEMES = SITE_THEMES;
+const VIDEO_CATALOG_FILE = path.join(ROOT_DIR, "v", "templates.json");
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -106,7 +112,7 @@ function readBody(req) {
     let size = 0;
     req.on("data", (chunk) => {
       size += chunk.length;
-      if (size > 8_000_000) {
+      if (size > 12_000_000) {
         reject(new Error("Payload too large"));
         req.destroy();
         return;
@@ -118,8 +124,36 @@ function readBody(req) {
   });
 }
 
+function isVideoTheme(theme) {
+  return VIDEO_THEMES.includes(theme);
+}
+
+function normalizeSiteTheme(theme) {
+  return SITE_THEMES.includes(theme) ? theme : "fort";
+}
+
+function normalizeVideoTheme(theme) {
+  if (VIDEO_THEMES.includes(theme)) return theme;
+  return VIDEO_THEMES[0] || "";
+}
+
 function normalizeTheme(theme) {
-  return THEMES.includes(theme) ? theme : "fort";
+  if (isVideoTheme(theme)) return theme;
+  return normalizeSiteTheme(theme);
+}
+
+function loadVideoCatalog() {
+  try {
+    return JSON.parse(fs.readFileSync(VIDEO_CATALOG_FILE, "utf8"));
+  } catch (err) {
+    return { price: VIDEO_TOTAL, templates: [] };
+  }
+}
+
+function priceForKind(kind) {
+  if (IS_FREE) return { amount: 0, basePrice: 0, gst: 0 };
+  if (kind === "video") return { amount: VIDEO_TOTAL, basePrice: VIDEO_BASE, gst: VIDEO_GST };
+  return { amount: TOTAL_AMOUNT, basePrice: BASE_PRICE, gst: GST_AMOUNT };
 }
 
 function normalizeLang(lang) {
@@ -141,6 +175,7 @@ function validUtr(utr) {
 function publicInvite(invite) {
   return {
     paid: !!invite.paid,
+    kind: invite.kind || (isVideoTheme(invite.theme) ? "video" : "site"),
     theme: invite.theme,
     lang: invite.lang,
     slug: invite.slug,
@@ -202,18 +237,21 @@ function sendFile(req, res, filePath, contentType) {
       return;
     }
 
+    const ext = path.extname(filePath).toLowerCase();
+    const noStore = [".html", ".js", ".css"].includes(ext);
     res.writeHead(200, {
       "Content-Length": stats.size,
       "Content-Type": contentType,
-      "Cache-Control": "public, max-age=3600"
+      "Cache-Control": noStore ? "no-store" : "public, max-age=3600"
     });
     fs.createReadStream(filePath).pipe(res);
   });
 }
 
-async function buildUpiPayload(txnid) {
+async function buildUpiPayload(txnid, amount) {
+  const payAmount = amount || TOTAL_AMOUNT;
   // Always generate a clean QR with exact amount — the Navi poster is too busy for checkout
-  const upiString = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${TOTAL_AMOUNT}&cu=INR&tn=${encodeURIComponent(txnid)}`;
+  const upiString = `upi://pay?pa=${encodeURIComponent(UPI_ID)}&pn=${encodeURIComponent(UPI_NAME)}&am=${payAmount}&cu=INR&tn=${encodeURIComponent(txnid)}`;
   let qrDataUrl = "";
   try {
       qrDataUrl = await QRCode.toDataURL(upiString, {
@@ -232,7 +270,7 @@ async function buildUpiPayload(txnid) {
     upiName: UPI_NAME,
     upiString,
     qrDataUrl,
-    amount: TOTAL_AMOUNT,
+    amount: payAmount,
     staticQr: false
   };
 }
@@ -244,6 +282,30 @@ function injectInviteHtml(themeHtml, invitePayload) {
   return boot + themeHtml;
 }
 
+function serveVideoPlayer(req, res, theme, extra) {
+  const id = normalizeVideoTheme(theme);
+  const playPath = path.join(ROOT_DIR, "v", "play.html");
+  if (!fs.existsSync(playPath)) {
+    res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("Video player missing");
+    return;
+  }
+  let html = fs.readFileSync(playPath, "utf8");
+  const payload = Object.assign({
+    slug: "",
+    theme: id,
+    kind: "video",
+    preview: true,
+    paid: false,
+    data: {}
+  }, extra || {});
+  html = injectInviteHtml(html, payload);
+  html = html.replace('data-theme="aagman"', 'data-theme="' + id + '"');
+  if (payload.paid) html = html.replace('class="watermark"', 'class="watermark" hidden');
+  res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
+  res.end(html);
+}
+
 function servePublishedInvite(req, res, slug) {
   const txnid = store.slugs[slug];
   const invite = txnid ? store.invites[txnid] : null;
@@ -253,7 +315,21 @@ function servePublishedInvite(req, res, slug) {
     return;
   }
 
-  const theme = normalizeTheme(invite.theme);
+  const theme = invite.kind === "video" ? invite.theme : normalizeTheme(invite.theme);
+  if (invite.kind === "video" || VIDEO_THEMES.includes(invite.theme)) {
+    if (!isVideoTheme(theme)) {
+      res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+      res.end("<h1>Invite not found</h1><p>This invitation is no longer available.</p>");
+      return;
+    }
+    return serveVideoPlayer(req, res, theme, {
+      slug: invite.slug,
+      preview: false,
+      paid: true,
+      data: invite.data || {}
+    });
+  }
+
   const themePath = path.join(ROOT_DIR, "t", theme, "index.html");
   if (!fs.existsSync(themePath)) {
     res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
@@ -277,18 +353,29 @@ function servePublishedInvite(req, res, slug) {
 async function handleOrder(req, res) {
   try {
     const data = JSON.parse((await readBody(req)) || "{}");
+    const kind = data.kind === "video" || isVideoTheme(data.theme) ? "video" : "site";
+    const theme = kind === "video" ? normalizeVideoTheme(data.theme) : normalizeSiteTheme(data.theme);
+    if (kind === "video" && !theme) {
+      json(res, 400, { ok: false, error: "This video design is no longer available." });
+      return;
+    }
+    const pricing = priceForKind(kind);
     const txnid = "UTSAV" + Date.now() + crypto.randomBytes(2).toString("hex");
     const order = {
       txnid,
-      theme: normalizeTheme(data.theme),
+      kind,
+      theme,
       lang: normalizeLang(data.lang),
       name: String(data.name || "Customer").trim().slice(0, 80),
       phone: String(data.phone || "").trim().slice(0, 20),
       email: String(data.email || "").trim().slice(0, 120),
-      amount: IS_FREE ? 0 : TOTAL_AMOUNT,
+      amount: pricing.amount,
+      basePrice: pricing.basePrice,
+      gst: pricing.gst,
       paid: false,
       status: "awaiting_payment",
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      draft: data.draft && typeof data.draft === "object" ? data.draft : null
     };
     store.orders[txnid] = order;
     saveStore();
@@ -302,21 +389,23 @@ async function handleOrder(req, res) {
         amount: 0,
         basePrice: 0,
         gst: 0,
+        kind,
         theme: order.theme,
         lang: order.lang,
-        editUrl: `/edit?token=${encodeURIComponent(txnid)}&theme=${encodeURIComponent(order.theme)}&paid=1`
+        editUrl: editUrlFor(txnid, order.theme)
       });
       return;
     }
 
-    const upi = await buildUpiPayload(txnid);
+    const upi = await buildUpiPayload(txnid, pricing.amount);
     json(res, 200, {
       ok: true,
       free: false,
       txnid,
-      amount: TOTAL_AMOUNT,
-      basePrice: BASE_PRICE,
-      gst: GST_AMOUNT,
+      amount: pricing.amount,
+      basePrice: pricing.basePrice,
+      gst: pricing.gst,
+      kind,
       theme: order.theme,
       lang: order.lang,
       ...upi
@@ -351,7 +440,7 @@ async function handleVerify(req, res) {
         ok: true,
         txnid,
         theme: order.theme,
-        editUrl: `/edit?token=${encodeURIComponent(txnid)}&theme=${encodeURIComponent(order.theme)}&paid=1`
+        editUrl: editUrlFor(txnid, order.theme)
       });
       return;
     }
@@ -396,7 +485,7 @@ async function handleVerify(req, res) {
       ok: true,
       txnid,
       theme: order.theme,
-      editUrl: `/edit?token=${encodeURIComponent(txnid)}&theme=${encodeURIComponent(order.theme)}&paid=1`
+      editUrl: editUrlFor(txnid, order.theme)
     });
   } catch (e) {
     json(res, 400, { ok: false, error: "Payment verification failed. Please try again." });
@@ -404,6 +493,9 @@ async function handleVerify(req, res) {
 }
 
 function editUrlFor(txnid, theme) {
+  if (isVideoTheme(theme)) {
+    return `/video-edit?token=${encodeURIComponent(txnid)}&theme=${encodeURIComponent(theme)}&paid=1`;
+  }
   return `/edit?token=${encodeURIComponent(txnid)}&theme=${encodeURIComponent(theme)}&paid=1`;
 }
 
@@ -412,7 +504,8 @@ function customerWhatsAppUrl(order, editPath) {
   if (phone.length < 10) return null;
   const waPhone = phone.length === 10 ? "91" + phone : phone;
   const full = PUBLIC_BASE + editPath;
-  const text = `Hi ${order.name || "there"}, your UtsavLink Ganpati invite is unlocked.\n\nOpen your private editor:\n${full}\n\nOrder: ${order.txnid}`;
+  const label = isVideoTheme(order.theme) ? "video invite" : "Ganpati invite";
+  const text = `Hi ${order.name || "there"}, your UtsavLink ${label} is unlocked.\n\nOpen your private editor:\n${full}\n\nOrder: ${order.txnid}`;
   return `https://wa.me/${waPhone}?text=${encodeURIComponent(text)}`;
 }
 
@@ -498,16 +591,18 @@ function unlockInvite(order, utr) {
   }
 
   const existing = store.invites[txnid];
+  const kind = order.kind || (isVideoTheme(order.theme) ? "video" : "site");
   store.invites[txnid] = {
     txnid,
     paid: true,
     free: !!order.free,
+    kind,
     theme: order.theme,
     lang: order.lang,
     slug: existing?.slug || "",
     published: !!existing?.published,
     paidAt: order.paidAt,
-    data: existing?.data || { lang: order.lang },
+    data: existing?.data || order.draft || { lang: order.lang },
     name: order.name,
     phone: order.phone,
     email: order.email
@@ -615,7 +710,8 @@ async function handleUpload(req, res, parsedUrl) {
       json(res, 400, { ok: false, error: "Empty upload" });
       return;
     }
-    if (buf.length > 5_500_000) {
+    const isAudio = /mpeg|mp3|wav|m4a|mp4/.test(contentType);
+    if (buf.length > (isAudio ? 10_500_000 : 5_500_000)) {
       json(res, 413, { ok: false, error: "File too large" });
       return;
     }
@@ -624,6 +720,8 @@ async function handleUpload(req, res, parsedUrl) {
     if (contentType.includes("png")) ext = ".png";
     else if (contentType.includes("webp")) ext = ".webp";
     else if (contentType.includes("mpeg") || contentType.includes("mp3")) ext = ".mp3";
+    else if (contentType.includes("wav")) ext = ".wav";
+    else if (contentType.includes("m4a") || contentType.includes("mp4")) ext = ".m4a";
 
     const dir = path.join(UPLOAD_DIR, token.replace(/[^A-Za-z0-9_-]/g, ""));
     fs.mkdirSync(dir, { recursive: true });
@@ -705,6 +803,17 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    if (pathname === "/api/video-templates" && req.method === "GET") {
+      const cat = loadVideoCatalog();
+      json(res, 200, {
+        ok: true,
+        price: VIDEO_TOTAL,
+        gstIncluded: true,
+        templates: (cat.templates || []).filter((t) => VIDEO_THEMES.includes(t.id))
+      });
+      return;
+    }
+
     if (pathname === "/api/payment-config" && req.method === "GET") {
       json(res, 200, {
         ok: true,
@@ -714,6 +823,9 @@ const server = http.createServer(async (req, res) => {
         amount: IS_FREE ? 0 : TOTAL_AMOUNT,
         basePrice: IS_FREE ? 0 : BASE_PRICE,
         gst: IS_FREE ? 0 : GST_AMOUNT,
+        videoAmount: IS_FREE ? 0 : VIDEO_TOTAL,
+        videoBasePrice: IS_FREE ? 0 : VIDEO_BASE,
+        videoGst: IS_FREE ? 0 : VIDEO_GST,
         mode: PAYMENT_MODE,
         hasStaticQr: !!findStaticUpiQr(),
         ownerEmailConfigured: !!OWNER_EMAIL
@@ -737,8 +849,23 @@ const server = http.createServer(async (req, res) => {
       "/refund": "/refund.html",
       "/shipping": "/shipping.html",
       "/contact": "/contact.html",
-      "/edit": "/edit.html"
+      "/edit": "/edit.html",
+      "/video-invite": "/video-invite.html",
+      "/video-edit": "/video-edit.html"
     };
+
+    if (pathname.startsWith("/v/")) {
+      const parts = pathname.split("/").filter(Boolean);
+      if (parts.length === 2 && VIDEO_THEMES.includes(parts[1])) {
+        return serveVideoPlayer(req, res, parts[1], {
+          preview: parsedUrl.query.preview === "1" || parsedUrl.query.edit === "1",
+          paid: parsedUrl.query.paid === "1"
+        });
+      }
+      res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+      res.end("<h1>Not found</h1>");
+      return;
+    }
 
     let filePath = path.join(ROOT_DIR, pathname);
     if (cleanUrlMap[pathname] || pathname.startsWith("/edit/")) {

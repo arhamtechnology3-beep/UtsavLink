@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kabir &amp; Meera · Wedding</title>
+  <meta name="theme-color" content="#070707" />
+  <link rel="icon" href="/assets/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/t/celestial/invite.css?v=12" />
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <button class="intro" id="intro" type="button" aria-label="Open invitation">
+    <span class="intro-mark" id="introMark">K &amp; M</span>
+    <span class="intro-rule"></span>
+    <span class="intro-hint">Tap to open</span>
+  </button>
+
+  <main id="invite" hidden>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-mono" aria-hidden="true" id="heroMono">KM</div>
+      <div class="hero-grid">
+        <div class="hero-copy hero-animate" style="--d:.15s">
+          <p class="kicker">You are invited to</p>
+          <h1 id="coupleTitle">Kabir <span>&amp;</span> Meera</h1>
+
+          <button class="curtain" id="curtainDate" type="button" aria-expanded="false">
+            <span class="curtain-panels" aria-hidden="true">
+              <span class="curtain-left"><span class="curtain-seal">K&amp;M</span></span>
+              <span class="curtain-right"><span class="curtain-seal">Tap</span></span>
+            </span>
+            <span class="curtain-inner">
+              <span class="hero-meta">
+                <span>
+                  <span class="hero-date" id="heroDate">12 Dec 2026</span>
+                  <span class="meta-rule"></span>
+                </span>
+                <span>
+                  <span class="hero-place" id="heroPlace">Udaipur, India</span>
+                  <span class="meta-rule"></span>
+                </span>
+              </span>
+            </span>
+            <span class="curtain-hint">Tap to reveal</span>
+          </button>
+
+          <p class="welcome" id="welcome">We are so happy to celebrate our wedding with you. Join us for a weekend of love, laughter, and new beginnings.</p>
+        </div>
+
+        <div class="hero-visual hero-animate" style="--d:.4s">
+          <div class="card-stack" id="cardStack">
+            <div class="card-stack-item back">
+              <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=760&amp;q=80" alt="Wedding moment" width="760" height="1013" loading="eager" />
+            </div>
+            <div class="card-stack-item mid">
+              <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=760&amp;q=80" alt="Wedding moment" width="760" height="1013" loading="eager" />
+            </div>
+            <div class="card-stack-item front" id="cardFront">
+              <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=760&amp;q=80" alt="Wedding moment" width="760" height="1013" loading="eager" draggable="false" />
+            </div>
+          </div>
+
+          <button class="vinyl" id="vinylBtn" type="button" aria-pressed="false" aria-label="Play music">
+            <span class="vinyl-player" aria-hidden="true">
+              <span class="vinyl-platter">
+                <span class="vinyl-disc vinyl-stopped" id="vinylDisc">
+                  <span class="vinyl-groove" style="--m:0"></span>
+                  <span class="vinyl-groove" style="--m:18%"></span>
+                  <span class="vinyl-groove" style="--m:32%"></span>
+                  <span class="vinyl-groove" style="--m:44%"></span>
+                  <span class="vinyl-label" id="vinylLabel">K &amp; M</span>
+                </span>
+                <span class="vinyl-arm arm-playing" id="vinylArm"></span>
+              </span>
+            </span>
+            <span class="vinyl-dot" id="playDot" aria-hidden="true"></span>
+            <span class="vinyl-text" id="playLabel">Click to Play</span>
+          </button>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#union">Scroll down</a>
+    </section>
+
+    <!-- UNION -->
+    <section class="panel" id="union">
+      <p class="kicker reveal">The royal union</p>
+      <h2 class="reveal">Two souls, one journey</h2>
+      <div class="pair">
+        <article class="person reveal-left">
+          <p class="role">The groom</p>
+          <h3 id="groomName">Kabir</h3>
+          <dl>
+            <div><dt>Education</dt><dd id="groomEdu">B.Arch, CEPT Ahmedabad</dd></div>
+            <div><dt>Profession</dt><dd id="groomWork">Architect</dd></div>
+            <div><dt>Son of</dt><dd id="groomParents">Shri &amp; Smt. Mehra</dd></div>
+          </dl>
+        </article>
+        <article class="person reveal-right">
+          <p class="role">The bride</p>
+          <h3 id="brideName">Meera</h3>
+          <dl>
+            <div><dt>Education</dt><dd id="brideEdu">M.A. Literature, Delhi University</dd></div>
+            <div><dt>Profession</dt><dd id="brideWork">Editor</dd></div>
+            <div><dt>Daughter of</dt><dd id="brideParents">Shri &amp; Smt. Kapoor</dd></div>
+          </dl>
+        </article>
+      </div>
+      <blockquote class="reveal" id="unionQuote">Entering into a new life of togetherness, with the blessings of our elders and loved ones.</blockquote>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="panel gallery" id="gallery">
+      <div class="lights" aria-hidden="true">
+        <svg class="wire" viewBox="0 0 1200 40" preserveAspectRatio="none">
+          <path d="M0 8 Q75 28 150 8 T300 8 T450 8 T600 8 T750 8 T900 8 T1050 8 T1200 8" fill="none" stroke="#262626" stroke-width="2" />
+        </svg>
+        <div class="bulbs">
+          <span class="bulb" style="--c:#4a1a1a;--y:4px"></span>
+          <span class="bulb" style="--c:#4a3b1a;--y:16px"></span>
+          <span class="bulb" style="--c:#1a3b1a;--y:4px"></span>
+          <span class="bulb" style="--c:#1a2a3b;--y:16px"></span>
+          <span class="bulb" style="--c:#301a3b;--y:4px"></span>
+          <span class="bulb" style="--c:#4a1a1a;--y:16px"></span>
+          <span class="bulb" style="--c:#4a3b1a;--y:4px"></span>
+          <span class="bulb" style="--c:#1a3b1a;--y:16px"></span>
+        </div>
+        <button class="cord cord-bob" id="cord" type="button" aria-pressed="false" aria-label="Pull the cord to toggle the mood">
+          <span class="cord-string"></span>
+          <span class="cord-tassel"></span>
+          <span class="cord-label">Tap me</span>
+        </button>
+      </div>
+      <p class="kicker reveal">Memories in light</p>
+      <h2 class="reveal">Our gallery</h2>
+      <div class="frames" id="frames">
+        <figure class="polaroid reveal" style="--r:-3deg">
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&amp;q=80" alt="Summer breeze" width="600" height="750" loading="lazy" />
+          <figcaption>Summer breeze</figcaption>
+        </figure>
+        <figure class="polaroid reveal" style="--r:2deg">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&amp;q=80" alt="Midnight city" width="600" height="750" loading="lazy" />
+          <figcaption>Midnight city</figcaption>
+        </figure>
+        <figure class="polaroid reveal" style="--r:-1deg">
+          <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=600&amp;q=80" alt="Coffee dates" width="600" height="750" loading="lazy" />
+          <figcaption>Coffee dates</figcaption>
+        </figure>
+        <figure class="polaroid reveal" style="--r:3deg">
+          <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=600&amp;q=80" alt="Roadtrip" width="600" height="750" loading="lazy" />
+          <figcaption>Roadtrip 2025</figcaption>
+        </figure>
+        <figure class="polaroid reveal" style="--r:-2deg">
+          <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&amp;q=80" alt="Forever us" width="600" height="750" loading="lazy" />
+          <figcaption>Forever us</figcaption>
+        </figure>
+      </div>
+      <p class="cord-note reveal">Pull the cord to toggle the mood</p>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="panel" id="events">
+      <p class="kicker reveal">The celebration</p>
+      <h2 class="reveal">Wedding events</h2>
+      <div class="event-grid" id="timeline">
+        <article class="event-card reveal">
+          <span class="event-icon" aria-hidden="true">✦</span>
+          <h3>Mehendi</h3>
+          <p class="when">10 Dec 2026 · 4:00 PM</p>
+          <p>A relaxed evening of music, henna, and getting together.</p>
+          <p class="where-line">Haveli gardens, Udaipur</p>
+        </article>
+        <article class="event-card reveal">
+          <span class="event-icon" aria-hidden="true">♪</span>
+          <h3>Sangeet</h3>
+          <p class="when">11 Dec 2026 · 7:30 PM</p>
+          <p>A night of dinner and dancing with our family and friends.</p>
+          <p class="where-line">Courtyard pavilion</p>
+        </article>
+        <article class="event-card reveal">
+          <span class="event-icon" aria-hidden="true">◇</span>
+          <h3>The wedding</h3>
+          <p class="when">12 Dec 2026 · 11:00 AM</p>
+          <p>Join us as we exchange our vows and start our new journey.</p>
+          <p class="where-line">Haveli Courtyard</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SAVE THE DATE -->
+    <section class="panel date-wrap" id="date">
+      <p class="kicker reveal">Our celebration</p>
+      <h2 class="reveal">Save the date</h2>
+      <button class="date-card reveal-scale" id="dateCard" type="button" aria-pressed="false">
+        <span class="date-face date-front">
+          <span class="seal">K&amp;M</span>
+          <span class="tap">Tap to reveal</span>
+        </span>
+        <span class="date-face date-back">
+          <span class="month" id="monthLabel">December</span>
+          <span class="day" id="dayLabel">12</span>
+          <span class="year" id="yearLabel">2026</span>
+          <span class="where" id="cardPlace">Udaipur, Rajasthan</span>
+          <span class="date-join">Join us as we begin our journey</span>
+        </span>
+      </button>
+    </section>
+
+    <!-- VENUE -->
+    <section class="panel venue" id="venue">
+      <p class="kicker reveal">The venue</p>
+      <h2 class="reveal" id="venueName">Haveli Courtyard, Udaipur</h2>
+      <div class="venue-layout">
+        <figure class="venue-shot reveal-left">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1000&amp;q=80" alt="The venue" width="1000" height="667" loading="lazy" />
+        </figure>
+        <div class="venue-copy reveal-right">
+          <p class="lede" id="venueNote">We have chosen a quiet haveli in the old city — a peaceful place where history and modern comfort meet under a sky full of stars.</p>
+          <div class="notes">
+            <article>
+              <h3>Accommodations</h3>
+              <p id="stayNote">Suites have been reserved for all our guests at the venue.</p>
+            </article>
+            <article>
+              <h3>Travel</h3>
+              <p id="travelNote">Shuttles will be available from Udaipur Airport (UDR).</p>
+            </article>
+          </div>
+          <blockquote id="venueQuote">A beautiful space for a special day.</blockquote>
+          <a class="btn" id="mapLink" href="https://maps.google.com/?q=Udaipur+Rajasthan" target="_blank" rel="noopener noreferrer">Map &amp; directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="panel rsvp" id="rsvp">
+      <canvas id="sparkCanvas" aria-hidden="true"></canvas>
+      <h2 class="reveal">Will you join us?</h2>
+      <p class="lede reveal" id="rsvpBy">Please RSVP by 1 November 2026</p>
+      <form id="rsvpForm" class="reveal">
+        <label>Your name
+          <input class="rsvp-input" name="name" required autocomplete="name" placeholder="Enter your name" />
+        </label>
+        <label>Number of guests
+          <select class="rsvp-input" name="guests">
+            <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+          </select>
+        </label>
+        <label>Attending?
+          <select class="rsvp-input" name="attending">
+            <option value="yes">Yes, I’ll be there</option>
+            <option value="no">Sadly, I can’t come</option>
+          </select>
+        </label>
+        <button class="btn btn-solid" type="submit">Send RSVP</button>
+      </form>
+      <p class="thanks" id="thanks" hidden>Thank you. Your reply is noted for this preview.</p>
+    </section>
+
+    <!-- FAMILIES -->
+    <section class="panel families" id="invited-by">
+      <canvas id="firecrackers-canvas" aria-hidden="true"></canvas>
+      <div class="families-inner">
+        <div class="reveal">
+          <p class="kicker">Together with</p>
+          <h2>Our Families</h2>
+          <div class="families-divider" aria-hidden="true"></div>
+        </div>
+        <div class="families-grid">
+          <div class="family-col reveal-left">
+            <span class="role">Groom’s Parents</span>
+            <h3 id="groomFamilyName">Kabir</h3>
+            <div class="family-card">
+              <p id="groomFamily">Shri &amp; Smt. Mehra</p>
+            </div>
+          </div>
+          <div class="family-col reveal-right">
+            <span class="role">Bride’s Parents</span>
+            <h3 id="brideFamilyName">Meera</h3>
+            <div class="family-card">
+              <p id="brideFamily">Shri &amp; Smt. Kapoor</p>
+            </div>
+          </div>
+        </div>
+        <blockquote class="reveal" id="closing">"Your presence is the greatest gift we could ask for. We look forward to seeing you there."</blockquote>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p id="hashtag">#KabirAndMeera</p>
+      <button class="text-btn" id="shareBtn" type="button">Share this invite</button>
+    </footer>
+  </main>
+
+  <audio id="bgAudio" loop preload="auto" src="/media/music/celestial.mp3?v=2"></audio>
+  <script src="/t/celestial/invite.js?v=12"></script>
+</body>
+</html>
