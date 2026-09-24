@@ -838,6 +838,19 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    if (pathname === "/api/catalog" && req.method === "GET") {
+      const catPath = path.join(DATA_DIR, "catalog.json");
+      if (fs.existsSync(catPath)) {
+        res.writeHead(200, {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "public, max-age=300"
+        });
+        return res.end(fs.readFileSync(catPath));
+      } else {
+        return json(res, 404, { ok: false, error: "Catalog not found" });
+      }
+    }
+
     if (pathname === "/admin" || pathname === "/admin/") {
       pathname = "/admin.html";
     }
@@ -856,7 +869,9 @@ const server = http.createServer(async (req, res) => {
       "/contact": "/contact.html",
       "/edit": "/edit.html",
       "/video-invite": "/video-invite.html",
-      "/video-edit": "/video-edit.html"
+      "/video-edit": "/video-edit.html",
+      "/shop": "/shop.html",
+      "/templates": "/shop.html"
     };
 
     if (pathname.startsWith("/v/")) {
@@ -875,6 +890,8 @@ const server = http.createServer(async (req, res) => {
     let filePath = path.join(ROOT_DIR, pathname);
     if (cleanUrlMap[pathname] || pathname.startsWith("/edit/")) {
       filePath = path.join(ROOT_DIR, pathname.startsWith("/edit/") ? "edit.html" : cleanUrlMap[pathname]);
+    } else if (pathname.startsWith("/category/") || pathname === "/category") {
+      filePath = path.join(ROOT_DIR, "category.html");
     } else if (pathname.startsWith("/t/")) {
       const parts = pathname.split("/").filter(Boolean);
       if (parts.length === 2) filePath = path.join(ROOT_DIR, "t", parts[1], "index.html");
