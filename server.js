@@ -67,6 +67,7 @@ const MIME_TYPES = {
   ".ico": "image/x-icon",
   ".mp3": "audio/mpeg",
   ".m4a": "audio/mp4",
+  ".wav": "audio/wav",
   ".woff2": "font/woff2",
   ".ttf": "font/ttf"
 };

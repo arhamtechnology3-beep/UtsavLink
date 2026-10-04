@@ -2586,8 +2586,10 @@ auditionEl.addEventListener("ended", stopAudition);
 // the first library entry - so that is what gets the tick.
 function currentTrack() {
   if (state.form.music?.enabled === false) return "__none__";
+  if (state.form.music?.track === "__birthday__") return "/media/music/happy-birthday.wav";
   if (state.form.music?.track) return state.form.music.track;
-  return state.theme === "princess" ? "__birthday__" : "__default__";
+  if (state.theme === "princess") return "/media/music/happy-birthday.wav";
+  return "__default__";
 }
 
 async function renderMusic() {
@@ -2605,7 +2607,7 @@ async function renderMusic() {
   if (state.theme === "princess") tracks = [];
   const options = [
     ...(state.theme === "princess"
-      ? [{ id: "__birthday__", title: "Birthday melody", subtitle: "Music box on the invite", file: "__birthday__" }]
+      ? [{ id: "happy-birthday", title: "Happy Birthday", subtitle: "Birthday song", file: "/media/music/happy-birthday.wav" }]
       : []),
     ...tracks,
     ...(isUploaded ? [{ id: "__uploaded__", title: "Your uploaded track", subtitle: "", file: uploaded }] : []),
@@ -3198,7 +3200,7 @@ function syncBirthdayChrome() {
     if ($("f_address")) $("f_address").placeholder = "Worli Seaface, Mumbai";
   }
   const musicHints = $("musicCard")?.querySelectorAll(".hint");
-  if (musicHints?.[0]) musicHints[0].textContent = "Guests tap Play Melody for the birthday music box. Upload an MP3 only if you have the rights to it.";
+  if (musicHints?.[0]) musicHints[0].textContent = "Guests hear Happy Birthday when they open the invite. They can turn it off. Upload an MP3 only if you have the rights to it.";
   const musicStep = $("musicCard")?.querySelector(".step");
   const linkStep = $("linkCard")?.querySelector(".step");
   if (musicStep) musicStep.textContent = "6";

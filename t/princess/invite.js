@@ -108,7 +108,7 @@
       if (bgAudio) bgAudio.pause();
       if (musicBtn) {
         musicBtn.classList.remove('is-playing');
-        musicBtn.querySelector('.music-box-label').textContent = 'Play Melody';
+        musicBtn.querySelector('.music-box-label').textContent = 'Happy Birthday';
       }
     } else {
       getAudioContext();
@@ -689,8 +689,14 @@
     if (widget) widget.hidden = data.music?.enabled === false;
     const audio = document.getElementById('bgAudio');
     const track = data.music?.track;
-    party.customTrack = !!(audio && track && track !== '__birthday__' && data.music?.enabled !== false && !track.startsWith('__'));
-    if (party.customTrack) audio.src = track;
+    const birthdaySong = '/media/music/happy-birthday.wav';
+    if (audio && data.music?.enabled !== false) {
+      const own = track && track !== '__birthday__' && !String(track).startsWith('__');
+      audio.src = own ? track : birthdaySong;
+      party.customTrack = true;
+    } else if (audio) {
+      party.customTrack = false;
+    }
 
     document.title = party.childName + ' is turning ' + party.age + ' · Birthday Invitation';
     refreshCountdown();
