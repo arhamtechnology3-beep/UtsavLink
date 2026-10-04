@@ -377,7 +377,7 @@ function servePublishedInvite(req, res, slug) {
     data: invite.data || {}
   };
   html = injectInviteHtml(html, payload);
-  if (theme === "princess") html = withBirthdayShareTags(html, invite);
+  if (theme === "princess") html = withBirthdayShareTags(html, invite, requestBase(req));
   res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
   res.end(html);
 }
@@ -390,14 +390,23 @@ function escapeAttr(value) {
     .replace(/>/g, "&gt;");
 }
 
-function absoluteUrl(value) {
+function requestBase(req) {
+  if (process.env.PUBLIC_BASE) return PUBLIC_BASE;
+  const host = String(req.headers["x-forwarded-host"] || req.headers.host || "").split(",")[0].trim();
+  if (!host) return PUBLIC_BASE;
+  const local = /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host);
+  const proto = String(req.headers["x-forwarded-proto"] || (local ? "http" : "https")).split(",")[0].trim();
+  return proto + "://" + host;
+}
+
+function absoluteUrl(value, base) {
   const src = String(value || "");
   if (/^https?:\/\//i.test(src)) return src;
-  return PUBLIC_BASE + (src.startsWith("/") ? src : "/" + src);
+  return base + (src.startsWith("/") ? src : "/" + src);
 }
 
 // WhatsApp and other link previews read these tags from the raw HTML; they never run the page script.
-function withBirthdayShareTags(html, invite) {
+function withBirthdayShareTags(html, invite, base) {
   const data = invite.data || {};
   const birthday = data.birthday || {};
   const name = String(birthday.childName || "").trim();
@@ -407,8 +416,8 @@ function withBirthdayShareTags(html, invite) {
   const when = [birthday.dateLabel, birthday.timeLabel].filter(Boolean).join(" · ");
   const venue = data.location?.venue || birthday.venueShort || "";
   const description = [when, venue].filter(Boolean).join(" · ") + (when || venue ? ". " : "") + "Tap to open the invite.";
-  const image = absoluteUrl(birthday.portrait || "/assets/mockups/princess.jpg");
-  const pageUrl = PUBLIC_BASE + "/i/" + encodeURIComponent(invite.slug || "");
+  const image = absoluteUrl(birthday.portrait || "/assets/mockups/princess.jpg", base);
+  const pageUrl = base + "/i/" + encodeURIComponent(invite.slug || "");
 
   const setMeta = (attr, key, content) => {
     const tag = `<meta ${attr}="${key}" content="${escapeAttr(content)}" />`;
