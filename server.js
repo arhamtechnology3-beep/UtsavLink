@@ -377,8 +377,52 @@ function servePublishedInvite(req, res, slug) {
     data: invite.data || {}
   };
   html = injectInviteHtml(html, payload);
+  if (theme === "princess") html = withBirthdayShareTags(html, invite);
   res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
   res.end(html);
+}
+
+function escapeAttr(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function absoluteUrl(value) {
+  const src = String(value || "");
+  if (/^https?:\/\//i.test(src)) return src;
+  return PUBLIC_BASE + (src.startsWith("/") ? src : "/" + src);
+}
+
+// WhatsApp and other link previews read these tags from the raw HTML; they never run the page script.
+function withBirthdayShareTags(html, invite) {
+  const data = invite.data || {};
+  const birthday = data.birthday || {};
+  const name = String(birthday.childName || "").trim();
+  if (!name) return html;
+  const age = String(birthday.age || "").trim();
+  const title = age ? `${name} is turning ${age}! 👑 Birthday Invitation` : `${name}'s Birthday Invitation 👑`;
+  const when = [birthday.dateLabel, birthday.timeLabel].filter(Boolean).join(" · ");
+  const venue = data.location?.venue || birthday.venueShort || "";
+  const description = [when, venue].filter(Boolean).join(" · ") + (when || venue ? ". " : "") + "Tap to open the invite.";
+  const image = absoluteUrl(birthday.portrait || "/assets/mockups/princess.jpg");
+  const pageUrl = PUBLIC_BASE + "/i/" + encodeURIComponent(invite.slug || "");
+
+  const setMeta = (attr, key, content) => {
+    const tag = `<meta ${attr}="${key}" content="${escapeAttr(content)}" />`;
+    const pattern = new RegExp(`<meta ${attr}="${key}"[^>]*>`);
+    html = pattern.test(html) ? html.replace(pattern, () => tag) : html.replace("</head>", () => tag + "\n</head>");
+  };
+  html = html.replace(/<title>[\s\S]*?<\/title>/, () => `<title>${escapeAttr(title)}</title>`);
+  setMeta("name", "description", description);
+  setMeta("property", "og:title", title);
+  setMeta("property", "og:description", description);
+  setMeta("property", "og:image", image);
+  setMeta("property", "og:url", pageUrl);
+  setMeta("name", "twitter:card", "summary_large_image");
+  return html;
 }
 
 async function handleOrder(req, res) {
