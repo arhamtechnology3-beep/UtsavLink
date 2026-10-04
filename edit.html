@@ -237,8 +237,8 @@
 <div id="app" hidden>
   <div class="layout">
     <div class="pane form-pane">
-      <h1>Fill in your details</h1>
-      <p class="lede">Every change saves on its own and appears in the preview. Publish when you're ready to share.</p>
+      <h1 id="formTitle">Fill in your details</h1>
+      <p class="lede" id="formLede">Every change saves on its own and appears in the preview. Publish when you're ready to share.</p>
 
       <div class="live" id="liveBox">
         <h3>🎉 Your invite website is live</h3>
@@ -257,7 +257,143 @@
         </div>
       </div>
 
-      <details class="card" open>
+      <div id="birthdayEditor" hidden>
+        <details class="card" open>
+          <summary><span class="step">1</span> The birthday child</summary>
+          <div class="body">
+            <div class="row">
+              <div class="field">
+                <label for="f_bname">Child's name <span>- the big name on the invite</span></label>
+                <input type="text" id="f_bname" data-path="birthday.childName" placeholder="Princess Aria" />
+              </div>
+              <div class="field">
+                <label for="f_bage">Turning age</label>
+                <input type="text" id="f_bage" data-path="birthday.age" inputmode="numeric" placeholder="5" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f_bsub">Line above the name</label>
+              <input type="text" id="f_bsub" data-path="birthday.subtitle" placeholder="Our Little Princess is Turning 5!" />
+            </div>
+            <div class="field">
+              <label for="f_btag">Party tagline</label>
+              <input type="text" id="f_btag" data-path="birthday.tagline" placeholder="A Fairytale Birthday Celebration" />
+            </div>
+            <div class="field">
+              <label for="f_bmsg">Invitation message</label>
+              <textarea id="f_bmsg" data-path="birthday.message" placeholder="You are cordially invited to put on your royal best..."></textarea>
+            </div>
+            <div class="field">
+              <label>Portrait <span>- a square photo works best</span></label>
+              <div class="photo">
+                <img id="p_bportrait" alt="" src="/assets/princess_birthday_girl.jpg" />
+                <div class="actions">
+                  <button class="btn small ghost" type="button" data-upload="birthday.portrait" data-preview="p_bportrait">Upload photo</button>
+                  <button class="btn small ghost" type="button" data-clear="birthday.portrait" data-preview="p_bportrait" data-fallback="/assets/princess_birthday_girl.jpg">Use sample</button>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f_bfav">Favourite things</label>
+              <input type="text" id="f_bfav" data-path="birthday.favorites" placeholder="Rainbows, unicorns, dancing ballet" />
+            </div>
+            <div class="field">
+              <label for="f_bcol">Favourite colours</label>
+              <input type="text" id="f_bcol" data-path="birthday.colors" placeholder="BTS pink, black & a little glitter" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="f_bsweet">Favourite sweet</label>
+                <input type="text" id="f_bsweet" data-path="birthday.sweet" placeholder="Strawberry velvet cupcakes" />
+              </div>
+              <div class="field">
+                <label for="f_bbuddy">Best buddy</label>
+                <input type="text" id="f_bbuddy" data-path="birthday.buddy" placeholder="Her fluffy bunny Snowball" />
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><span class="step">2</span> Party day &amp; schedule</summary>
+          <div class="body">
+            <div class="field">
+              <label for="f_bdatelabel">Date <span>- as guests should read it</span></label>
+              <input type="text" id="f_bdatelabel" data-path="birthday.dateLabel" placeholder="Saturday, 24 Oct 2026" />
+            </div>
+            <div class="field">
+              <label for="f_btimelabel">Time <span>- as guests should read it</span></label>
+              <input type="text" id="f_btimelabel" data-path="birthday.timeLabel" placeholder="3:00 PM – 7:30 PM" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="f_bisodate">Countdown date</label>
+                <input type="date" id="f_bisodate" data-path="birthday.isoDate" />
+              </div>
+              <div class="field">
+                <label for="f_bstart">Start</label>
+                <input type="time" id="f_bstart" data-path="birthday.startTime" />
+              </div>
+              <div class="field">
+                <label for="f_bend">End</label>
+                <input type="time" id="f_bend" data-path="birthday.endTime" />
+              </div>
+            </div>
+            <div class="hint">The countdown and “Add to calendar” use the date and times. The lines above are the words printed on the invite.</div>
+            <div class="field">
+              <label for="f_bvenueShort">Short venue <span>- on the opening card</span></label>
+              <input type="text" id="f_bvenueShort" data-path="birthday.venueShort" placeholder="The Starlight Ballroom" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="f_brsvp">RSVP by</label>
+                <input type="text" id="f_brsvp" data-path="birthday.rsvpBy" placeholder="15th October 2026" />
+              </div>
+              <div class="field">
+                <label for="f_brsvpnote">Why you need the reply</label>
+                <input type="text" id="f_brsvpnote" data-path="birthday.rsvpNote" placeholder="so we can prepare enough treats and favor bags!" />
+              </div>
+            </div>
+            <div class="field">
+              <label>Party schedule <span>- the afternoon, in order</span></label>
+              <div id="bdayEvents"></div>
+              <button class="btn small ghost" id="addBirthdayEvent" type="button" style="margin-top:10px">+ Add an activity</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="card">
+          <summary><span class="step">3</span> Notes &amp; hosts</summary>
+          <div class="body">
+            <div class="field">
+              <label for="f_bdress">Dress code</label>
+              <textarea id="f_bdress" data-path="birthday.dress" placeholder="Princess gowns, pink & black, or a favourite party outfit"></textarea>
+            </div>
+            <div class="field">
+              <label for="f_bfood">Food note</label>
+              <textarea id="f_bfood" data-path="birthday.food" placeholder="Vegetarian, eggless options, nut-free treats"></textarea>
+            </div>
+            <div class="field">
+              <label for="f_bpark">Parking</label>
+              <textarea id="f_bpark" data-path="birthday.parking" placeholder="Valet parking and a stroller check-in by the foyer"></textarea>
+            </div>
+            <div class="field">
+              <label for="f_bgifts">Gifts</label>
+              <textarea id="f_bgifts" data-path="birthday.gifts" placeholder="Your presence is the gift. Blessings are welcome."></textarea>
+            </div>
+            <div class="field">
+              <label for="f_bhosts">Hosted by</label>
+              <input type="text" id="f_bhosts" data-path="birthday.hosts" placeholder="Mommy Priya & Daddy Rahul Sharma" />
+            </div>
+            <div class="field">
+              <label for="f_bquote">Closing line</label>
+              <textarea id="f_bquote" data-path="birthday.quote" placeholder="Your presence is the sweetest gift our little princess could ever wish for."></textarea>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <details class="card" open data-festive>
         <summary><span class="step">1</span> Family &amp; greeting</summary>
         <div class="body">
           <div class="field">
@@ -299,7 +435,7 @@
         </div>
       </details>
 
-      <details class="card">
+      <details class="card" data-festive>
         <summary><span class="step">2</span> Date &amp; muhurat</summary>
           <div class="body">
           <label class="section-off"><input type="checkbox" data-section="saveTheDate" checked />
@@ -336,7 +472,7 @@
           </div>
       </details>
 
-      <details class="card">
+      <details class="card" data-festive>
         <summary><span class="step">3</span> Functions</summary>
           <div class="body">
           <label class="section-off"><input type="checkbox" data-section="timeline" checked />
@@ -423,8 +559,8 @@
 
       <!-- Only the designs that actually hang a memories wall ask for one;
            the rest never see this panel. -->
-      <details class="card" data-needs="gallery">
-        <summary><span class="step">3c</span> Photos of past years</summary>
+      <details class="card" id="galleryCard" data-needs="gallery">
+        <summary><span class="step">3c</span> <span class="step-label">Photos of past years</span></summary>
         <div class="body">
           <label class="section-off"><input type="checkbox" data-section="gallery" checked />
             <span>Show this on my invite</span></label>
@@ -444,8 +580,8 @@
         </div>
       </details>
 
-      <details class="card">
-        <summary><span class="step">4</span> Venue &amp; map</summary>
+      <details class="card" id="venueCard">
+        <summary><span class="step">4</span> <span class="step-label">Venue &amp; map</span></summary>
         <div class="body">
           <div class="field">
             <label for="f_venue">Venue name</label>
@@ -464,7 +600,7 @@
         </div>
       </details>
 
-      <details class="card">
+      <details class="card" data-festive>
         <summary><span class="step">5</span> Closing words</summary>
           <div class="body">
           <label class="section-off"><input type="checkbox" data-section="footer" checked />
@@ -490,7 +626,7 @@
           </div>
       </details>
 
-      <details class="card">
+      <details class="card" id="musicCard">
         <summary><span class="step">6</span> Music</summary>
         <div class="body">
           <p class="hint" style="margin:12px 0 0">Plays softly when a guest opens your invite website, three times, then stops. They can mute it any time.</p>
@@ -507,7 +643,7 @@
         </div>
       </details>
 
-      <details class="card">
+      <details class="card" id="linkCard">
         <summary><span class="step">7</span> Your link</summary>
         <div class="body">
           <div class="field">
@@ -792,6 +928,10 @@ function toForm(data = {}) {
       quoteSecondLine: data.footer?.quote?.secondLine,
       quoteEndingText: data.footer?.quote?.endingText,
     },
+    birthday: {
+      ...(data.birthday ?? {}),
+      events: (data.birthday?.events ?? []).map((event) => ({ ...event })),
+    },
   };
 }
 
@@ -902,6 +1042,22 @@ function toTheme(form = {}) {
   if (form.footer?.quoteEndingText) quote.endingText = form.footer.quoteEndingText;
   if (Object.keys(quote).length) footer.quote = quote;
   if (Object.keys(footer).length) out.footer = footer;
+
+  if (state.theme === "princess" && form.birthday) {
+    const birthday = { ...form.birthday };
+    const events = (birthday.events ?? []).filter((event) => event?.title).map((event) => ({
+      title: event.title,
+      time: event.time || "",
+      description: event.description || "",
+      icon: event.icon || "🎂",
+    }));
+    if (events.length) birthday.events = events;
+    else delete birthday.events;
+    Object.keys(birthday).forEach((key) => {
+      if (birthday[key] === "" || birthday[key] == null) delete birthday[key];
+    });
+    if (Object.keys(birthday).length) out.birthday = birthday;
+  }
 
   return out;
 }
@@ -1429,6 +1585,7 @@ const DESIGN_NAMES = {
   deep: "Deep Utsav design",
   rajutsav: "Raj Utsav design",
   aangan: "Ghar Aangan design",
+  princess: "Princess Birthday",
 };
 
 // ---------- family carousel (Temple Darbar) ----------
@@ -1984,6 +2141,9 @@ const DESIGN_FEATURES = {
   patrika: { heroMessage: true,  muhurat: true,  eventIcons: false, eventDetails: true,  family: true,  familyMembers: true,  familyOrientation: true,  bannerWelcome: false, bannerPhoto: false, gallery: true },
   deep:    { heroMessage: false, muhurat: false, eventIcons: false, eventDetails: false, family: true,  familyMembers: true,  familyOrientation: true,  bannerWelcome: false, bannerPhoto: false, gallery: true },
   aangan:  { heroMessage: false, muhurat: false, eventIcons: false, eventDetails: false, family: true,  familyMembers: true,  familyOrientation: false, bannerWelcome: false, bannerPhoto: false, gallery: false },
+  // Birthday invite: the child, the party day, the scrapbook. No muhurat,
+  // no wedding functions, no family seal.
+  princess: { heroMessage: false, muhurat: false, eventIcons: false, eventDetails: false, family: false, familyMembers: false, familyOrientation: false, bannerWelcome: false, bannerPhoto: false, gallery: true },
 };
 function designHas(feature) {
   const features = DESIGN_FEATURES[state.theme] ?? DESIGN_FEATURES.kailash;
@@ -2190,7 +2350,7 @@ function bindUploads(root = document) {
     button._bound = true;
     button.addEventListener("click", () => {
       set(state.form, button.dataset.clear, undefined);
-      if (button.dataset.preview) $(button.dataset.preview).src = "/assets/design-idol.png";
+      if (button.dataset.preview) $(button.dataset.preview).src = button.dataset.fallback || "/assets/design-idol.png";
       queueSave();
     });
   });
@@ -2426,7 +2586,8 @@ auditionEl.addEventListener("ended", stopAudition);
 // the first library entry - so that is what gets the tick.
 function currentTrack() {
   if (state.form.music?.enabled === false) return "__none__";
-  return state.form.music?.track ?? "__default__";
+  if (state.form.music?.track) return state.form.music.track;
+  return state.theme === "princess" ? "__birthday__" : "__default__";
 }
 
 async function renderMusic() {
@@ -2441,7 +2602,11 @@ async function renderMusic() {
 
   const uploaded = state.form.music?.track;
   const isUploaded = uploaded && /^(https?:|\/api\/media)/.test(uploaded);
+  if (state.theme === "princess") tracks = [];
   const options = [
+    ...(state.theme === "princess"
+      ? [{ id: "__birthday__", title: "Birthday melody", subtitle: "Music box on the invite", file: "__birthday__" }]
+      : []),
     ...tracks,
     ...(isUploaded ? [{ id: "__uploaded__", title: "Your uploaded track", subtitle: "", file: uploaded }] : []),
     { id: "__none__", title: "No music", subtitle: "Silent - no music at all", file: null },
@@ -2891,6 +3056,158 @@ function paidRecently(paidAt) {
   try { history.replaceState(null, "", location.pathname); } catch (e) {}
 })();
 
+// ---------- birthday editor (Princess) ----------
+const BIRTHDAY_DEFAULT = {
+  childName: "Princess Aria",
+  age: "5",
+  subtitle: "Our Little Princess is Turning 5!",
+  tagline: "✨ A Fairytale Birthday Celebration ✨",
+  message: "You are cordially invited to put on your royal best and join us for an afternoon of enchanted laughter, magical games, delicious sweet treats, and fairytale dreams!",
+  dateLabel: "Saturday, 24 Oct 2026",
+  timeLabel: "3:00 PM – 7:30 PM",
+  isoDate: "2026-10-24",
+  startTime: "15:00",
+  endTime: "19:30",
+  venueShort: "The Starlight Ballroom",
+  rsvpBy: "15th October 2026",
+  rsvpNote: "so we can prepare enough royal treats and customized favor bags!",
+  favorites: "Rainbows, unicorns, dancing ballet & bedtime fairy tales",
+  colors: "BTS pink, black & a little glitter",
+  sweet: "Strawberry velvet cupcakes with rainbow sprinkles",
+  buddy: "Her fluffy bunny 'Snowball' & all her preschool friends",
+  dress: "Princess gowns, fairy dresses, pink & black, or your favorite party outfit! Sparkle crowns and capes provided at the entry.",
+  food: "100% vegetarian, eggless bakery options, and strictly nut-free treats so every little tummy can safely indulge.",
+  parking: "Complimentary valet parking for families. A secure, covered stroller check-in area is located right by the foyer.",
+  gifts: "Your loving presence and warm smiles are the greatest gifts of all! Only your blessings and cheers are requested.",
+  hosts: "Mommy Priya & Daddy Rahul Sharma",
+  quote: "Your presence is the sweetest gift our little princess could ever wish for.",
+  events: [
+    { icon: "🌸", title: "Royal Arrival & Glitter Face Painting", time: "3:00 PM", description: "Step on the pink carpet! Little guests receive tiaras, crowns, fairy wings, and magical sparkle face art." },
+    { icon: "🪄", title: "Magical Illusion Show & Puppet Tales", time: "3:45 PM", description: "A whimsical magic performance with interactive tricks and floating bubbles." },
+    { icon: "🎈", title: "Princess Quest Games & Musical Freeze", time: "4:30 PM", description: "Pass the royal parcel, musical statues, and a scavenger hunt where every child wins a prize." },
+    { icon: "🎂", title: "The Grand Cake Cutting Ceremony", time: "5:15 PM", description: "Singing Happy Birthday with sparkler candles as the birthday cake is cut." },
+    { icon: "🍭", title: "Royal Banquet & Sweet Treats Feast", time: "5:45 PM", description: "Mini pizzas, smiley fries, fruit skewers, cotton candy, and a cupcake bar." },
+    { icon: "🪅", title: "Piñata Smash & Bubble Disco", time: "6:30 PM", description: "Candy shower and a dance under the disco ball with bubble rain." },
+    { icon: "🎁", title: "Favor Bags & Farewell Hugs", time: "7:15 PM", description: "Goodie hampers and souvenir photos to take the party home." },
+  ],
+};
+
+function seedBirthday() {
+  state.form.birthday = {
+    ...BIRTHDAY_DEFAULT,
+    events: BIRTHDAY_DEFAULT.events.map((event) => ({ ...event })),
+  };
+  state.form.location = {
+    ...(state.form.location ?? {}),
+    venue: state.form.location?.venue || "The Grand Starlight Ballroom & Gardens",
+    address: state.form.location?.address || "124 Princess Boulevard, Worli Seaface, Mumbai – 400018",
+  };
+  state.form.gallery = {
+    heading: state.form.gallery?.heading || "Magical Scrapbook",
+    subtitle: state.form.gallery?.subtitle || "Tap on any polaroid photo to open the royal photo album!",
+    photos: state.form.gallery?.photos?.length ? state.form.gallery.photos : [],
+  };
+}
+
+function renderBirthdayEvents() {
+  const list = $("bdayEvents");
+  if (!list) return;
+  state.form.birthday = state.form.birthday ?? {};
+  const events = state.form.birthday.events = state.form.birthday.events ?? [];
+  list.innerHTML = "";
+  events.forEach((event, index, all) => {
+    const row = document.createElement("div");
+    row.className = "event";
+    row.innerHTML = `
+      <div class="event-head"><span class="num">${index + 1}</span><span>${escapeHtml(event.title || "Activity")}</span>
+        <span class="row-tools">
+          <button class="mv" type="button" data-bev-move="${index}:-1" title="Move up"${index === 0 ? " disabled" : ""}>&#9650;</button>
+          <button class="mv" type="button" data-bev-move="${index}:1" title="Move down"${index === all.length - 1 ? " disabled" : ""}>&#9660;</button>
+          <button class="rm" type="button" data-bev-remove="${index}">Remove</button>
+        </span></div>
+      <div class="row">
+        <div class="field"><label>Time</label><input type="text" data-bev="${index}.time" value="${escapeAttr(event.time)}" placeholder="3:00 PM" /></div>
+        <div class="field"><label>Icon</label><input type="text" data-bev="${index}.icon" value="${escapeAttr(event.icon)}" placeholder="🎂" /></div>
+      </div>
+      <div class="field"><label>Activity</label><input type="text" data-bev="${index}.title" value="${escapeAttr(event.title)}" placeholder="Cake cutting" /></div>
+      <div class="field"><label>What happens</label><textarea data-bev="${index}.description">${escapeHtml(event.description)}</textarea></div>`;
+    list.appendChild(row);
+  });
+  list.querySelectorAll("[data-bev]").forEach((input) => {
+    input.addEventListener("input", () => {
+      const [index, key] = input.dataset.bev.split(".");
+      state.form.birthday.events[Number(index)][key] = input.value;
+      queueSave();
+    });
+  });
+  list.querySelectorAll("[data-bev-move]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const [at, step] = button.dataset.bevMove.split(":").map(Number);
+      const rows = state.form.birthday.events;
+      const to = at + step;
+      if (to < 0 || to >= rows.length) return;
+      [rows[at], rows[to]] = [rows[to], rows[at]];
+      renderBirthdayEvents();
+      queueSave();
+    });
+  });
+  list.querySelectorAll("[data-bev-remove]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.form.birthday.events.splice(Number(button.dataset.bevRemove), 1);
+      renderBirthdayEvents();
+      queueSave();
+    });
+  });
+  const add = $("addBirthdayEvent");
+  if (add && !add._bound) {
+    add._bound = true;
+    add.addEventListener("click", () => {
+      state.form.birthday.events.push({ icon: "🎉", title: "", time: "", description: "" });
+      renderBirthdayEvents();
+      queueSave();
+    });
+  }
+}
+
+function syncBirthdayChrome() {
+  const on = state.theme === "princess";
+  const editor = $("birthdayEditor");
+  if (editor) editor.hidden = !on;
+  document.querySelectorAll("[data-festive]").forEach((el) => { el.hidden = on; });
+  if (!on) return;
+  if ($("formTitle")) $("formTitle").textContent = "Birthday invite";
+  if ($("formLede")) $("formLede").textContent = "These are the birthday details your guests will see. Each change saves on its own and shows in the preview. Publish when you are ready to share.";
+  const gallery = $("galleryCard");
+  if (gallery) {
+    const step = gallery.querySelector(".step");
+    const label = gallery.querySelector(".step-label");
+    if (step) step.textContent = "4";
+    if (label) label.textContent = "Scrapbook photos";
+    const hint = gallery.querySelector(".hint");
+    if (hint) hint.textContent = "Photos of the birthday child. Four or five is plenty. Leave this empty to keep the sample pictures.";
+    if ($("f_galHeading")) $("f_galHeading").placeholder = "Magical Scrapbook";
+    if ($("f_galSubtitle")) $("f_galSubtitle").placeholder = "Tap a photo to open the album";
+  }
+  const venue = $("venueCard");
+  if (venue) {
+    const step = venue.querySelector(".step");
+    const label = venue.querySelector(".step-label");
+    if (step) step.textContent = "5";
+    if (label) label.textContent = "Party venue & map";
+    if ($("f_venue")) $("f_venue").placeholder = "The Starlight Ballroom";
+    if ($("f_address")) $("f_address").placeholder = "Worli Seaface, Mumbai";
+  }
+  const musicHints = $("musicCard")?.querySelectorAll(".hint");
+  if (musicHints?.[0]) musicHints[0].textContent = "Guests tap Play Melody for the birthday music box. Upload an MP3 only if you have the rights to it.";
+  const musicStep = $("musicCard")?.querySelector(".step");
+  const linkStep = $("linkCard")?.querySelector(".step");
+  if (musicStep) musicStep.textContent = "6";
+  if (linkStep) linkStep.textContent = "7";
+  const portrait = $("p_bportrait");
+  if (portrait) portrait.src = state.form.birthday?.portrait || "/assets/princess_birthday_girl.jpg";
+  renderBirthdayEvents();
+}
+
 // ---------- boot ----------
 (async function boot() {
   if (!TOKEN) {
@@ -2949,16 +3266,23 @@ function paidRecently(paidAt) {
     // save at the end of boot would push it onto an invite already live.
     const untouched = Object.keys(invite.data ?? {}).every((key) => key === "lang");
 
-    if (untouched && !state.form.timeline?.events?.length) {
-      state.form.timeline = { ...(state.form.timeline ?? {}), events: sampleEvents().map((e) => ({ ...e })) };
-      seeded = true;
-    }
-    if (untouched && !state.form.saveTheDate?.events?.length) {
-      state.form.saveTheDate = {
-        ...(state.form.saveTheDate ?? {}),
-        events: [{ summary: CALENDAR_SEED[state.lang] ?? CALENDAR_SEED.mr, start: "20260914T100000", end: "20260914T120000" }],
-      };
-      seeded = true;
+    if (state.theme === "princess") {
+      if (!state.form.birthday?.childName) {
+        seedBirthday();
+        seeded = true;
+      }
+    } else {
+      if (untouched && !state.form.timeline?.events?.length) {
+        state.form.timeline = { ...(state.form.timeline ?? {}), events: sampleEvents().map((e) => ({ ...e })) };
+        seeded = true;
+      }
+      if (untouched && !state.form.saveTheDate?.events?.length) {
+        state.form.saveTheDate = {
+          ...(state.form.saveTheDate ?? {}),
+          events: [{ summary: CALENDAR_SEED[state.lang] ?? CALENDAR_SEED.mr, start: "20260914T100000", end: "20260914T120000" }],
+        };
+        seeded = true;
+      }
     }
 
     $("themeName").textContent = DESIGN_NAMES[invite.theme] ?? "Kailash design";
@@ -2969,6 +3293,7 @@ function paidRecently(paidAt) {
     fillInputs();
     syncLangRow();
     syncPlaceholders();
+    syncBirthdayChrome();
     bindLangRow();
     syncDesignFields();
     stampFunctionKeys();

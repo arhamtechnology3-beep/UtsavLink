@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Princess Aria's 5th Birthday Party · Royal Invitation</title>
   <meta name="description" content="You are cordially invited to celebrate Princess Aria's 5th Birthday! A magical fairytale party with games, magic, cake, and royal fun." />
-  <meta name="theme-color" content="#f74b78" />
+  <meta name="theme-color" content="#070709" />
 
   <!-- Open Graph / WhatsApp Preview -->
   <meta property="og:type" content="website" />
@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Sacramento&display=swap" rel="stylesheet" />
 
   <!-- Template Stylesheet -->
-  <link rel="stylesheet" href="/t/princess/invite.css?v=1" />
+  <link rel="stylesheet" href="/t/princess/invite.css?v=2" />
 </head>
 <body>
 
@@ -79,7 +79,7 @@
       <!-- Princess Portrait with Crown & Age Badge -->
       <div class="princess-portrait-wrap">
         <span class="crown-decor" aria-hidden="true">👑</span>
-        <img class="princess-portrait-img" src="/assets/princess_birthday_girl.jpg" alt="Princess Aria" width="170" height="170" loading="eager" />
+        <img class="princess-portrait-img" id="princessPortrait" src="/assets/princess_birthday_girl.jpg" alt="Princess Aria" width="170" height="170" loading="eager" />
         <div class="turning-age-badge" id="ageBadge">
           <span class="num" id="turningAgeNum">5</span>
           <span class="lbl">Years</span>
@@ -88,7 +88,7 @@
 
       <p class="hero-subtitle" id="heroSubtitle">Our Little Princess is Turning 5!</p>
       <h1 class="princess-title" id="princessTitle">Princess Aria</h1>
-      <p class="hero-tagline">✨ A Fairytale Birthday Celebration ✨</p>
+      <p class="hero-tagline" id="heroTagline">✨ A Fairytale Birthday Celebration ✨</p>
 
       <p class="hero-invitation-text" id="welcomeMessage">
         You are cordially invited to put on your royal best and join us for an afternoon of enchanted laughter, magical games, delicious sweet treats, and fairytale dreams!
@@ -156,7 +156,7 @@
     <section class="section-panel" id="aboutPrincess">
       <div class="section-panel-header">
         <span class="section-pill">Milestone Highlights</span>
-        <h2 class="section-title">Meet Princess Aria</h2>
+        <h2 class="section-title" id="aboutTitle">Meet Princess Aria</h2>
         <p class="section-desc">Five magical years of bringing sunshine, sweetness, and endless giggles to everyone around her!</p>
       </div>
 
@@ -165,28 +165,28 @@
           <div class="milestone-icon-wrap" aria-hidden="true">🦄</div>
           <div>
             <p class="milestone-label">Favorite Things</p>
-            <p class="milestone-value">Rainbows, unicorns, dancing ballet & bedtime fairy tales</p>
+            <p class="milestone-value" id="mileFavorites">Rainbows, unicorns, dancing ballet & bedtime fairy tales</p>
           </div>
         </div>
         <div class="milestone-item">
           <div class="milestone-icon-wrap" aria-hidden="true">🎨</div>
           <div>
             <p class="milestone-label">Favorite Colors</p>
-            <p class="milestone-value">Cotton Candy Pink, Pastel Lilac & Glitter Gold</p>
+            <p class="milestone-value" id="mileColors">BTS pink, black & a little glitter</p>
           </div>
         </div>
         <div class="milestone-item">
           <div class="milestone-icon-wrap" aria-hidden="true">🧁</div>
           <div>
             <p class="milestone-label">Favorite Sweet</p>
-            <p class="milestone-value">Strawberry velvet cupcakes with rainbow sprinkles</p>
+            <p class="milestone-value" id="mileSweet">Strawberry velvet cupcakes with rainbow sprinkles</p>
           </div>
         </div>
         <div class="milestone-item">
           <div class="milestone-icon-wrap" aria-hidden="true">🐰</div>
           <div>
             <p class="milestone-label">Best Buddy</p>
-            <p class="milestone-value">Her fluffy bunny 'Snowball' & all her preschool friends</p>
+            <p class="milestone-value" id="mileBuddy">Her fluffy bunny 'Snowball' & all her preschool friends</p>
           </div>
         </div>
       </div>
@@ -212,11 +212,11 @@
     <section class="section-panel" id="gallerySection">
       <div class="section-panel-header">
         <span class="section-pill">Fairytale Memories</span>
-        <h2 class="section-title">Magical Scrapbook</h2>
-        <p class="section-desc">Tap on any polaroid photo to open the royal photo album!</p>
+        <h2 class="section-title" id="galleryTitle">Magical Scrapbook</h2>
+        <p class="section-desc" id="galleryDesc">Tap on any polaroid photo to open the royal photo album!</p>
       </div>
 
-      <div class="polaroids-container">
+      <div class="polaroids-container" id="polaroids">
         <article class="polaroid-card">
           <div class="washi-tape" aria-hidden="true"></div>
           <div class="polaroid-img-wrap">
@@ -259,7 +259,7 @@
         <p class="section-desc">An afternoon packed with enchanting games, shows, and sweet treats!</p>
       </div>
 
-      <div class="timeline-list">
+      <div class="timeline-list" id="timelineList">
         <article class="timeline-entry">
           <span class="timeline-bullet" aria-hidden="true">🌸</span>
           <div class="timeline-header">
@@ -337,7 +337,7 @@
           <span class="party-note-icon" aria-hidden="true">👗</span>
           <div>
             <h3 class="party-note-title">Royal Dress Code</h3>
-            <p class="party-note-text">Princess gowns, fairy dresses, pastel colors, or your favorite party outfit! Sparkle crowns and capes provided at the entry.</p>
+            <p class="party-note-text" id="noteDress">Princess gowns, fairy dresses, pink &amp; black, or your favorite party outfit! Sparkle crowns and capes provided at the entry.</p>
           </div>
         </div>
 
@@ -345,7 +345,7 @@
           <span class="party-note-icon" aria-hidden="true">🍓</span>
           <div>
             <h3 class="party-note-title">Kid-Friendly &amp; Nut Safe</h3>
-            <p class="party-note-text">100% vegetarian, eggless bakery options, and strictly nut-free treats so every little tummy can safely indulge.</p>
+            <p class="party-note-text" id="noteFood">100% vegetarian, eggless bakery options, and strictly nut-free treats so every little tummy can safely indulge.</p>
           </div>
         </div>
 
@@ -353,7 +353,7 @@
           <span class="party-note-icon" aria-hidden="true">🚗</span>
           <div>
             <h3 class="party-note-title">Valet &amp; Stroller Parking</h3>
-            <p class="party-note-text">Complimentary valet parking for families. A secure, covered stroller check-in area is located right by the foyer.</p>
+            <p class="party-note-text" id="noteParking">Complimentary valet parking for families. A secure, covered stroller check-in area is located right by the foyer.</p>
           </div>
         </div>
 
@@ -361,7 +361,7 @@
           <span class="party-note-icon" aria-hidden="true">🎁</span>
           <div>
             <h3 class="party-note-title">Gift Preferences</h3>
-            <p class="party-note-text">Your loving presence and warm smiles are the greatest gifts of all! Only your blessings and cheers are requested.</p>
+            <p class="party-note-text" id="noteGifts">Your loving presence and warm smiles are the greatest gifts of all! Only your blessings and cheers are requested.</p>
           </div>
         </div>
       </div>
@@ -395,7 +395,7 @@
       <div class="section-panel-header">
         <span class="section-pill">Kindly Reply</span>
         <h2 class="section-title">RSVP for Your Family</h2>
-        <p class="section-desc">Please let us know by 15th October 2026 so we can prepare enough royal treats and customized favor bags!</p>
+        <p class="section-desc" id="rsvpDesc">Please let us know by 15th October 2026 so we can prepare enough royal treats and customized favor bags!</p>
       </div>
 
       <div class="rsvp-form-container">
@@ -440,7 +440,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="birthdayWish">A Sweet Birthday Wish for Princess Aria ✨</label>
+            <label class="form-label" id="rsvpWishLabel" for="birthdayWish">A Sweet Birthday Wish for Princess Aria ✨</label>
             <textarea class="form-textarea" id="birthdayWish" placeholder="Write a cute message or blessing for the birthday girl..."></textarea>
           </div>
 
@@ -493,7 +493,7 @@
         <span style="font-size: 38px;" aria-hidden="true">👑</span>
         <p class="section-pill" style="margin-top: 10px;">Hosted With Love By</p>
         <h2 class="family-parents-title" id="parentsTitle">Mommy Priya &amp; Daddy Rahul Sharma</h2>
-        <blockquote class="family-quote">
+        <blockquote class="family-quote" id="familyQuote">
           "Your presence is the sweetest gift our little princess could ever wish for."
         </blockquote>
         <p style="font-size: 0.9rem; color: var(--text-secondary);">
@@ -514,7 +514,7 @@
       </div>
 
       <p class="footer-credits">
-        Crafted with love for Princess Aria's 5th Birthday · <a href="/">UtsavLink Invitations</a>
+        <span id="footerCredit">Crafted with love for Princess Aria's 5th Birthday</span> · <a href="/">UtsavLink Invitations</a>
       </p>
     </footer>
 
@@ -533,9 +533,9 @@
   <div class="princess-toast" id="princessToast" role="alert"></div>
 
   <!-- FALLBACK AUDIO ELEMENT -->
-  <audio id="bgAudio" loop preload="none" src="/media/music/celestial.mp3"></audio>
+  <audio id="bgAudio" loop preload="none"></audio>
 
   <!-- TEMPLATE LOGIC SCRIPT -->
-  <script src="/t/princess/invite.js?v=1"></script>
+  <script src="/t/princess/invite.js?v=2"></script>
 </body>
 </html>

@@ -282,8 +282,9 @@
       });
     },
 
-    NAMES: { rajutsav: "राज उत्सव (Raj Utsav)", fort: "Aapla Bappa", kailash: "Kailash", darbar: "Temple Darbar", patrika: "Shubh Patrika", deep: "Deep Utsav", nilambari: "Tulsi Angan" },
+    NAMES: { princess: "Princess Birthday (Free)", rajutsav: "राज उत्सव (Raj Utsav)", fort: "Aapla Bappa", kailash: "Kailash", darbar: "Temple Darbar", patrika: "Shubh Patrika", deep: "Deep Utsav", nilambari: "Tulsi Angan" },
     BLURB: {
+      princess: "An enchanting princess fairytale invite - unbox, pop balloons & collect RSVPs for free.",
       rajutsav: "A real, live invite website - scroll it exactly like your guests will.",
       fort: "A real, live invite website - scroll it exactly like your guests will.",
       kailash: "A real, live invite website - scroll it exactly like your guests will.",
@@ -475,6 +476,10 @@
       });
       if (title) title.textContent = this.NAMES[theme];
       if (sub) sub.textContent = this.BLURB[theme];
+      var choose = $("pvChoose");
+      if (choose) {
+        choose.textContent = (theme === "princess") ? "Get my invite · Free →" : ("Get my invite · ₹" + TOTAL + " →");
+      }
       // this.theme is already set above, so the full-page link opens in the
       // same language the framed preview is showing.
       if (open) open.href = "/t/" + theme + "?preview=1" + this.previewLangParam();
@@ -606,6 +611,11 @@
         if ($("coProceedBtn")) $("coProceedBtn").textContent = "Create my invite — free →";
       }
 
+      // Theme radio selection updates price display
+      each(this.root.querySelectorAll('input[name="cotheme"]'), function (radio) {
+        radio.addEventListener("change", function () { self.syncThemePrice(); });
+      });
+
       // Step 1 Proceed Button
       $("coProceedBtn") && $("coProceedBtn").addEventListener("click", function () { self.proceedUpi(); });
 
@@ -647,6 +657,28 @@
       if (utr) setTimeout(function () { utr.focus(); }, 120);
     },
 
+    syncThemePrice: function () {
+      var picked = this.root.querySelector('input[name="cotheme"]:checked');
+      var theme = picked ? picked.value : "rajutsav";
+      var isFree = theme === "princess" || FREE_MODE;
+      var sub = $("coStep1") ? $("coStep1").querySelector(".co-sub") : null;
+      var btn = $("coProceedBtn");
+
+      if (isFree) {
+        if (sub) sub.innerHTML = '<span class="co-offer" style="background:#ec4899; color:#fff;">100% FREE</span> <s>₹1,999</s> → <strong>₹0</strong>. Fill details to open your editor immediately!';
+        if ($("coBase")) $("coBase").textContent = "₹0.00";
+        if ($("coGst")) $("coGst").textContent = "₹0.00";
+        if ($("coSum")) $("coSum").textContent = "₹0.00";
+        if (btn) btn.textContent = "Create my invite — Free →";
+      } else {
+        if (sub) sub.innerHTML = '<span class="co-offer">80% OFF</span> <s>₹500</s> → <strong>₹99</strong> + GST (₹117 total). Pay via UPI — we confirm, then your editor opens.';
+        if ($("coBase")) $("coBase").textContent = "₹" + PRICE.toFixed(2);
+        if ($("coGst")) $("coGst").textContent = "₹" + GST.toFixed(2);
+        if ($("coSum")) $("coSum").textContent = "₹" + TOTAL.toFixed(2);
+        if (btn) btn.textContent = "Proceed to UPI Payment (₹" + TOTAL + ") →";
+      }
+    },
+
     open: function (theme, silent) {
       this.opener = document.activeElement;
       this.showStep1();
@@ -654,6 +686,7 @@
         var radio = this.root.querySelector('input[name="cotheme"][value="' + theme + '"]');
         if (radio) radio.checked = true;
       }
+      this.syncThemePrice();
       this.root.removeAttribute("hidden");
       document.body.style.overflow = "hidden";
       if (!silent) track("InitiateCheckout", { content_category: "ganpati-invite", value: TOTAL, currency: CURRENCY });

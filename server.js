@@ -364,7 +364,8 @@ async function handleOrder(req, res) {
       json(res, 400, { ok: false, error: "This video design is no longer available." });
       return;
     }
-    const pricing = priceForKind(kind);
+    const isFree = IS_FREE || theme === "princess";
+    const pricing = isFree ? { amount: 0, basePrice: 0, gst: 0 } : priceForKind(kind);
     const txnid = "UTSAV" + Date.now() + crypto.randomBytes(2).toString("hex");
     const order = {
       txnid,
@@ -377,15 +378,15 @@ async function handleOrder(req, res) {
       amount: pricing.amount,
       basePrice: pricing.basePrice,
       gst: pricing.gst,
-      paid: false,
-      status: "awaiting_payment",
+      paid: isFree,
+      status: isFree ? "paid" : "awaiting_payment",
       createdAt: new Date().toISOString(),
       draft: data.draft && typeof data.draft === "object" ? data.draft : null
     };
     store.orders[txnid] = order;
     saveStore();
 
-    if (IS_FREE) {
+    if (isFree) {
       unlockInvite(order, "FREE-" + txnid);
       json(res, 200, {
         ok: true,
@@ -884,6 +885,30 @@ const server = http.createServer(async (req, res) => {
       }
       res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
       res.end("<h1>Not found</h1>");
+      return;
+    }
+
+    if (pathname === "/edit" && parsedUrl.query.theme === "princess" && !parsedUrl.query.token) {
+      const txnid = "UTSAV" + Date.now() + crypto.randomBytes(2).toString("hex");
+      const order = {
+        txnid,
+        kind: "site",
+        theme: "princess",
+        lang: "en",
+        name: "Princess Family",
+        phone: "",
+        email: "",
+        amount: 0,
+        basePrice: 0,
+        gst: 0,
+        paid: true,
+        free: true,
+        status: "paid",
+        createdAt: new Date().toISOString()
+      };
+      unlockInvite(order, "FREE-" + txnid);
+      res.writeHead(302, { Location: editUrlFor(txnid, "princess") });
+      res.end();
       return;
     }
 

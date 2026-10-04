@@ -4,25 +4,25 @@
    ========================================================================== */
 
 :root {
-  --primary-pink: #f74b78;
-  --soft-pink: #ffe6ed;
-  --pastel-pink: #fecdd6;
-  --deep-pink: #c71e54;
-  --lavender: #bca0ff;
-  --lavender-light: #f3edff;
-  --lavender-deep: #7a46e8;
-  --gold-accent: #f5a623;
-  --gold-light: #fef3d6;
-  --gold-glow: rgba(245, 166, 35, 0.35);
-  --mint-accent: #a8edd5;
-  --sky-accent: #bfe5ff;
-  --cream-bg: #fffbf9;
-  --card-bg: rgba(255, 255, 255, 0.92);
-  --card-border: rgba(254, 205, 214, 0.7);
-  --card-shadow: 0 16px 40px -10px rgba(247, 75, 120, 0.14), 0 0 20px rgba(188, 160, 255, 0.1);
-  --text-primary: #3d2038;
-  --text-secondary: #774c6d;
-  --text-muted: #9f7997;
+  --primary-pink: #ff2d78;
+  --soft-pink: #2a1018;
+  --pastel-pink: #ff4d8d;
+  --deep-pink: #ff8ab3;
+  --lavender: #ff2d78;
+  --lavender-light: #1a0c12;
+  --lavender-deep: #ff2d78;
+  --gold-accent: #ff2d78;
+  --gold-light: #2a1018;
+  --gold-glow: rgba(255, 45, 120, 0.4);
+  --mint-accent: #ff4d8d;
+  --sky-accent: #ff8ab3;
+  --cream-bg: #070709;
+  --card-bg: rgba(14, 14, 16, 0.94);
+  --card-border: rgba(255, 45, 120, 0.42);
+  --card-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 45, 120, 0.08);
+  --text-primary: #fff5f8;
+  --text-secondary: #f0c6d4;
+  --text-muted: #c98aa0;
   --radius-xl: 28px;
   --radius-lg: 20px;
   --radius-md: 14px;
@@ -1477,4 +1477,165 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   BTS PINK & BLACK
+   Black ground, hot pink light. Later rules replace the pastel surfaces.
+   ========================================================================== */
+body {
+  background-color: #070709;
+  background-image:
+    radial-gradient(circle at 12% 16%, rgba(255, 45, 120, 0.28) 0%, transparent 42%),
+    radial-gradient(circle at 86% 6%, rgba(255, 45, 120, 0.14) 0%, transparent 34%),
+    radial-gradient(circle at 72% 92%, rgba(255, 45, 120, 0.18) 0%, transparent 42%);
+}
+
+.cloud-item {
+  background: radial-gradient(circle, rgba(255, 45, 120, 0.16) 0%, rgba(255, 45, 120, 0) 70%);
+}
+
+.balloon-pink { background: linear-gradient(135deg, #ff6ba3 0%, #ff2d78 100%); }
+.balloon-purple { background: linear-gradient(135deg, #2a2a2e 0%, #0a0a0c 100%); box-shadow: inset 0 0 0 2px rgba(255, 45, 120, 0.85), 0 10px 20px rgba(0, 0, 0, 0.45); }
+.balloon-gold { background: linear-gradient(135deg, #ff4d8d 0%, #c4125a 100%); }
+.balloon-mint { background: linear-gradient(135deg, #1c1c20 0%, #050506 100%); box-shadow: inset 0 0 0 2px #ff2d78, 0 10px 20px rgba(0, 0, 0, 0.45); }
+
+.unboxing-overlay {
+  background: radial-gradient(circle at center, #2a1020 0%, #070709 62%);
+}
+
+.gift-box {
+  background: linear-gradient(145deg, #1a1a1e 0%, #0a0a0c 100%);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 0 10px rgba(255, 45, 120, 0.18);
+}
+
+.ribbon-v {
+  background: linear-gradient(90deg, #c4125a 0%, #ff2d78 50%, #c4125a 100%);
+}
+
+.ribbon-h {
+  background: linear-gradient(180deg, #c4125a 0%, #ff2d78 50%, #c4125a 100%);
+}
+
+.tiara-seal {
+  background: radial-gradient(circle, #ff4d8d 0%, #ff2d78 55%, #9d1248 100%);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(255, 45, 120, 0.45), 0 0 0 4px #0a0a0c;
+}
+
+.unboxing-btn,
+.btn-primary-princess,
+.turning-age-badge,
+.music-box-icon,
+.stats-banner,
+.rsvp-submit-btn {
+  background: linear-gradient(135deg, #ff2d78 0%, #c4125a 100%);
+}
+
+.music-box-btn,
+.music-box-btn.is-playing {
+  background: #0e0e10;
+  color: #ff8ab3;
+  border-color: #ff2d78;
+}
+
+.hero-card::before,
+.timeline-list::before {
+  background: linear-gradient(90deg, #ff2d78 0%, #ff8ab3 50%, #ff2d78 100%);
+}
+
+.timeline-list::before {
+  background: linear-gradient(180deg, #ff2d78 0%, #ff8ab3 50%, #ff2d78 100%);
+}
+
+.royal-badge,
+.section-pill {
+  background: #2a1018;
+  color: #ff8ab3;
+  border-color: rgba(255, 45, 120, 0.45);
+}
+
+.princess-portrait-img {
+  border-color: #ff2d78;
+  box-shadow: 0 12px 30px rgba(255, 45, 120, 0.35), 0 0 0 3px #0a0a0c;
+}
+
+.princess-title,
+.section-title,
+.family-quote {
+  text-shadow: 0 0 22px rgba(255, 45, 120, 0.35);
+}
+
+.hero-detail-card,
+.hero-detail-card:hover,
+.timeline-entry:hover,
+.milestone-item:hover,
+.countdown-unit,
+.milestone-item,
+.timeline-entry,
+.party-note-card,
+.polaroid-card,
+.wish-card,
+.form-input,
+.form-select,
+.form-textarea,
+.toggle-label {
+  background: #120c10;
+  color: #fff5f8;
+}
+
+.countdown-box,
+.royal-family-card {
+  background: linear-gradient(135deg, rgba(255, 45, 120, 0.16) 0%, rgba(10, 10, 12, 0.4) 100%);
+  border-color: rgba(255, 45, 120, 0.45);
+}
+
+.milestone-icon-wrap {
+  background: #2a1018;
+}
+
+.btn-secondary-princess,
+.btn-secondary-princess:hover {
+  background: #0e0e10;
+  color: #ff8ab3;
+  border-color: #ff2d78;
+}
+
+.washi-tape {
+  background: rgba(255, 45, 120, 0.72);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.polaroid-caption {
+  color: #ff8ab3;
+}
+
+.toggle-option input[type="radio"]:checked + .toggle-label {
+  background: #ff2d78;
+  color: #fff;
+  border-color: #ff2d78;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  border-color: rgba(255, 45, 120, 0.55);
+  color-scheme: dark;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  box-shadow: 0 0 0 4px rgba(255, 45, 120, 0.22);
+}
+
+.rsvp-success-message {
+  background: #14120f;
+  border-color: #ff2d78;
+  color: #ffd0e0;
+}
+
+.timeline-bullet {
+  background: #0a0a0c;
+  border-color: #ff2d78;
 }

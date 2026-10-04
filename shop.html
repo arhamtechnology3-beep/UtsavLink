@@ -571,18 +571,21 @@
               </div>
 
               <div class="card-pricing">
-                ${item.originalPrice > item.salePrice ? `<span class="price-original">₹${item.originalPrice.toLocaleString('en-IN')}</span>` : ''}
-                <span class="price-current">₹${item.salePrice.toLocaleString('en-IN')}</span>
+                ${item.salePrice === 0 
+                  ? `<span class="price-current" style="color:#10b981; font-weight:800; font-size:1.25rem;">FREE</span>` 
+                  : `${item.originalPrice > item.salePrice ? `<span class="price-original">₹${item.originalPrice.toLocaleString('en-IN')}</span>` : ''}
+                     <span class="price-current">₹${item.salePrice.toLocaleString('en-IN')}</span>`
+                }
               </div>
 
               ${savingsHtml}
 
               <div class="card-actions">
                 <a href="${item.demoUrl}" class="btn-card-demo" title="Live Preview">
-                  👁️ View Demo
+                  Preview
                 </a>
-                <a href="/edit?theme=${item.slug}" class="btn-card-shop" title="Customize this design">
-                  🛒 Shop Now
+                <a href="/edit?theme=${item.slug}" class="btn-card-shop" title="Choose this design">
+                  ${item.salePrice === 0 ? 'Choose this design (Free)' : 'Choose this design'}
                 </a>
               </div>
             </div>

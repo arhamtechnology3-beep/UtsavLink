@@ -117,7 +117,7 @@
         musicBtn.classList.add('is-playing');
         musicBtn.querySelector('.music-box-label').textContent = 'Music Playing';
       }
-      if (bgAudio && bgAudio.src && !bgAudio.src.includes('undefined')) {
+      if (party.customTrack && bgAudio && bgAudio.src) {
         bgAudio.play().catch(() => playMelodyLoop(0));
       } else {
         playMelodyLoop(0);
@@ -397,13 +397,38 @@
   });
 
   // --- COUNTDOWN TIMER ---
-  function initCountdown() {
-    // Default: Oct 24, 2026, 3:00 PM IST
-    const partyDate = new Date('2026-10-24T15:00:00+05:30').getTime();
+  const party = {
+    childName: 'Princess Aria',
+    age: '5',
+    isoDate: '2026-10-24',
+    startTime: '15:00',
+    endTime: '19:30',
+    venue: 'The Grand Starlight Ballroom & Gardens',
+    address: '124 Princess Boulevard, Worli Seaface, Mumbai – 400018',
+    mapUrl: 'https://maps.google.com/?q=Worli+Seaface+Mumbai'
+  };
+  let partyStamp = new Date('2026-10-24T15:00:00+05:30').getTime();
+  let refreshCountdown = function () {};
 
+  function stampFrom(isoDate, time) {
+    if (!isoDate) return;
+    const clock = String(time || '15:00').slice(0, 5);
+    const next = new Date(isoDate + 'T' + clock + ':00+05:30').getTime();
+    if (!Number.isNaN(next)) partyStamp = next;
+  }
+
+  function ordinal(n) {
+    const value = Number(n);
+    if (!value) return String(n || '');
+    const suffix = ['th', 'st', 'nd', 'rd'];
+    const mod = value % 100;
+    return value + (suffix[(mod - 20) % 10] || suffix[mod] || suffix[0]);
+  }
+
+  function initCountdown() {
     function update() {
       const now = new Date().getTime();
-      const diff = partyDate - now;
+      const diff = partyStamp - now;
 
       if (diff <= 0) {
         document.getElementById('cdDays').textContent = '00';
@@ -428,6 +453,7 @@
       if (elMinutes) elMinutes.textContent = String(minutes).padStart(2, '0');
       if (elSeconds) elSeconds.textContent = String(seconds).padStart(2, '0');
     }
+    refreshCountdown = update;
     update();
     setInterval(update, 1000);
   }
@@ -445,17 +471,20 @@
   const lightboxCaption = document.getElementById('lightboxCaption');
   const lightboxClose = document.getElementById('lightboxClose');
 
-  document.querySelectorAll('.polaroid-card').forEach(card => {
-    card.addEventListener('click', () => {
+  const polaroidWall = document.getElementById('polaroids');
+  if (polaroidWall) {
+    polaroidWall.addEventListener('click', (e) => {
+      const card = e.target.closest('.polaroid-card');
+      if (!card || !lightboxModal) return;
       const img = card.querySelector('.polaroid-img');
       const caption = card.querySelector('.polaroid-caption');
-      if (lightboxModal && img) {
+      if (img) {
         lightboxImg.src = img.src;
         lightboxCaption.textContent = caption ? caption.textContent : 'Sweet Memory ✨';
         lightboxModal.classList.add('active');
       }
     });
-  });
+  }
 
   if (lightboxClose) {
     lightboxClose.addEventListener('click', () => lightboxModal.classList.remove('active'));
@@ -517,7 +546,7 @@
   if (whatsappShareBtn) {
     whatsappShareBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const text = `👑 You're invited to Princess Aria's 5th Birthday Celebration! Join us for a magical fairytale party with games, magic & sweet treats! ✨\n\nView details & RSVP here: ${window.location.href}`;
+      const text = `👑 You're invited to ${party.childName}'s ${ordinal(party.age)} Birthday Celebration! Join us for a pink & black party with games, magic & sweet treats! ✨\n\nView details & RSVP here: ${window.location.href}`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     });
   }
@@ -538,11 +567,12 @@
   if (addToCalendarBtn) {
     addToCalendarBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const title = "Princess Aria's 5th Birthday Party";
-      const desc = "Join us for Princess Aria's 5th Birthday Party! Games, magic show, cake cutting & royal banquet.";
-      const loc = "The Grand Starlight Ballroom & Gardens, 124 Princess Boulevard, Worli Seaface, Mumbai";
-      const start = "20261024T150000";
-      const end = "20261024T193000";
+      const title = party.childName + "'s " + ordinal(party.age) + " Birthday Party";
+      const desc = "Join us for " + party.childName + "'s birthday party. Games, cake cutting and sweet treats.";
+      const loc = [party.venue, party.address].filter(Boolean).join(", ");
+      const day = String(party.isoDate || "2026-10-24").replace(/-/g, "");
+      const start = day + "T" + String(party.startTime || "15:00").replace(":", "") + "00";
+      const end = day + "T" + String(party.endTime || "19:30").replace(":", "") + "00";
 
       // Google Calendar web URL
       const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${encodeURIComponent(desc)}&location=${encodeURIComponent(loc)}`;
@@ -550,39 +580,134 @@
     });
   }
 
-  // --- LIVE EDITOR PREVIEW SUPPORT (SessionStorage / URL parameters) ---
-  try {
-    const rawPreview = sessionStorage.getItem('inviteo:preview');
-    if (rawPreview) {
-      const parsed = JSON.parse(rawPreview);
-      if (parsed && parsed.data) {
-        applyCustomData(parsed.data);
-      }
-    }
-  } catch (err) {
-    console.warn('Preview parse note:', err);
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value != null && String(value).trim() !== '') el.textContent = value;
+  }
+
+  function esc(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
   function applyCustomData(data) {
     if (!data) return;
-    if (data.childName) {
-      const titleEl = document.getElementById('princessTitle');
-      if (titleEl) titleEl.textContent = data.childName;
+    const birthday = data.birthday || {};
+    const loc = data.location || {};
+    const gallery = data.gallery || {};
+
+    if (birthday.childName) party.childName = birthday.childName;
+    if (birthday.age) party.age = String(birthday.age);
+    if (birthday.isoDate) party.isoDate = birthday.isoDate;
+    if (birthday.startTime) party.startTime = birthday.startTime;
+    if (birthday.endTime) party.endTime = birthday.endTime;
+    if (loc.venue) party.venue = loc.venue;
+    if (loc.address) party.address = loc.address;
+    if (loc.googleMapsLink) party.mapUrl = loc.googleMapsLink;
+    stampFrom(party.isoDate, party.startTime);
+
+    setText('princessTitle', party.childName);
+    setText('turningAgeNum', party.age);
+    setText('heroSubtitle', birthday.subtitle || ('Our Little Princess is Turning ' + party.age + '!'));
+    setText('heroTagline', birthday.tagline);
+    setText('welcomeMessage', birthday.message);
+    setText('heroDate', birthday.dateLabel);
+    setText('heroTime', birthday.timeLabel);
+    setText('heroVenue', birthday.venueShort || loc.venue);
+    setText('aboutTitle', 'Meet ' + party.childName);
+    setText('mileFavorites', birthday.favorites);
+    setText('mileColors', birthday.colors);
+    setText('mileSweet', birthday.sweet);
+    setText('mileBuddy', birthday.buddy);
+    setText('noteDress', birthday.dress);
+    setText('noteFood', birthday.food);
+    setText('noteParking', birthday.parking);
+    setText('noteGifts', birthday.gifts);
+    setText('venueName', loc.venue);
+    setText('venueAddress', loc.address);
+    setText('parentsTitle', birthday.hosts);
+    setText('familyQuote', birthday.quote ? '"' + birthday.quote.replace(/^"|"$/g, '') + '"' : '');
+    setText('galleryTitle', gallery.heading);
+    setText('galleryDesc', gallery.subtitle);
+    setText('rsvpWishLabel', 'A Sweet Birthday Wish for ' + party.childName + ' ✨');
+    setText('footerCredit', "Crafted with love for " + party.childName + "'s " + ordinal(party.age) + " Birthday");
+
+    const rsvp = document.getElementById('rsvpDesc');
+    if (rsvp && (birthday.rsvpBy || birthday.rsvpNote)) {
+      const by = birthday.rsvpBy ? ('Please let us know by ' + birthday.rsvpBy) : 'Please let us know';
+      rsvp.textContent = (by + (birthday.rsvpNote ? ' ' + birthday.rsvpNote : '')).trim();
     }
-    if (data.age) {
-      const ageNum = document.getElementById('turningAgeNum');
-      if (ageNum) ageNum.textContent = data.age;
-      const kicker = document.getElementById('heroSubtitle');
-      if (kicker) kicker.textContent = `Our Little Princess is Turning ${data.age}!`;
+
+    const portrait = document.getElementById('princessPortrait');
+    if (portrait && birthday.portrait) {
+      portrait.src = birthday.portrait;
+      portrait.alt = party.childName;
     }
-    if (data.partyDate) {
-      const dateEl = document.getElementById('heroDate');
-      if (dateEl) dateEl.textContent = data.partyDate;
+
+    const map = document.getElementById('mapLinkBtn');
+    if (map) {
+      if (party.mapUrl) map.href = party.mapUrl;
+      else if (party.address) map.href = 'https://maps.google.com/?q=' + encodeURIComponent(party.address);
     }
-    if (data.partyVenue) {
-      const venueEl = document.getElementById('venueName');
-      if (venueEl) venueEl.textContent = data.partyVenue;
+
+    if (Array.isArray(birthday.events) && birthday.events.length) {
+      const list = document.getElementById('timelineList');
+      if (list) {
+        list.innerHTML = birthday.events.filter((event) => event && event.title).map((event) => (
+          '<article class="timeline-entry">' +
+            '<span class="timeline-bullet" aria-hidden="true">' + esc(event.icon || '🎂') + '</span>' +
+            '<div class="timeline-header">' +
+              '<h3 class="timeline-title">' + esc(event.title) + '</h3>' +
+              '<span class="timeline-time">' + esc(event.time || '') + '</span>' +
+            '</div>' +
+            '<p class="timeline-desc">' + esc(event.description || '') + '</p>' +
+          '</article>'
+        )).join('');
+      }
+    }
+
+    const photos = (gallery.photos || []).filter((photo) => photo && photo.url);
+    if (photos.length) {
+      const wall = document.getElementById('polaroids');
+      if (wall) {
+        wall.innerHTML = photos.map((photo) => (
+          '<article class="polaroid-card">' +
+            '<div class="washi-tape" aria-hidden="true"></div>' +
+            '<div class="polaroid-img-wrap">' +
+              '<img class="polaroid-img" src="' + esc(photo.url) + '" alt="' + esc(photo.caption || 'Birthday memory') + '" loading="lazy" />' +
+            '</div>' +
+            '<p class="polaroid-caption">' + esc(photo.caption || '') + '</p>' +
+          '</article>'
+        )).join('');
+      }
+    }
+
+    const widget = document.querySelector('.floating-audio-widget');
+    if (widget) widget.hidden = data.music?.enabled === false;
+    const audio = document.getElementById('bgAudio');
+    const track = data.music?.track;
+    party.customTrack = !!(audio && track && track !== '__birthday__' && data.music?.enabled !== false && !track.startsWith('__'));
+    if (party.customTrack) audio.src = track;
+
+    document.title = party.childName + ' is turning ' + party.age + ' · Birthday Invitation';
+    refreshCountdown();
+  }
+
+  function readInvitePayload() {
+    if (window.__INVITE__ && window.__INVITE__.data) return window.__INVITE__.data;
+    try {
+      const raw = sessionStorage.getItem('inviteo:preview');
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      return parsed && parsed.data ? parsed.data : null;
+    } catch (err) {
+      return null;
     }
   }
+
+  applyCustomData(readInvitePayload());
 
 })();
