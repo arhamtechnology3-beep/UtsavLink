@@ -3223,6 +3223,11 @@ function syncBirthdayChrome() {
     const payload = await res.json();
     if (!payload.ok) {
       status("error", "Link not valid");
+      if (new URLSearchParams(location.search).get("theme") === "princess") {
+        return showScreen("This birthday invite link has expired",
+          "Birthday invites are free - start a new one and publish it again.",
+          '<a class="btn" href="/edit?theme=princess">Start a new birthday invite</a>');
+      }
       return showScreen("We couldn't open this invite website", payload.error,
         '<a class="btn" href="/">Back to UtsavLink</a>');
     }

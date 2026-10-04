@@ -3,13 +3,18 @@ const fs = require("fs");
 const path = require("path");
 const url = require("url");
 const crypto = require("crypto");
+const os = require("os");
 const QRCode = require("qrcode");
 
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
 const DATA_DIR = path.join(ROOT_DIR, "data");
-const UPLOAD_DIR = path.join(ROOT_DIR, "media", "uploads");
-const STORE_FILE = path.join(DATA_DIR, "store.json");
+// Invites and uploads must live outside the app folder: redeploys replace the app folder.
+const STORAGE_DIR = path.resolve(process.env.STORAGE_DIR || path.join(os.homedir(), "utsavlink-data"));
+const UPLOAD_DIR = path.join(STORAGE_DIR, "uploads");
+const STORE_FILE = path.join(STORAGE_DIR, "store.json");
+const LEGACY_STORE_FILE = path.join(DATA_DIR, "store.json");
+const LEGACY_UPLOAD_DIR = path.join(ROOT_DIR, "media", "uploads");
 const STATIC_UPI_QR_CANDIDATES = [
   path.join(ROOT_DIR, "assets", "upi-qr.png"),
   path.join(ROOT_DIR, "assets", "upi-qr.jpg"),
@@ -76,8 +81,15 @@ ensureDirs();
 const store = loadStore();
 
 function ensureDirs() {
-  for (const dir of [DATA_DIR, UPLOAD_DIR]) {
+  for (const dir of [STORAGE_DIR, UPLOAD_DIR]) {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  }
+  if (!fs.existsSync(STORE_FILE) && fs.existsSync(LEGACY_STORE_FILE)) {
+    fs.copyFileSync(LEGACY_STORE_FILE, STORE_FILE);
+    console.log("Copied invites from", LEGACY_STORE_FILE, "to", STORE_FILE);
+  }
+  if (fs.existsSync(LEGACY_UPLOAD_DIR)) {
+    fs.cpSync(LEGACY_UPLOAD_DIR, UPLOAD_DIR, { recursive: true, force: false, errorOnExist: false });
   }
 }
 
@@ -617,11 +629,46 @@ function unlockInvite(order, utr) {
   saveStore();
 }
 
+function createFreePrincessInvite(txnid) {
+  const order = {
+    txnid,
+    kind: "site",
+    theme: "princess",
+    lang: "en",
+    name: "Princess Family",
+    phone: "",
+    email: "",
+    amount: 0,
+    basePrice: 0,
+    gst: 0,
+    paid: true,
+    free: true,
+    status: "paid",
+    createdAt: new Date().toISOString()
+  };
+  unlockInvite(order, "FREE-" + txnid);
+}
+
 async function handleEdit(req, res, parsedUrl) {
   const token = String(parsedUrl.query.token || "").trim();
   if (!token) {
     json(res, 400, { ok: false, error: "Missing edit token." });
     return;
+  }
+
+  const isWrite = req.method === "PUT" || req.method === "POST";
+  let data;
+  if (isWrite) {
+    try {
+      data = JSON.parse((await readBody(req)) || "{}");
+    } catch (e) {
+      json(res, 400, { ok: false, error: "Invalid payload" });
+      return;
+    }
+    // Princess is free, so an open birthday editor whose invite was lost can recreate it on save.
+    if (!getInvite(token) && /^UTSAV\d{10,}[0-9a-f]{4}$/.test(token) && data.data?.birthday) {
+      createFreePrincessInvite(token);
+    }
   }
 
   const gate = requirePaidInvite(token);
@@ -636,13 +683,12 @@ async function handleEdit(req, res, parsedUrl) {
     return;
   }
 
-  if (req.method !== "PUT" && req.method !== "POST") {
+  if (!isWrite) {
     json(res, 405, { ok: false, error: "Method not allowed" });
     return;
   }
 
   try {
-    const data = JSON.parse((await readBody(req)) || "{}");
 
     if (data.data && typeof data.data === "object") {
       invite.data = Object.assign({}, invite.data || {}, data.data);
@@ -891,30 +937,21 @@ const server = http.createServer(async (req, res) => {
 
     if (pathname === "/edit" && parsedUrl.query.theme === "princess" && !parsedUrl.query.token) {
       const txnid = "UTSAV" + Date.now() + crypto.randomBytes(2).toString("hex");
-      const order = {
-        txnid,
-        kind: "site",
-        theme: "princess",
-        lang: "en",
-        name: "Princess Family",
-        phone: "",
-        email: "",
-        amount: 0,
-        basePrice: 0,
-        gst: 0,
-        paid: true,
-        free: true,
-        status: "paid",
-        createdAt: new Date().toISOString()
-      };
-      unlockInvite(order, "FREE-" + txnid);
+      createFreePrincessInvite(txnid);
       res.writeHead(302, { Location: editUrlFor(txnid, "princess") });
       res.end();
       return;
     }
 
     let filePath = path.join(ROOT_DIR, pathname);
-    if (cleanUrlMap[pathname] || pathname.startsWith("/edit/")) {
+    if (pathname.startsWith("/media/uploads/")) {
+      filePath = path.join(UPLOAD_DIR, pathname.slice("/media/uploads/".length));
+      if (!filePath.startsWith(UPLOAD_DIR + path.sep)) {
+        res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+        res.end("<h1>Not found</h1>");
+        return;
+      }
+    } else if (cleanUrlMap[pathname] || pathname.startsWith("/edit/")) {
       filePath = path.join(ROOT_DIR, pathname.startsWith("/edit/") ? "edit.html" : cleanUrlMap[pathname]);
     } else if (pathname.startsWith("/category/") || pathname === "/category") {
       filePath = path.join(ROOT_DIR, "category.html");
