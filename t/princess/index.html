@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Princess Aria's 5th Birthday Party · Royal Invitation</title>
+  <meta name="description" content="You are cordially invited to celebrate Princess Aria's 5th Birthday! A magical fairytale party with games, magic, cake, and royal fun." />
+  <meta name="theme-color" content="#f74b78" />
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Princess Aria is Turning 5! 👑 Royal Birthday Celebration" />
+  <meta property="og:description" content="Join us for a magical fairytale birthday party filled with giggles, games, magic show and sweet treats!" />
+  <meta property="og:image" content="/assets/mockups/princess.jpg" />
+
+  <!-- Google Fonts: Sacramento (Whimsical Princess script), Fredoka (Playful rounded headings), Nunito (Friendly clean body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Sacramento&display=swap" rel="stylesheet" />
+
+  <!-- Template Stylesheet -->
+  <link rel="stylesheet" href="/t/princess/invite.css?v=1" />
+</head>
+<body>
+
+  <!-- AMBIENT EFFECT CANVASES -->
+  <canvas id="sparkle-canvas" aria-hidden="true"></canvas>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- AMBIENT FLOATING CLOUDS -->
+  <div class="ambient-clouds" aria-hidden="true">
+    <div class="cloud-item" style="width:240px;height:120px;top:8%;left:-50px;"></div>
+    <div class="cloud-item" style="width:300px;height:140px;top:40%;right:-80px;animation-delay:8s;"></div>
+    <div class="cloud-item" style="width:220px;height:110px;top:75%;left:20%;animation-delay:15s;"></div>
+  </div>
+
+  <!-- FLOATING INTERACTIVE BALLOONS (Side Borders) -->
+  <div class="floating-balloons-layer" id="balloonsLayer" aria-hidden="true">
+    <!-- Populated dynamically by invite.js -->
+  </div>
+
+  <!-- UNBOXING GIFT BOX INTRO OVERLAY -->
+  <aside class="unboxing-overlay" id="unboxingOverlay" aria-label="Royal Gift Box Invitation">
+    <div class="gift-box-wrapper" id="giftBoxWrapper" role="button" tabindex="0" aria-label="Open Birthday Invitation Gift Box">
+      <div class="gift-box">
+        <div class="ribbon-v"></div>
+        <div class="ribbon-h"></div>
+        <div class="tiara-seal" aria-hidden="true">👑</div>
+      </div>
+    </div>
+    <p class="unboxing-kicker">
+      <span class="sparkle-badge">✨</span> A Royal Invitation Awaits You! <span class="sparkle-badge">✨</span>
+    </p>
+    <button class="unboxing-btn" id="unboxingBtn" type="button">
+      <span>🎀 Tap to Unbox the Magic</span>
+    </button>
+  </aside>
+
+  <!-- FLOATING MUSIC BOX WIDGET -->
+  <div class="floating-audio-widget">
+    <button class="music-box-btn" id="musicBoxBtn" type="button" aria-label="Toggle party melody">
+      <span class="music-box-icon" aria-hidden="true">👑</span>
+      <span class="music-box-label">Play Melody</span>
+      <div class="music-equalizer" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </button>
+  </div>
+
+  <!-- MAIN INVITATION CONTAINER -->
+  <main class="princess-app">
+
+    <!-- HERO SECTION -->
+    <header class="hero-card" id="hero">
+      <div class="royal-badge">
+        <span aria-hidden="true">✨</span> By Royal Decree of the Kingdom of Smiles <span aria-hidden="true">✨</span>
+      </div>
+
+      <!-- Princess Portrait with Crown & Age Badge -->
+      <div class="princess-portrait-wrap">
+        <span class="crown-decor" aria-hidden="true">👑</span>
+        <img class="princess-portrait-img" src="/assets/princess_birthday_girl.jpg" alt="Princess Aria" width="170" height="170" loading="eager" />
+        <div class="turning-age-badge" id="ageBadge">
+          <span class="num" id="turningAgeNum">5</span>
+          <span class="lbl">Years</span>
+        </div>
+      </div>
+
+      <p class="hero-subtitle" id="heroSubtitle">Our Little Princess is Turning 5!</p>
+      <h1 class="princess-title" id="princessTitle">Princess Aria</h1>
+      <p class="hero-tagline">✨ A Fairytale Birthday Celebration ✨</p>
+
+      <p class="hero-invitation-text" id="welcomeMessage">
+        You are cordially invited to put on your royal best and join us for an afternoon of enchanted laughter, magical games, delicious sweet treats, and fairytale dreams!
+      </p>
+
+      <!-- Key Details Row -->
+      <div class="hero-details-row">
+        <div class="hero-detail-card">
+          <span class="detail-icon" aria-hidden="true">📅</span>
+          <p class="detail-label">The Auspicious Day</p>
+          <p class="detail-val" id="heroDate">Saturday, 24 Oct 2026</p>
+        </div>
+        <div class="hero-detail-card">
+          <span class="detail-icon" aria-hidden="true">⏰</span>
+          <p class="detail-label">Royal Time</p>
+          <p class="detail-val" id="heroTime">3:00 PM – 7:30 PM</p>
+        </div>
+        <div class="hero-detail-card">
+          <span class="detail-icon" aria-hidden="true">🏰</span>
+          <p class="detail-label">The Kingdom Venue</p>
+          <p class="detail-val" id="heroVenue">The Starlight Ballroom</p>
+        </div>
+      </div>
+
+      <!-- Countdown Clock -->
+      <div class="countdown-box" id="countdownBox">
+        <p class="countdown-kicker">
+          <span aria-hidden="true">⏳</span> Counting down the sleeps till party time! <span aria-hidden="true">🎂</span>
+        </p>
+        <div class="countdown-units">
+          <div class="countdown-unit">
+            <p class="countdown-num" id="cdDays">00</p>
+            <p class="countdown-label">Days</p>
+          </div>
+          <div class="countdown-unit">
+            <p class="countdown-num" id="cdHours">00</p>
+            <p class="countdown-label">Hours</p>
+          </div>
+          <div class="countdown-unit">
+            <p class="countdown-num" id="cdMinutes">00</p>
+            <p class="countdown-label">Mins</p>
+          </div>
+          <div class="countdown-unit">
+            <p class="countdown-num" id="cdSeconds">00</p>
+            <p class="countdown-label">Secs</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-cta-group">
+        <a class="btn-primary-princess" href="#rsvpSection">
+          <span>💖 RSVP for Your Family</span>
+        </a>
+        <a class="btn-secondary-princess" href="#venueSection">
+          <span>📍 View Map</span>
+        </a>
+        <button class="btn-secondary-princess" id="addToCalendarBtn" type="button">
+          <span>📅 Add to Calendar</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MEET THE BIRTHDAY GIRL & MILESTONES -->
+    <section class="section-panel" id="aboutPrincess">
+      <div class="section-panel-header">
+        <span class="section-pill">Milestone Highlights</span>
+        <h2 class="section-title">Meet Princess Aria</h2>
+        <p class="section-desc">Five magical years of bringing sunshine, sweetness, and endless giggles to everyone around her!</p>
+      </div>
+
+      <div class="milestones-grid">
+        <div class="milestone-item">
+          <div class="milestone-icon-wrap" aria-hidden="true">🦄</div>
+          <div>
+            <p class="milestone-label">Favorite Things</p>
+            <p class="milestone-value">Rainbows, unicorns, dancing ballet & bedtime fairy tales</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-icon-wrap" aria-hidden="true">🎨</div>
+          <div>
+            <p class="milestone-label">Favorite Colors</p>
+            <p class="milestone-value">Cotton Candy Pink, Pastel Lilac & Glitter Gold</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-icon-wrap" aria-hidden="true">🧁</div>
+          <div>
+            <p class="milestone-label">Favorite Sweet</p>
+            <p class="milestone-value">Strawberry velvet cupcakes with rainbow sprinkles</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-icon-wrap" aria-hidden="true">🐰</div>
+          <div>
+            <p class="milestone-label">Best Buddy</p>
+            <p class="milestone-value">Her fluffy bunny 'Snowball' & all her preschool friends</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fun Princess Stats Banner -->
+      <div class="stats-banner">
+        <div class="stat-col">
+          <p class="stat-digit">1,825</p>
+          <p class="stat-text">Days of Sunshine</p>
+        </div>
+        <div class="stat-col">
+          <p class="stat-digit">10,000+</p>
+          <p class="stat-text">Warm Smiles</p>
+        </div>
+        <div class="stat-col">
+          <p class="stat-digit">100%</p>
+          <p class="stat-text">Pure Sweetness</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLAROID SCRAPBOOK MEMORIES GALLERY -->
+    <section class="section-panel" id="gallerySection">
+      <div class="section-panel-header">
+        <span class="section-pill">Fairytale Memories</span>
+        <h2 class="section-title">Magical Scrapbook</h2>
+        <p class="section-desc">Tap on any polaroid photo to open the royal photo album!</p>
+      </div>
+
+      <div class="polaroids-container">
+        <article class="polaroid-card">
+          <div class="washi-tape" aria-hidden="true"></div>
+          <div class="polaroid-img-wrap">
+            <img class="polaroid-img" src="/assets/princess_birthday_girl.jpg" alt="First princess crown" loading="lazy" />
+          </div>
+          <p class="polaroid-caption">Her very first princess gown 👑</p>
+        </article>
+
+        <article class="polaroid-card">
+          <div class="washi-tape" aria-hidden="true"></div>
+          <div class="polaroid-img-wrap">
+            <img class="polaroid-img" src="/assets/princess_birthday_castle.jpg" alt="The enchanted celebration" loading="lazy" />
+          </div>
+          <p class="polaroid-caption">Ready for sweet cupcakes 🧁</p>
+        </article>
+
+        <article class="polaroid-card">
+          <div class="washi-tape" aria-hidden="true"></div>
+          <div class="polaroid-img-wrap">
+            <img class="polaroid-img" src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&q=80" alt="Balloons and confetti" loading="lazy" />
+          </div>
+          <p class="polaroid-caption">Dancing with balloons 🎈</p>
+        </article>
+
+        <article class="polaroid-card">
+          <div class="washi-tape" aria-hidden="true"></div>
+          <div class="polaroid-img-wrap">
+            <img class="polaroid-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80" alt="Making a birthday wish" loading="lazy" />
+          </div>
+          <p class="polaroid-caption">Making a birthday wish ✨</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- THE ROYAL PARTY ITINERARY -->
+    <section class="section-panel" id="itinerarySection">
+      <div class="section-panel-header">
+        <span class="section-pill">Schedule of Fun</span>
+        <h2 class="section-title">The Royal Programme</h2>
+        <p class="section-desc">An afternoon packed with enchanting games, shows, and sweet treats!</p>
+      </div>
+
+      <div class="timeline-list">
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🌸</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">Royal Arrival &amp; Glitter Face Painting</h3>
+            <span class="timeline-time">3:00 PM</span>
+          </div>
+          <p class="timeline-desc">Step on the pink carpet! Little guests receive tiaras, crowns, fairy wings, and magical sparkle face art.</p>
+        </article>
+
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🪄</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">Magical Illusion Show &amp; Puppet Tales</h3>
+            <span class="timeline-time">3:45 PM</span>
+          </div>
+          <p class="timeline-desc">A whimsical magic performance by the Kingdom's finest illusionist, featuring interactive tricks and floating bubbles.</p>
+        </article>
+
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🎈</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">Princess Quest Games &amp; Musical Freeze</h3>
+            <span class="timeline-time">4:30 PM</span>
+          </div>
+          <p class="timeline-desc">Pass the royal parcel, musical statues, and a magical scavenger hunt where every child wins a prize.</p>
+        </article>
+
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🎂</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">The Grand Cake Cutting Ceremony</h3>
+            <span class="timeline-time">5:15 PM</span>
+          </div>
+          <p class="timeline-desc">Singing Happy Birthday with sparkler candles as Princess Aria cuts her 3-tier castle birthday cake!</p>
+        </article>
+
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🍭</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">Royal Banquet &amp; Sweet Treats Feast</h3>
+            <span class="timeline-time">5:45 PM</span>
+          </div>
+          <p class="timeline-desc">Mini cheese pizzas, smiley fries, fruit skewers, pink cotton candy, chocolate fountain, and cupcake decorating bar.</p>
+        </article>
+
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🪅</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">Unicorn Piñata Smash &amp; Bubble Disco</h3>
+            <span class="timeline-time">6:30 PM</span>
+          </div>
+          <p class="timeline-desc">Get showered in candy and dance under the magical disco ball with floating bubble rain!</p>
+        </article>
+
+        <article class="timeline-entry">
+          <span class="timeline-bullet" aria-hidden="true">🎁</span>
+          <div class="timeline-header">
+            <h3 class="timeline-title">Royal Favor Bags &amp; Farewell Hugs</h3>
+            <span class="timeline-time">7:15 PM</span>
+          </div>
+          <p class="timeline-desc">Special personalized goodie hampers and souvenir photos to take home the fairytale magic.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- DRESS CODE & PARTY DETAILS -->
+    <section class="section-panel" id="partyNotesSection">
+      <div class="section-panel-header">
+        <span class="section-pill">Helpful Information</span>
+        <h2 class="section-title">Party Notes &amp; Dress Code</h2>
+      </div>
+
+      <div class="party-notes-grid">
+        <div class="party-note-card">
+          <span class="party-note-icon" aria-hidden="true">👗</span>
+          <div>
+            <h3 class="party-note-title">Royal Dress Code</h3>
+            <p class="party-note-text">Princess gowns, fairy dresses, pastel colors, or your favorite party outfit! Sparkle crowns and capes provided at the entry.</p>
+          </div>
+        </div>
+
+        <div class="party-note-card">
+          <span class="party-note-icon" aria-hidden="true">🍓</span>
+          <div>
+            <h3 class="party-note-title">Kid-Friendly &amp; Nut Safe</h3>
+            <p class="party-note-text">100% vegetarian, eggless bakery options, and strictly nut-free treats so every little tummy can safely indulge.</p>
+          </div>
+        </div>
+
+        <div class="party-note-card">
+          <span class="party-note-icon" aria-hidden="true">🚗</span>
+          <div>
+            <h3 class="party-note-title">Valet &amp; Stroller Parking</h3>
+            <p class="party-note-text">Complimentary valet parking for families. A secure, covered stroller check-in area is located right by the foyer.</p>
+          </div>
+        </div>
+
+        <div class="party-note-card">
+          <span class="party-note-icon" aria-hidden="true">🎁</span>
+          <div>
+            <h3 class="party-note-title">Gift Preferences</h3>
+            <p class="party-note-text">Your loving presence and warm smiles are the greatest gifts of all! Only your blessings and cheers are requested.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENUE & LOCATION -->
+    <section class="section-panel" id="venueSection">
+      <div class="section-panel-header">
+        <span class="section-pill">Location Details</span>
+        <h2 class="section-title">The Royal Venue</h2>
+      </div>
+
+      <div class="venue-visual-wrap">
+        <img class="venue-visual-img" src="/assets/princess_birthday_castle.jpg" alt="The Starlight Ballroom" loading="lazy" />
+        <span class="venue-badge-pill">🏰 Palace Ballroom</span>
+      </div>
+
+      <div class="venue-info-box">
+        <h3 class="venue-name" id="venueName">The Grand Starlight Ballroom &amp; Gardens</h3>
+        <p class="venue-address" id="venueAddress">
+          124 Princess Boulevard, Worli Seaface, Mumbai – 400018
+        </p>
+        <a class="btn-primary-princess" id="mapLinkBtn" href="https://maps.google.com/?q=Worli+Seaface+Mumbai" target="_blank" rel="noopener noreferrer">
+          <span>📍 Open in Google Maps</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE RSVP FORM -->
+    <section class="section-panel" id="rsvpSection">
+      <div class="section-panel-header">
+        <span class="section-pill">Kindly Reply</span>
+        <h2 class="section-title">RSVP for Your Family</h2>
+        <p class="section-desc">Please let us know by 15th October 2026 so we can prepare enough royal treats and customized favor bags!</p>
+      </div>
+
+      <div class="rsvp-form-container">
+        <form id="birthdayRsvpForm">
+          <div class="form-group">
+            <label class="form-label" for="parentName">Parent / Guardian Full Name *</label>
+            <input class="form-input" type="text" id="parentName" required placeholder="e.g. Ananya Sen" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="parentPhone">WhatsApp Number *</label>
+            <input class="form-input" type="tel" id="parentPhone" required placeholder="e.g. +91 98765 43210" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="childNames">Child / Children Names &amp; Ages *</label>
+            <input class="form-input" type="text" id="childNames" required placeholder="e.g. Riya (5) &amp; Aarav (3)" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Will Your Family Join the Celebration? *</label>
+            <div class="attendance-toggle-group">
+              <label class="toggle-option">
+                <input type="radio" name="attendance" value="attending" checked />
+                <span class="toggle-label">💖 Yes, We'll Be There!</span>
+              </label>
+              <label class="toggle-option">
+                <input type="radio" name="attendance" value="declined" />
+                <span class="toggle-label">💌 Sadly Sending Hugs</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dietarySelect">Dietary Needs / Food Allergies</label>
+            <select class="form-select" id="dietarySelect">
+              <option value="none">No special restrictions (All items vegetarian)</option>
+              <option value="eggless">Eggless cake only</option>
+              <option value="nutfree">Strictly Nut-Free</option>
+              <option value="glutenfree">Gluten-Free preferences</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="birthdayWish">A Sweet Birthday Wish for Princess Aria ✨</label>
+            <textarea class="form-textarea" id="birthdayWish" placeholder="Write a cute message or blessing for the birthday girl..."></textarea>
+          </div>
+
+          <button class="rsvp-submit-btn" type="submit">
+            <span>✨ Send Royal RSVP</span>
+          </button>
+        </form>
+
+        <div class="rsvp-success-message" id="rsvpSuccess">
+          <h3>🎉 Royal RSVP Confirmed!</h3>
+          <p>Thank you for letting us know! Princess Aria and our family can't wait to celebrate this special day with you! ✨</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WISHES WALL / GUESTBOOK -->
+    <section class="section-panel" id="wishesSection">
+      <div class="section-panel-header">
+        <span class="section-pill">Guestbook</span>
+        <h2 class="section-title">Wishes &amp; Blessings</h2>
+        <p class="section-desc">Heartwarming wishes left by loving friends and family!</p>
+      </div>
+
+      <div class="wishes-wall-grid" id="wishesWallGrid">
+        <article class="wish-card">
+          <p class="wish-author">👑 Aunt Neha &amp; Baby Tara</p>
+          <p class="wish-text">"Happy 5th Birthday to our little sparkle! May your day be as sweet, magical, and colorful as you are! 💖"</p>
+        </article>
+
+        <article class="wish-card">
+          <p class="wish-author">👑 Grandparents (Dada &amp; Dadi)</p>
+          <p class="wish-text">"Watching you grow has been the greatest blessing. Keep shining brightly, our sweet princess! ✨"</p>
+        </article>
+
+        <article class="wish-card">
+          <p class="wish-author">👑 Bestie Shanaya (Age 5)</p>
+          <p class="wish-text">"Can't wait to wear my princess dress and dance with you! Happy Birthday Aria! 🦄🎈"</p>
+        </article>
+
+        <article class="wish-card">
+          <p class="wish-author">👑 Uncle Vikram &amp; Family</p>
+          <p class="wish-text">"Happy 5th Birthday Princess Aria! May your year ahead be filled with adventures, laughter, and endless cupcakes! 🎂"</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAMILY / HOST SECTION -->
+    <section class="section-panel" id="familySection">
+      <div class="royal-family-card">
+        <span style="font-size: 38px;" aria-hidden="true">👑</span>
+        <p class="section-pill" style="margin-top: 10px;">Hosted With Love By</p>
+        <h2 class="family-parents-title" id="parentsTitle">Mommy Priya &amp; Daddy Rahul Sharma</h2>
+        <blockquote class="family-quote">
+          "Your presence is the sweetest gift our little princess could ever wish for."
+        </blockquote>
+        <p style="font-size: 0.9rem; color: var(--text-secondary);">
+          We look forward to creating unforgettable memories with you and your family!
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER & SHARING -->
+    <footer class="princess-footer">
+      <div class="share-links-group">
+        <a class="btn-whatsapp-share" id="whatsappShareBtn" href="#" target="_blank">
+          <span aria-hidden="true">💬</span> Share on WhatsApp
+        </a>
+        <button class="btn-copy-link" id="copyLinkBtn" type="button">
+          <span aria-hidden="true">🔗</span> Copy Invite Link
+        </button>
+      </div>
+
+      <p class="footer-credits">
+        Crafted with love for Princess Aria's 5th Birthday · <a href="/">UtsavLink Invitations</a>
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Photo Lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close lightbox">&times;</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged memory" />
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="princess-toast" id="princessToast" role="alert"></div>
+
+  <!-- FALLBACK AUDIO ELEMENT -->
+  <audio id="bgAudio" loop preload="none" src="/media/music/celestial.mp3"></audio>
+
+  <!-- TEMPLATE LOGIC SCRIPT -->
+  <script src="/t/princess/invite.js?v=1"></script>
+</body>
+</html>

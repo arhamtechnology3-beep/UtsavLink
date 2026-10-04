@@ -48,7 +48,7 @@ const SITE_THEMES = [
   "rajutsav", "fort", "kailash", "deep", "patrika", "darbar", "nilambari",
   "celestial", "lanterns", "grandreveal", "bloom", "sultanemerald",
   "jaipur", "royalmaharashtrian", "cathedral", "voyage", "luminous",
-  "heritage", "seaside", "promise"
+  "heritage", "seaside", "promise", "princess"
 ];
 const VIDEO_THEMES = [];
 const THEMES = SITE_THEMES;

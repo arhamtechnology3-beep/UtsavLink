@@ -1,0 +1,663 @@
+[
+  {
+    "slug": "princess",
+    "name": "The Royal Princess – Kid's Birthday Party Invitation",
+    "shortName": "Princess Birthday",
+    "subtitle": "Fairytale castle, tiara reveal, pop-able balloons, milestone board, scrapbook & RSVP",
+    "tier": "premium",
+    "originalPrice": 4999,
+    "salePrice": 1999,
+    "savePercent": 60,
+    "rating": 5.0,
+    "reviewsCount": 46,
+    "categories": [
+      "kids-birthday",
+      "birthday-party",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Kid's Birthday",
+      "Birthday Party",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/princess.jpg",
+    "demoUrl": "/t/princess/",
+    "badge": "New · Birthday Special",
+    "description": "An enchanting fairytale princess birthday party invitation designed for little girls. Features interactive 3D gift box unboxing, sparkling fairy dust, pop-able floating balloons, music box synthesizer, milestone board, polaroid photo scrapbook, party activity itinerary, and instant parent RSVP with guestbook wishes.",
+    "features": [
+      "Interactive 3D gift box unboxing & confetti burst",
+      "Live music box audio synthesizer & birthday melody",
+      "Pop-able floating pastel balloons with sound effects",
+      "Princess milestones, favorites & polaroid gallery",
+      "Complete party timeline & parent RSVP with wishes"
+    ]
+  },
+  {
+    "slug": "celestial",
+    "name": "Celestial Shadow \u2013 Forever Begins",
+    "shortName": "Celestial Shadow",
+    "subtitle": "Romantic starry celebration with custom soundtrack, interactive firecrackers & RSVP",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 5.0,
+    "reviewsCount": 38,
+    "categories": [
+      "hindu-weddings",
+      "sikh-weddings",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Hindu",
+      "Sikh",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/celestial.jpg",
+    "demoUrl": "/t/celestial/",
+    "badge": "Trending \u00b7 50% OFF",
+    "description": "A breathtaking midnight celestial wedding invite featuring real-time firecrackers particle bursts, vinyl record music player, interactive timeline and mobile RSVP tracking.",
+    "features": [
+      "Real-time firecrackers & particle effects",
+      "Integrated vinyl record audio player",
+      "Interactive itinerary timeline & RSVP form",
+      "One-click Google Maps venue navigation",
+      "Instant WhatsApp, Instagram & Email sharing"
+    ]
+  },
+  {
+    "slug": "lanterns",
+    "name": "Luxury Royal Lantern \u2013 Golden Evening",
+    "shortName": "Royal Lanterns",
+    "subtitle": "Warm glowing lanterns, vintage car animation & royal gold foil aesthetics",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 4.9,
+    "reviewsCount": 42,
+    "categories": [
+      "hindu-weddings",
+      "south-indian",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Hindu",
+      "South Indian",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/lanterns.jpg",
+    "demoUrl": "/t/lanterns/",
+    "badge": "Bestseller \u00b7 50% OFF",
+    "description": "Enchant your guests with soaring glowing sky lanterns, a vintage car motif gliding across sections, and a warm candlelight aesthetic that radiates celebratory joy.",
+    "features": [
+      "Animated floating sky lanterns",
+      "Vintage car animation traversing events",
+      "Full event itinerary with dress codes",
+      "Curated wedding hashtag & weather updates",
+      "Mobile-first responsive architecture"
+    ]
+  },
+  {
+    "slug": "grandreveal",
+    "name": "The Grand Reveal \u2013 Luxury Theatre Experience",
+    "shortName": "The Grand Reveal",
+    "subtitle": "Dramatic velvet curtain opening, classical prelude & cinematic reveal",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 5.0,
+    "reviewsCount": 35,
+    "categories": [
+      "royal-heritage",
+      "hindu-weddings",
+      "sikh-weddings"
+    ],
+    "categoryLabels": [
+      "Royal Heritage",
+      "Hindu",
+      "Sikh"
+    ],
+    "mockup": "/assets/mockups/grandreveal.jpg",
+    "demoUrl": "/t/grandreveal/",
+    "badge": "Cinematic \u00b7 50% OFF",
+    "description": "Deliver theatrical opulence with rich crimson curtains drawing back on first touch to unveil your grand wedding celebration with synchronized music.",
+    "features": [
+      "Theatrical velvet curtain pull reveal",
+      "Synchronized ceremonial soundtrack",
+      "Gilded royal frame event cards",
+      "Interactive RSVP guest manager",
+      "Live countdown to the auspicious muhurat"
+    ]
+  },
+  {
+    "slug": "bloom",
+    "name": "The Auspicious Bloom \u2013 Bespoke Floral Reveal",
+    "shortName": "Auspicious Bloom",
+    "subtitle": "Traditional temple bells, peacock feather motifs & vibrant South Indian florals",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 4.9,
+    "reviewsCount": 51,
+    "categories": [
+      "south-indian",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "South Indian",
+      "Hindu"
+    ],
+    "mockup": "/assets/mockups/bloom.jpg",
+    "demoUrl": "/t/bloom/",
+    "badge": "Traditional \u00b7 50% OFF",
+    "description": "Celebrates sacred heritage with intricate South Indian temple architecture, peacock feather motifs, sacred Sanskrit shlokas, and floral animations.",
+    "features": [
+      "Animated peacock feather reveal",
+      "Vedic Sanskrit shlokas & blessings",
+      "Mehendi, Sangeet & Muhurtham timelines",
+      "Seamless photo gallery showcase",
+      "Instant Google Maps navigation for guests"
+    ]
+  },
+  {
+    "slug": "sultanemerald",
+    "name": "The Golden Gateway \u2013 Sultan Emerald Nikah",
+    "shortName": "Sultan Emerald",
+    "subtitle": "Opulent Islamic arches, deep emerald & gold calligraphy for Nikah & Walima",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 5.0,
+    "reviewsCount": 29,
+    "categories": [
+      "muslim-weddings",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Muslim (Nikah)",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/sultanemerald.jpg",
+    "demoUrl": "/t/sultanemerald/",
+    "badge": "Exclusive \u00b7 50% OFF",
+    "description": "An aristocratic Nikah & Walima invitation with ornate Islamic arched gateways, gold foil Arabic motifs, dua cards, and royal emerald aesthetics.",
+    "features": [
+      "Ornate Islamic archway visual hierarchy",
+      "Bismillah calligraphy & blessed duas",
+      "Nikah, Baraat & Walima separate schedules",
+      "Elegant venue coordinates & RSVP handling",
+      "Background devotional instrumental"
+    ]
+  },
+  {
+    "slug": "jaipur",
+    "name": "The Royal Archway \u2013 Jaipur Heritage Palace",
+    "shortName": "The Royal Archway",
+    "subtitle": "Interactive palace doors swinging open to a majestic Rajasthani fort setting",
+    "tier": "standard",
+    "originalPrice": 3999,
+    "salePrice": 999,
+    "savePercent": 75,
+    "rating": 5.0,
+    "reviewsCount": 64,
+    "categories": [
+      "hindu-weddings",
+      "sikh-weddings",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Hindu",
+      "Sikh",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/jaipur.jpg",
+    "demoUrl": "/t/jaipur/",
+    "badge": "Best Value \u00b7 75% OFF",
+    "description": "Interactive carved wooden doors swing open to welcome guests inside a majestic pink-city palace with traditional sitar & shehnai melodies.",
+    "features": [
+      "Interactive 3D opening palace doors",
+      "Traditional Shehnai & Sitar background music",
+      "Royal elephant & jharokha illustrations",
+      "Multi-event timeline (Haldi, Mehendi, Pheras)",
+      "Shareable as 1 WhatsApp smart link"
+    ]
+  },
+  {
+    "slug": "royalmaharashtrian",
+    "name": "The Eternal Chronicle \u2013 Royal Maharashtrian Shubh Vivah",
+    "shortName": "Royal Maharashtrian",
+    "subtitle": "Traditional Paithani motifs, auspicious kalash & royal Peshwa heritage",
+    "tier": "standard",
+    "originalPrice": 3999,
+    "salePrice": 999,
+    "savePercent": 75,
+    "rating": 4.9,
+    "reviewsCount": 48,
+    "categories": [
+      "hindu-weddings",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Hindu",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/royalmaharashtrian.jpg",
+    "demoUrl": "/t/royalmaharashtrian/",
+    "badge": "Cultural \u00b7 75% OFF",
+    "description": "Honors rich Maharashtrian traditions with Paithani border motifs, auspicious Lord Ganesha blessing, Sakharpuda, Haldi, and Shubh Vivah details.",
+    "features": [
+      "Lord Ganesha blessing & shloka header",
+      "Authentic Maharashtrian cultural iconography",
+      "Marathi & English dual language support",
+      "Instant Google Maps venue links",
+      "Live RSVP reply submission"
+    ]
+  },
+  {
+    "slug": "cathedral",
+    "name": "The Cathedral Crown \u2013 Luxury Heritage Experience",
+    "shortName": "Cathedral Crown",
+    "subtitle": "Stately Gothic arches, timeless stained-glass aesthetics & classical elegance",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 4.8,
+    "reviewsCount": 22,
+    "categories": [
+      "christian-weddings",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Christian",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/cathedral.jpg",
+    "demoUrl": "/t/cathedral/",
+    "badge": "Aristocratic \u00b7 50% OFF",
+    "description": "A grand Western cathedral experience featuring vaulted arches, delicate filigree, floating sky lanterns, and romantic classical instrumentation.",
+    "features": [
+      "Gothic cathedral architectural graphics",
+      "Romantic wedding procession soundtrack",
+      "Order of Holy Matrimony ceremony details",
+      "Reception party venue & dress code guidelines",
+      "Guest attendance confirmation system"
+    ]
+  },
+  {
+    "slug": "voyage",
+    "name": "The Classic Voyage \u2013 Luxury Vintage Wedding Journey",
+    "shortName": "Classic Voyage",
+    "subtitle": "Timeless storybook journey, stamp seals & vintage photo collage timeline",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 4.9,
+    "reviewsCount": 33,
+    "categories": [
+      "south-indian",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "South Indian",
+      "Hindu"
+    ],
+    "mockup": "/assets/mockups/voyage.jpg",
+    "demoUrl": "/t/voyage/",
+    "badge": "Storybook \u00b7 50% OFF",
+    "description": "Tells the couple\u2019s romantic odyssey with vintage passport stamps, parchment textures, cascading love story photo albums, and festive music.",
+    "features": [
+      "Storybook timeline photo journey",
+      "Vintage wax-seal & postal typography",
+      "Comprehensive multi-day schedule",
+      "One-touch Google Maps destination route",
+      "Mobile-optimized for WhatsApp & iMessage"
+    ]
+  },
+  {
+    "slug": "luminous",
+    "name": "The Luminous Horizon \u2013 Starry Modern Celebration",
+    "shortName": "Luminous Horizon",
+    "subtitle": "Sleek dark mode glassmorphism with glowing gradients & starry ambient night",
+    "tier": "standard",
+    "originalPrice": 3999,
+    "salePrice": 999,
+    "savePercent": 75,
+    "rating": 4.9,
+    "reviewsCount": 44,
+    "categories": [
+      "christian-weddings",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Christian",
+      "Hindu"
+    ],
+    "mockup": "/assets/mockups/luminous.jpg",
+    "demoUrl": "/t/luminous/",
+    "badge": "Modern \u00b7 75% OFF",
+    "description": "Tailored for contemporary couples desiring a sleek, dark-mode starry ambiance with neon gold gradients, floating aurora orbs, and upbeat music.",
+    "features": [
+      "Dynamic floating aurora background orbs",
+      "Sleek modern typography & countdown clock",
+      "Interactive photo showcase cards",
+      "Cocktail, Sangeet & Reception layout",
+      "Instant calendar save & map links"
+    ]
+  },
+  {
+    "slug": "heritage",
+    "name": "The Sterling Heritage \u2013 Aristocratic Monogram Suite",
+    "shortName": "Sterling Heritage",
+    "subtitle": "Monogram crest, aristocratic velvet entrance & royal golden scrollwork",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 5.0,
+    "reviewsCount": 31,
+    "categories": [
+      "muslim-weddings",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Muslim (Nikah)",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/mockups/heritage.jpg",
+    "demoUrl": "/t/heritage/",
+    "badge": "High Royalty \u00b7 50% OFF",
+    "description": "Designed for high-profile aristocratic weddings featuring a bespoke monogram seal, cinematic entrance drape, and lavish golden borders.",
+    "features": [
+      "Customizable royal couple monogram crest",
+      "Cinematic curtain reveal with soundtrack",
+      "Dawat-e-Walima & Nikah ceremony guide",
+      "Private RSVP tracking mechanism",
+      "Mobile friendly for WhatsApp broadcast"
+    ]
+  },
+  {
+    "slug": "seaside",
+    "name": "The Seaside Sacrament \u2013 Luxury Oceanfront Wedding",
+    "shortName": "Seaside Sacrament",
+    "subtitle": "Coastal ocean breeze, sunset pastels & Canon in D classical melody",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 4.9,
+    "reviewsCount": 26,
+    "categories": [
+      "christian-weddings",
+      "south-indian"
+    ],
+    "categoryLabels": [
+      "Christian",
+      "South Indian"
+    ],
+    "mockup": "/assets/mockups/seaside.jpg",
+    "demoUrl": "/t/seaside/",
+    "badge": "Destination \u00b7 50% OFF",
+    "description": "Crafted for beachside & destination weddings with soft seafoam waves, sunset pastel skies, tropical palm illustrations, and Canon in D acoustics.",
+    "features": [
+      "Canon in D classical piano soundtrack",
+      "Coastal sunset aesthetic & wave motifs",
+      "Destination travel & stay guide section",
+      "Beach ceremony dress code recommendations",
+      "Interactive RSVP & weather forecast"
+    ]
+  },
+  {
+    "slug": "promise",
+    "name": "The Sterling Promise \u2013 Western Heirloom Experience",
+    "shortName": "Sterling Promise",
+    "subtitle": "Timeless botanical floral rings, champagne script & candlelight romance",
+    "tier": "premium",
+    "originalPrice": 5999,
+    "salePrice": 2999,
+    "savePercent": 50,
+    "rating": 5.0,
+    "reviewsCount": 27,
+    "categories": [
+      "christian-weddings",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Christian",
+      "Hindu"
+    ],
+    "mockup": "/assets/mockups/promise.jpg",
+    "demoUrl": "/t/promise/",
+    "badge": "Heirloom \u00b7 50% OFF",
+    "description": "Understated modern romance featuring delicate floral wreaths, blush & champagne color palette, wedding vows highlight, and string quartet music.",
+    "features": [
+      "Blush rose & eucalyptus watercolor wreaths",
+      "Ceremonial vows & story highlight",
+      "Registry & gift preferences details",
+      "Google Maps integration with 1 click",
+      "Always-active shareable web link"
+    ]
+  },
+  {
+    "slug": "kailash",
+    "name": "Kailash \u2013 Divine Ganesha Sanctum & Scratch Blessings",
+    "shortName": "Kailash Divine",
+    "subtitle": "Interactive scratch-off blessing coin, sacred aarti audio & temple bells",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 5.0,
+    "reviewsCount": 180,
+    "categories": [
+      "ganpati-festive",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Hindu"
+    ],
+    "mockup": "/assets/shots/shot-kailash-hero.webp",
+    "demoUrl": "/t/kailash/",
+    "badge": "Bappa Bestseller \u00b7 \u20b999",
+    "description": "India\u2019s most loved digital Ganpati invitation with an interactive scratch-off gold coin that reveals personalized divine blessings for guests.",
+    "features": [
+      "Interactive scratch-off blessing coin",
+      "Mangal Dhwani devotional instrumental",
+      "Aarti, Pooja, Mahaprasad & Visarjan timings",
+      "Personalized host family & address details",
+      "Shareable directly on WhatsApp"
+    ]
+  },
+  {
+    "slug": "nilambari",
+    "name": "Nilambari \u2013 Midnight Royal Gold Devotional Darshan",
+    "shortName": "Nilambari Darshan",
+    "subtitle": "Deep royal navy blue with gold embossed mandalas & glowing diyas",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 4.9,
+    "reviewsCount": 145,
+    "categories": [
+      "ganpati-festive",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Hindu"
+    ],
+    "mockup": "/assets/shots/shot-nilambari-hero.webp",
+    "demoUrl": "/t/nilambari/",
+    "badge": "Royal Dark \u00b7 \u20b999",
+    "description": "Majestic midnight blue adorned with illuminated floating diyas, lotus blossoms, sacred conch bells, and royal gold Marathi & English calligraphy.",
+    "features": [
+      "Gilded navy blue & gold embossed layout",
+      "Animated diya lights & lotus transitions",
+      "Detailed family member invitation honors",
+      "Direct venue location on Google Maps",
+      "\u20b999 festival unlock with instant access"
+    ]
+  },
+  {
+    "slug": "fort",
+    "name": "Fort \u2013 Heritage Peshwa & Maratha Darshan",
+    "shortName": "Heritage Fort",
+    "subtitle": "Historic stone fort arches, saffron flags & traditional dhol tasha aura",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 5.0,
+    "reviewsCount": 118,
+    "categories": [
+      "ganpati-festive",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/shots/shot-fort-hero.webp",
+    "demoUrl": "/t/fort/",
+    "badge": "Heritage \u00b7 \u20b999",
+    "description": "Captures the proud valor of historic Maratha & Peshwa fort celebrations with rustic stone textures, saffron banners, and energetic festive rhythms.",
+    "features": [
+      "Authentic historic fort stone architecture",
+      "Sacred Ganesh idol photo gallery",
+      "Comprehensive aarti & prasad itinerary",
+      "One-click WhatsApp invitation link",
+      "No app download required for guests"
+    ]
+  },
+  {
+    "slug": "darbar",
+    "name": "Darbar \u2013 Golden Temple Sanctum Celebration",
+    "shortName": "Golden Darbar",
+    "subtitle": "Shimmering gold leaf pillars, velvet hangings & spiritual grandeur",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 4.9,
+    "reviewsCount": 96,
+    "categories": [
+      "ganpati-festive",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Hindu"
+    ],
+    "mockup": "/assets/shots/shot-darbar-hero.webp",
+    "demoUrl": "/t/darbar/",
+    "badge": "Spiritual \u00b7 \u20b999",
+    "description": "Step inside a gleaming gold temple sanctum with ornate pillars, sacred hanging marigold garlands, and ambient festive chants.",
+    "features": [
+      "Gleaming golden temple pillar motifs",
+      "Full schedule from Sthapana to Visarjan",
+      "Host contact & Google Maps integration",
+      "Optimized for instant mobile loading",
+      "Works seamlessly across iOS & Android"
+    ]
+  },
+  {
+    "slug": "rajutsav",
+    "name": "Rajutsav \u2013 Royal Festive Darbar Invitation",
+    "shortName": "Rajutsav Darbar",
+    "subtitle": "Regal crimson velvet, royal chandeliers & majestic royal welcome",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 4.9,
+    "reviewsCount": 88,
+    "categories": [
+      "ganpati-festive",
+      "royal-heritage"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Royal Heritage"
+    ],
+    "mockup": "/assets/shots/shot-rajutsav-hero.webp",
+    "demoUrl": "/t/rajutsav/",
+    "badge": "Regal \u00b7 \u20b999",
+    "description": "A ceremonial royal court invitation with rich crimson silks, sparkling crystal chandeliers, and grand celebration announcements.",
+    "features": [
+      "Ceremonial royal court entrance",
+      "Warm festive audio soundtrack",
+      "Family welcome message & portrait card",
+      "Directions and RSVP management",
+      "Personalized link ready in 2 minutes"
+    ]
+  },
+  {
+    "slug": "deep",
+    "name": "Deep \u2013 Golden Lamp & Warm Evening Aarti",
+    "shortName": "Deep Jyoti",
+    "subtitle": "Warm glowing brass lamps, marigold garlands & peaceful evening aarti",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 4.8,
+    "reviewsCount": 74,
+    "categories": [
+      "ganpati-festive",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Hindu"
+    ],
+    "mockup": "/assets/shots/shot-deep-hero.webp",
+    "demoUrl": "/t/deep/",
+    "badge": "Warm Aarti \u00b7 \u20b999",
+    "description": "Centered around the warm, flickering radiance of traditional brass oil lamps and fragrant marigolds for intimate family aarti gatherings.",
+    "features": [
+      "Flickering lamp glow animations",
+      "Warm spiritual chanting & bells",
+      "Detailed aarti timings & directions",
+      "Single-link sharing on WhatsApp & SMS",
+      "Ad-free premium guest experience"
+    ]
+  },
+  {
+    "slug": "patrika",
+    "name": "Patrika \u2013 Traditional Royal Invitation Scroll",
+    "shortName": "Royal Patrika",
+    "subtitle": "Classic royal wedding & festive scroll with red kumkum & gold accents",
+    "tier": "standard",
+    "originalPrice": 500,
+    "salePrice": 99,
+    "savePercent": 80,
+    "rating": 4.9,
+    "reviewsCount": 105,
+    "categories": [
+      "ganpati-festive",
+      "hindu-weddings"
+    ],
+    "categoryLabels": [
+      "Ganpati & Festive",
+      "Hindu"
+    ],
+    "mockup": "/assets/shots/shot-patrika-hero.webp",
+    "demoUrl": "/t/patrika/",
+    "badge": "Classic Scroll \u00b7 \u20b999",
+    "description": "The digital rebirth of the traditional sacred Indian invitation card (Nimantran Patrika) with authentic textures, kumkum border, and auspicious icons.",
+    "features": [
+      "Authentic royal scroll card aesthetic",
+      "Traditional auspicious symbols & shlokas",
+      "Easy-to-read schedule for all age groups",
+      "Venue directions button linked to Maps",
+      "Forever active digital memory link"
+    ]
+  }
+]
