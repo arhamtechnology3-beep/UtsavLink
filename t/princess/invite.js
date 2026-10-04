@@ -579,6 +579,7 @@
     setText('princessTitle', party.childName);
     setText('turningAgeNum', party.age);
     setText('heroSubtitle', birthday.subtitle || ('Our Little Princess is Turning ' + party.age + '!'));
+    setText('royalBadgeText', birthday.badge);
     setText('heroTagline', birthday.tagline);
     setText('welcomeMessage', birthday.message);
     setText('heroDate', birthday.dateLabel);
