@@ -293,24 +293,6 @@
                 </div>
               </div>
             </div>
-            <div class="field">
-              <label for="f_bfav">Favourite things</label>
-              <input type="text" id="f_bfav" data-path="birthday.favorites" placeholder="Rainbows, unicorns, dancing ballet" />
-            </div>
-            <div class="field">
-              <label for="f_bcol">Favourite colours</label>
-              <input type="text" id="f_bcol" data-path="birthday.colors" placeholder="BTS pink, black & a little glitter" />
-            </div>
-            <div class="row">
-              <div class="field">
-                <label for="f_bsweet">Favourite sweet</label>
-                <input type="text" id="f_bsweet" data-path="birthday.sweet" placeholder="Strawberry velvet cupcakes" />
-              </div>
-              <div class="field">
-                <label for="f_bbuddy">Best buddy</label>
-                <input type="text" id="f_bbuddy" data-path="birthday.buddy" placeholder="Her fluffy bunny Snowball" />
-              </div>
-            </div>
           </div>
         </details>
 
@@ -344,16 +326,6 @@
               <label for="f_bvenueShort">Short venue <span>- on the opening card</span></label>
               <input type="text" id="f_bvenueShort" data-path="birthday.venueShort" placeholder="The Starlight Ballroom" />
             </div>
-            <div class="row">
-              <div class="field">
-                <label for="f_brsvp">RSVP by</label>
-                <input type="text" id="f_brsvp" data-path="birthday.rsvpBy" placeholder="15th October 2026" />
-              </div>
-              <div class="field">
-                <label for="f_brsvpnote">Why you need the reply</label>
-                <input type="text" id="f_brsvpnote" data-path="birthday.rsvpNote" placeholder="so we can prepare enough treats and favor bags!" />
-              </div>
-            </div>
             <div class="field">
               <label>Party schedule <span>- the afternoon, in order</span></label>
               <div id="bdayEvents"></div>
@@ -363,28 +335,13 @@
         </details>
 
         <details class="card">
-          <summary><span class="step">3</span> Notes &amp; hosts</summary>
+          <summary><span class="step">3</span> Hosts</summary>
           <div class="body">
             <div class="field">
-              <label for="f_bdress">Dress code</label>
-              <textarea id="f_bdress" data-path="birthday.dress" placeholder="Princess gowns, pink & black, or a favourite party outfit"></textarea>
+              <label for="f_bhosts">Hosted with love by <span>- the parents' names</span></label>
+              <input type="text" id="f_bhosts" data-path="birthday.hosts" placeholder="e.g. Mummy Riya & Papa Dhaval" />
             </div>
-            <div class="field">
-              <label for="f_bfood">Food note</label>
-              <textarea id="f_bfood" data-path="birthday.food" placeholder="Vegetarian, eggless options, nut-free treats"></textarea>
-            </div>
-            <div class="field">
-              <label for="f_bpark">Parking</label>
-              <textarea id="f_bpark" data-path="birthday.parking" placeholder="Valet parking and a stroller check-in by the foyer"></textarea>
-            </div>
-            <div class="field">
-              <label for="f_bgifts">Gifts</label>
-              <textarea id="f_bgifts" data-path="birthday.gifts" placeholder="Your presence is the gift. Blessings are welcome."></textarea>
-            </div>
-            <div class="field">
-              <label for="f_bhosts">Hosted by</label>
-              <input type="text" id="f_bhosts" data-path="birthday.hosts" placeholder="Mommy Priya & Daddy Rahul Sharma" />
-            </div>
+            <div class="hint">Leave it empty and the invite says the child's first name followed by “'s Family”.</div>
             <div class="field">
               <label for="f_bquote">Closing line</label>
               <textarea id="f_bquote" data-path="birthday.quote" placeholder="Your presence is the sweetest gift our little princess could ever wish for."></textarea>
@@ -3071,17 +3028,7 @@ const BIRTHDAY_DEFAULT = {
   startTime: "15:00",
   endTime: "19:30",
   venueShort: "The Starlight Ballroom",
-  rsvpBy: "15th October 2026",
-  rsvpNote: "so we can prepare enough royal treats and customized favor bags!",
-  favorites: "Rainbows, unicorns, dancing ballet & bedtime fairy tales",
-  colors: "BTS pink, black & a little glitter",
-  sweet: "Strawberry velvet cupcakes with rainbow sprinkles",
-  buddy: "Her fluffy bunny 'Snowball' & all her preschool friends",
-  dress: "Princess gowns, fairy dresses, pink & black, or your favorite party outfit! Sparkle crowns and capes provided at the entry.",
-  food: "100% vegetarian, eggless bakery options, and strictly nut-free treats so every little tummy can safely indulge.",
-  parking: "Complimentary valet parking for families. A secure, covered stroller check-in area is located right by the foyer.",
-  gifts: "Your loving presence and warm smiles are the greatest gifts of all! Only your blessings and cheers are requested.",
-  hosts: "Mommy Priya & Daddy Rahul Sharma",
+  hosts: "",
   quote: "Your presence is the sweetest gift our little princess could ever wish for.",
   events: [
     { icon: "🌸", title: "Royal Arrival & Glitter Face Painting", time: "3:00 PM", description: "Step on the pink carpet! Little guests receive tiaras, crowns, fairy wings, and magical sparkle face art." },
@@ -3277,6 +3224,8 @@ function syncBirthdayChrome() {
       if (!state.form.birthday?.childName) {
         seedBirthday();
         seeded = true;
+      } else if (state.form.birthday.hosts === "Mommy Priya & Daddy Rahul Sharma") {
+        state.form.birthday.hosts = "";
       }
     } else {
       if (untouched && !state.form.timeline?.events?.length) {

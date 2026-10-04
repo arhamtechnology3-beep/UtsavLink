@@ -495,43 +495,6 @@
     });
   }
 
-  // --- INTERACTIVE RSVP SUBMISSION ---
-  const rsvpForm = document.getElementById('birthdayRsvpForm');
-  const rsvpSuccess = document.getElementById('rsvpSuccess');
-  const wishesWall = document.getElementById('wishesWallGrid');
-
-  if (rsvpForm) {
-    rsvpForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const parentName = document.getElementById('parentName')?.value.trim();
-      const childNames = document.getElementById('childNames')?.value.trim();
-      const wishText = document.getElementById('birthdayWish')?.value.trim();
-
-      playFanfareChime();
-      triggerConfetti(window.innerWidth / 2, window.innerHeight * 0.7, 60);
-
-      if (rsvpSuccess) {
-        rsvpSuccess.style.display = 'block';
-        rsvpSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      // If a birthday wish was entered, dynamically add it to the Wishes Wall
-      if (wishText && wishesWall) {
-        const newCard = document.createElement('article');
-        newCard.className = 'wish-card';
-        newCard.innerHTML = `
-          <p class="wish-author">👑 ${parentName || 'Royal Guest'} & ${childNames || 'Family'}</p>
-          <p class="wish-text">"${wishText}"</p>
-        `;
-        wishesWall.prepend(newCard);
-      }
-
-      // Reset form
-      rsvpForm.reset();
-      showToast('💖 Thank you! Your RSVP has been received.');
-    });
-  }
-
   // --- TOAST HELPER ---
   function showToast(msg) {
     const toast = document.getElementById('princessToast');
@@ -546,7 +509,7 @@
   if (whatsappShareBtn) {
     whatsappShareBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const text = `👑 You're invited to ${party.childName}'s ${ordinal(party.age)} Birthday Celebration! Join us for a pink & black party with games, magic & sweet treats! ✨\n\nView details & RSVP here: ${window.location.href}`;
+      const text = `👑 You're invited to ${party.childName}'s ${ordinal(party.age)} Birthday Celebration! Join us for a pink & black party with games, magic & sweet treats! ✨\n\nView the invite here: ${window.location.href}`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     });
   }
@@ -607,6 +570,10 @@
     if (loc.venue) party.venue = loc.venue;
     if (loc.address) party.address = loc.address;
     if (loc.googleMapsLink) party.mapUrl = loc.googleMapsLink;
+    else if (loc.venue || loc.address) {
+      const where = [loc.venue, loc.address].filter(Boolean).join(', ');
+      party.mapUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(where);
+    }
     stampFrom(party.isoDate, party.startTime);
 
     setText('princessTitle', party.childName);
@@ -617,29 +584,15 @@
     setText('heroDate', birthday.dateLabel);
     setText('heroTime', birthday.timeLabel);
     setText('heroVenue', birthday.venueShort || loc.venue);
-    setText('aboutTitle', 'Meet ' + party.childName);
-    setText('mileFavorites', birthday.favorites);
-    setText('mileColors', birthday.colors);
-    setText('mileSweet', birthday.sweet);
-    setText('mileBuddy', birthday.buddy);
-    setText('noteDress', birthday.dress);
-    setText('noteFood', birthday.food);
-    setText('noteParking', birthday.parking);
-    setText('noteGifts', birthday.gifts);
     setText('venueName', loc.venue);
     setText('venueAddress', loc.address);
-    setText('parentsTitle', birthday.hosts);
+    const firstName = String(party.childName).trim().split(/\s+/)[0];
+    const hosts = birthday.hosts === 'Mommy Priya & Daddy Rahul Sharma' ? '' : birthday.hosts;
+    setText('parentsTitle', hosts || (firstName + "'s Family"));
     setText('familyQuote', birthday.quote ? '"' + birthday.quote.replace(/^"|"$/g, '') + '"' : '');
     setText('galleryTitle', gallery.heading);
     setText('galleryDesc', gallery.subtitle);
-    setText('rsvpWishLabel', 'A Sweet Birthday Wish for ' + party.childName + ' ✨');
     setText('footerCredit', "Crafted with love for " + party.childName + "'s " + ordinal(party.age) + " Birthday");
-
-    const rsvp = document.getElementById('rsvpDesc');
-    if (rsvp && (birthday.rsvpBy || birthday.rsvpNote)) {
-      const by = birthday.rsvpBy ? ('Please let us know by ' + birthday.rsvpBy) : 'Please let us know';
-      rsvp.textContent = (by + (birthday.rsvpNote ? ' ' + birthday.rsvpNote : '')).trim();
-    }
 
     const portrait = document.getElementById('princessPortrait');
     if (portrait && birthday.portrait) {
@@ -648,10 +601,7 @@
     }
 
     const map = document.getElementById('mapLinkBtn');
-    if (map) {
-      if (party.mapUrl) map.href = party.mapUrl;
-      else if (party.address) map.href = 'https://maps.google.com/?q=' + encodeURIComponent(party.address);
-    }
+    if (map) map.href = party.mapUrl;
 
     if (Array.isArray(birthday.events) && birthday.events.length) {
       const list = document.getElementById('timelineList');

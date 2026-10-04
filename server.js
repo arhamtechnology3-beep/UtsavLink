@@ -804,6 +804,43 @@ async function handleUpload(req, res, parsedUrl) {
   }
 }
 
+async function handlePlace(req, res, parsedUrl) {
+  const raw = String(parsedUrl.query.url || "").trim();
+  let link;
+  try {
+    link = new URL(raw);
+  } catch {
+    json(res, 200, { ok: false, error: "Paste the full link from Google Maps - it starts with https://" });
+    return;
+  }
+  const host = link.hostname.toLowerCase();
+  const isShort = host === "maps.app.goo.gl" || host === "goo.gl";
+  if (!isShort && !/(^|\.)google\.[a-z.]+$/.test(host)) {
+    json(res, 200, { ok: false, error: "That isn't a Google Maps link. In Google Maps, press Share and copy the link." });
+    return;
+  }
+
+  let full = link.href;
+  if (isShort) {
+    try {
+      const hop = await fetch(link.href, { redirect: "follow", signal: AbortSignal.timeout(8000) });
+      full = hop.url || full;
+    } catch (e) {
+      console.warn("Maps short link not expanded:", e.message);
+    }
+  }
+
+  const pin = full.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/) || full.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  const lat = pin ? Number(pin[1]) : null;
+  const lng = pin ? Number(pin[2]) : null;
+  const named = full.match(/\/place\/([^/@?]+)/);
+  const name = named ? decodeURIComponent(named[1].replace(/\+/g, " ")).trim() : "";
+  const query = lat !== null ? `${lat},${lng}` : name;
+  const embed = query ? `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=16&output=embed` : null;
+
+  json(res, 200, { ok: true, place: { link: link.href, embed, lat, lng, name } });
+}
+
 async function handleAdminApprove(req, res, parsedUrl) {
   const key = String(parsedUrl.query.key || "");
   if (key !== ADMIN_KEY) {
@@ -860,6 +897,7 @@ const server = http.createServer(async (req, res) => {
     if (pathname === "/api/order-status" && req.method === "GET") return handleOrderStatus(req, res, parsedUrl);
     if (pathname === "/api/edit") return handleEdit(req, res, parsedUrl);
     if (pathname === "/api/upload" && req.method === "POST") return handleUpload(req, res, parsedUrl);
+    if (pathname === "/api/place" && req.method === "GET") return handlePlace(req, res, parsedUrl);
     if (pathname === "/api/admin/approve" && req.method === "POST") return handleAdminApprove(req, res, parsedUrl);
     if (pathname === "/api/admin/pending" && req.method === "GET") return handleAdminPending(req, res, parsedUrl);
 
