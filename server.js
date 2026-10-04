@@ -9,12 +9,24 @@ const QRCode = require("qrcode");
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
 const DATA_DIR = path.join(ROOT_DIR, "data");
-// Invites and uploads must live outside the app folder: redeploys replace the app folder.
-const STORAGE_DIR = path.resolve(process.env.STORAGE_DIR || path.join(os.homedir(), "utsavlink-data"));
-const UPLOAD_DIR = path.join(STORAGE_DIR, "uploads");
-const STORE_FILE = path.join(STORAGE_DIR, "store.json");
 const LEGACY_STORE_FILE = path.join(DATA_DIR, "store.json");
 const LEGACY_UPLOAD_DIR = path.join(ROOT_DIR, "media", "uploads");
+// Invites and uploads must live outside the app folder: redeploys replace the app folder.
+const STORAGE_DIR = pickStorageDir();
+const UPLOAD_DIR = STORAGE_DIR ? path.join(STORAGE_DIR, "uploads") : LEGACY_UPLOAD_DIR;
+const STORE_FILE = STORAGE_DIR ? path.join(STORAGE_DIR, "store.json") : LEGACY_STORE_FILE;
+
+function pickStorageDir() {
+  const dir = path.resolve(process.env.STORAGE_DIR || path.join(os.homedir(), "utsavlink-data"));
+  try {
+    fs.mkdirSync(dir, { recursive: true });
+    fs.accessSync(dir, fs.constants.W_OK);
+    return dir;
+  } catch (err) {
+    console.warn(`WARNING: cannot write ${dir} (${err.code}); invites stay in the app folder and a redeploy will wipe them. Set STORAGE_DIR.`);
+    return null;
+  }
+}
 const STATIC_UPI_QR_CANDIDATES = [
   path.join(ROOT_DIR, "assets", "upi-qr.png"),
   path.join(ROOT_DIR, "assets", "upi-qr.jpg"),
@@ -81,9 +93,10 @@ ensureDirs();
 const store = loadStore();
 
 function ensureDirs() {
-  for (const dir of [STORAGE_DIR, UPLOAD_DIR]) {
+  for (const dir of [path.dirname(STORE_FILE), UPLOAD_DIR]) {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   }
+  if (!STORAGE_DIR) return;
   if (!fs.existsSync(STORE_FILE) && fs.existsSync(LEGACY_STORE_FILE)) {
     fs.copyFileSync(LEGACY_STORE_FILE, STORE_FILE);
     console.log("Copied invites from", LEGACY_STORE_FILE, "to", STORE_FILE);
@@ -998,6 +1011,7 @@ const server = http.createServer(async (req, res) => {
 
 server.listen(PORT, () => {
   console.log(`UtsavLink server running at http://localhost:${PORT}`);
+  console.log("Invites stored in:", STORE_FILE);
   console.log(`UtsavLink | mode: ${PAYMENT_MODE}${IS_FREE ? " (no payment)" : ` | UPI: ${UPI_ID} | ₹${TOTAL_AMOUNT}`}`);
   if (PAYMENT_MODE === "manual") {
     console.log(`Admin panel: ${PUBLIC_BASE}/admin.html?key=${ADMIN_KEY}`);
